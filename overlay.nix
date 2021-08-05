@@ -17,6 +17,8 @@ final: prev: rec {
       atari-py-with-rom = prev.python3Packages.callPackage ./pkgs/atari-py-with-rom {};
 
       py-glfw = prev.python3Packages.callPackage ./pkgs/py-glfw {};
+
+      gym3 = pyFinal.callPackage ./pkgs/gym3 {};
     };
   };
 

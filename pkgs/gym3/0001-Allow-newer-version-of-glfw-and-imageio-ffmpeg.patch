@@ -1,0 +1,27 @@
+From 0d3577b8145ea026af32440c3beff67407415d90 Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Thu, 5 Aug 2021 12:16:54 -0700
+Subject: [PATCH] Allow newer version of glfw and imageio-ffmpeg
+
+---
+ setup.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 52177b5..872c526 100644
+--- a/setup.py
++++ b/setup.py
+@@ -13,8 +13,8 @@ setup(
+         "numpy>=1.11.0,<2.0.0",
+         "cffi>=1.13.0,<2.0.0",
+         "imageio>=2.6.0,<3.0.0",
+-        "imageio-ffmpeg>=0.3.0,<0.4.0",
+-        "glfw>=1.8.6,<2.0.0",
++        "imageio-ffmpeg>=0.3.0",
++        "glfw>=1.8.6",
+         "moderngl>=5.5.4,<6.0.0",
+     ],
+     package_data={"gym3": ["libenv.h", "internal/font.bin"]},
+-- 
+2.31.1
+
