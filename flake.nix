@@ -11,7 +11,7 @@
   outputs = { self, nixpkgs, ... }@inputs: {
     overlay = import ./overlay.nix;
   } // inputs.utils.lib.eachSystem [
-    "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin"
+    "x86_64-linux"
   ] (system:
     let pkgs = import nixpkgs {
           inherit system;
@@ -24,5 +24,15 @@
         };
     in {
       devShell = pkgs.callPackage ./pkgs/dev-shell {};
+      
+      packages = {
+        inherit (pkgs.python3Packages)
+          pytorchWithCuda11
+          torchvisionWithCuda11
+          atari-py-with-rom
+          py-glfw
+          gym3
+          procgen;
+      };
     });
 }
