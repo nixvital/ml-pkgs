@@ -14,9 +14,9 @@ final: prev: rec {
         pytorch = pytorchWithCuda11;
       };
 
-      atari-py-with-rom = prev.python3Packages.callPackage ./pkgs/atari-py-with-rom {};
+      atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom {};
 
-      py-glfw = prev.python3Packages.callPackage ./pkgs/py-glfw {};
+      py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};
 
       gym3 = pyFinal.callPackage ./pkgs/gym3 {};
     };
