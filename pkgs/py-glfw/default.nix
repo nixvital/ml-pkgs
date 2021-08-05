@@ -1,7 +1,10 @@
 { lib
 , buildPythonPackage
+, isPy37
+, isPy38
+, isPy39
 , fetchFromGitHub
-, autoPatchelfHook
+, writeText
 , glfw3
 }:
 
@@ -16,15 +19,25 @@ buildPythonPackage rec {
     sha256 = "sha256-hFcCpDSeXd4C+jpvgeR8QnTDja/QsGswqobqEljoDa8=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
-
-  buildInputs = [
+  propagatedBuildInputs = [
     glfw3
   ];
 
+  postFixup = let
+    pythonName = if isPy37 then "python3.7" else if isPy38 then "python3.8" else "python3.9";
+    libraryScriptPath = "$out/lib/${pythonName}/site-packages/glfw/library.py";
+  in ''
+    substituteInPlace ${libraryScriptPath} \
+            --replace "if os.environ.get('PYGLFW_LIBRARY', ''\'''\'):" \
+            "if os.path.exists('${glfw3}/lib/libglfw.so'):"
+    substituteInPlace ${libraryScriptPath} \
+            --replace "ctypes.CDLL(os.environ['PYGLFW_LIBRARY'])" \
+            "ctypes.CDLL('${glfw3}/lib/libglfw.so')"
+  '';
+
   doCheck = false;
+
+  pythonImportsCheck = [ "glfw" ];
 
   meta = with lib; {
     homepage = "https://github.com/FlorianRhiem/pyGLFW";
