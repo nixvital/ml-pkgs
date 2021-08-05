@@ -19,6 +19,8 @@ final: prev: rec {
       py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};
 
       gym3 = pyFinal.callPackage ./pkgs/gym3 {};
+
+      procgen = pyFinal.callPackage ./pkgs/procgen {};
     };
   };
 
