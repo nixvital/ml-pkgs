@@ -32,7 +32,9 @@
           atari-py-with-rom
           py-glfw
           gym3
-          procgen;
+          procgen
+          redshift-connector
+          awswrangler;
       };
     });
 }

@@ -21,6 +21,10 @@ final: prev: rec {
       gym3 = pyFinal.callPackage ./pkgs/gym3 {};
 
       procgen = pyFinal.callPackage ./pkgs/procgen {};
+
+      redshift-connector = pyFinal.callPackage ./pkgs/redshift-connector {};
+
+      awswrangler = pyFinal.callPackage ./pkgs/awswrangler {};
     };
   };
 
