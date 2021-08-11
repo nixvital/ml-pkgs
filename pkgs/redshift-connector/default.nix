@@ -36,11 +36,11 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = ''
-      Given a set of rectangles with fixed orientations, find a bounding box of 
-      minimum area that contains them all with no overlap.
+      Redshift Python Connector. It supports Python Database API
+      Specification v2.0
     '';
-    homepage = "https://github.com/Penlect/rectangle-packer";
-    license = licenses.mit;
+    homepage = "https://github.com/aws/amazon-redshift-python-driver";
+    license = licenses.asl20;
     maintainers = with maintainers; [ breakds ];
   };
 }
