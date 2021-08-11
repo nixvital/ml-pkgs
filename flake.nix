@@ -29,6 +29,7 @@
         inherit (pkgs.python3Packages)
           pytorchWithCuda11
           torchvisionWithCuda11
+          pytorchvizWithCuda11
           atari-py-with-rom
           py-glfw
           gym3

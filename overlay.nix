@@ -14,6 +14,10 @@ final: prev: rec {
         pytorch = pytorchWithCuda11;
       };
 
+      pytorchvizWithCuda11 = pyFinal.callPackage ./pkgs/pytorchviz {
+        pytorch = pytorchWithCuda11;
+      };
+
       atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom {};
 
       py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};
