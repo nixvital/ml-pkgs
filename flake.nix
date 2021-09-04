@@ -35,7 +35,8 @@
           gym3
           procgen
           redshift-connector
-          awswrangler;
+          awswrangler
+          fastavro;
       };
     });
 }

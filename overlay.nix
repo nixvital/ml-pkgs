@@ -29,6 +29,8 @@ final: prev: rec {
       redshift-connector = pyFinal.callPackage ./pkgs/redshift-connector {};
 
       awswrangler = pyFinal.callPackage ./pkgs/awswrangler {};
+
+      fastavro = pyFinal.callPackage ./pkgs/fastavro {};
     };
   };
 
