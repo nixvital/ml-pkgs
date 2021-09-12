@@ -22,7 +22,7 @@
             self.overlay
           ];
         };
-    in {
+    in rec {
       devShell = pkgs.callPackage ./pkgs/dev-shell {};
       
       packages = {
@@ -37,6 +37,10 @@
           redshift-connector
           awswrangler
           fastavro;
+      };
+
+      hydraJobs = {
+        devShell = devShell;
       };
     });
 }
