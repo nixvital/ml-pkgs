@@ -31,6 +31,8 @@ final: prev: rec {
       awswrangler = pyFinal.callPackage ./pkgs/awswrangler {};
 
       fastavro = pyFinal.callPackage ./pkgs/fastavro {};
+
+      numerapi = pyFinal.callPackage ./pkgs/numerapi {};
     };
   };
 

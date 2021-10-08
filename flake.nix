@@ -36,7 +36,8 @@
           procgen
           redshift-connector
           awswrangler
-          fastavro;
+          fastavro
+          numerapi;
       };
 
       hydraJobs = {
