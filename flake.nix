@@ -37,7 +37,8 @@
           redshift-connector
           awswrangler
           fastavro
-          numerapi;
+          numerapi
+          highway-env;
       };
 
       hydraJobs = {

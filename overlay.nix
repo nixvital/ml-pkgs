@@ -33,6 +33,8 @@ final: prev: rec {
       fastavro = pyFinal.callPackage ./pkgs/fastavro {};
 
       numerapi = pyFinal.callPackage ./pkgs/numerapi {};
+
+      highway-env = pyFinal.callPackage ./pkgs/highway-env {};
     };
   };
 
