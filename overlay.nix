@@ -35,6 +35,8 @@ final: prev: rec {
       numerapi = pyFinal.callPackage ./pkgs/numerapi {};
 
       highway-env = pyFinal.callPackage ./pkgs/highway-env {};
+
+      panda3d = pyFinal.callPackage ./pkgs/panda3d {};
     };
   };
 

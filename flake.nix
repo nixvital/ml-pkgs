@@ -38,7 +38,8 @@
           awswrangler
           fastavro
           numerapi
-          highway-env;
+          highway-env
+          panda3d;
       };
 
       hydraJobs = {
