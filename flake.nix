@@ -39,7 +39,8 @@
           fastavro
           numerapi
           highway-env
-          panda3d;
+          panda3d
+          panda3d-simplepbr;
       };
 
       hydraJobs = {

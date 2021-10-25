@@ -37,6 +37,7 @@ final: prev: rec {
       highway-env = pyFinal.callPackage ./pkgs/highway-env {};
 
       panda3d = pyFinal.callPackage ./pkgs/panda3d {};
+      panda3d-simplepbr = pyFinal.callPackage ./pkgs/panda3d-simplepbr {};
     };
   };
 
