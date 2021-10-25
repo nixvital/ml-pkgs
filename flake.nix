@@ -40,7 +40,8 @@
           numerapi
           highway-env
           panda3d
-          panda3d-simplepbr;
+          panda3d-simplepbr
+          panda3d-gltf;
       };
 
       hydraJobs = {
