@@ -3,7 +3,11 @@
 , isPy37
 , isPy38
 , isPy39
-, isPy310 ? false }:
+, isPy310 ? false
+, autoPatchelfHook
+, llvmPackages_11
+, libXext
+, libGL }:
 
 assert (isPy37 || isPy38 || isPy39 || isPy310);
 
@@ -16,9 +20,25 @@ buildPythonPackage rec {
     inherit version isPy37 isPy38 isPy39 isPy310;
   });
 
+  # NOTE(breakds): autoPatchelfHook fails to patch the tool binaries and we
+  # probably do not need them to use panda3d as a python library.
+  postInstall = ''
+   rm -r $out/lib/python3.8/site-packages/panda3d_tools/*
+  '';
+
   propagatedBuildInputs = [];
 
-  pythonImportsCheck = [ "panda3d" ];
+  buildInputs = [
+    llvmPackages_11.stdenv.cc.cc.lib
+    libXext
+    libGL
+  ];
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
+
+  pythonImportsCheck = [ "panda3d" "panda3d.core" ];
 
   meta = with lib; {
     homepage = "https://www.panda3d.org";
