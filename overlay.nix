@@ -39,6 +39,8 @@ final: prev: rec {
       panda3d = pyFinal.callPackage ./pkgs/panda3d {};
       panda3d-simplepbr = pyFinal.callPackage ./pkgs/panda3d-simplepbr {};
       panda3d-gltf = pyFinal.callPackage ./pkgs/panda3d-gltf {};
+
+      metadrive-simulator = pyFinal.callPackage ./pkgs/metadrive-simulator {};
     };
   };
 

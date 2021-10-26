@@ -1,0 +1,39 @@
+From 7bc3fe439a9ec60e53cf7c7954f61d2a64eb087a Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Mon, 25 Oct 2021 17:29:56 -0700
+Subject: [PATCH] Adjust python requirements
+
+---
+ setup.py | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 94fe037..29476d1 100644
+--- a/setup.py
++++ b/setup.py
+@@ -37,19 +37,18 @@ for ele in ext_modules:
+ 
+ install_requires = [
+     "gym",
+-    "numpy<=1.19.3",
++    "numpy",
+     "matplotlib",
+     "pandas",
+     "pygame",
+-    "yapf==0.30.0",
++    "yapf",
+     "seaborn",
+     "panda3d~=1.10.8",
+     "panda3d-gltf",
+     "panda3d-simplepbr",
+     "pillow",
+     "pytest",
+-    "opencv-python-headless",
+-    "Cython==0.29.6",
++    "Cython",
+ ]
+ 
+ # if (not is_mac()) and (not is_win()):
+-- 
+2.31.1
+

@@ -41,7 +41,8 @@
           highway-env
           panda3d
           panda3d-simplepbr
-          panda3d-gltf;
+          panda3d-gltf
+          metadrive-simulator;
       };
 
       hydraJobs = {
