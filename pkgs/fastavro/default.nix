@@ -16,6 +16,7 @@
 , wheel
 }:
 
+# NOTE(breakds): This is already packaged at 21.11: https://github.com/NixOS/nixpkgs/blob/a0dbe47318bbab7559ffbfa7c4872a517833409f/pkgs/development/python-modules/fastavro/default.nix
 buildPythonPackage rec {
   pname = "fastavro";
   version = "1.4.4";
