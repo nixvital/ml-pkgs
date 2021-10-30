@@ -13,8 +13,6 @@
 , filelock
 }:
 
-assert (isPy37 || isPy38);
-
 buildPythonPackage rec {
   pname = "procgen";
   version = "0.10.4";
@@ -22,6 +20,8 @@ buildPythonPackage rec {
 
   src = builtins.fetchurl (import ./wheel-urls.nix {
     inherit version isPy37 isPy38; });
+
+  disabled = !(isPy37 || isPy38);
 
   propagatedBuildInputs = [
     numpy

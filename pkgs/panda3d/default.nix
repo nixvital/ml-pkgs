@@ -9,8 +9,6 @@
 , libXext
 , libGL }:
 
-assert (isPy37 || isPy38 || isPy39 || isPy310);
-
 buildPythonPackage rec {
   pname = "panda3d";
   version = "1.10.10";
@@ -19,6 +17,8 @@ buildPythonPackage rec {
   src = builtins.fetchurl (import ./wheel-urls.nix {
     inherit version isPy37 isPy38 isPy39 isPy310;
   });
+
+  disabled = !(isPy37 || isPy38 || isPy39 || isPy310);
 
   # NOTE(breakds): autoPatchelfHook fails to patch the tool binaries and we
   # probably do not need them to use panda3d as a python library.

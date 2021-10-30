@@ -14,8 +14,6 @@
 , writeShellScriptBin
 }:
 
-assert (isPy37 || isPy38 || isPy39);
-
 let atari-roms = builtins.fetchurl {
       url = "http://www.atarimania.com/roms/Roms.rar";
       sha256 = "1654mhnsimb79qb99im6ka2i758b6r43m38gz04d19rxpngqfdaf";
@@ -81,6 +79,8 @@ in buildPythonPackage rec {
 
   src = builtins.fetchurl (import ./wheel-urls.nix {
     inherit version isPy37 isPy38 isPy39; });
+
+  disabled = !(isPy37 || isPy38 || isPy39);
 
   propagatedBuildInputs = [ numpy six ];
 
