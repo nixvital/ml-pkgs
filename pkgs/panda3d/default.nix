@@ -1,24 +1,29 @@
 { lib
+, stdenv
 , buildPythonPackage
+, fetchurl
+, python
 , isPy37
 , isPy38
 , isPy39
-, isPy310 ? false
 , autoPatchelfHook
-, llvmPackages_11
 , libXext
 , libGL }:
 
-buildPythonPackage rec {
+let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+    version = "1.10.10";
+    srcs = import ./binary-hashes.nix version;
+    unsupported = throw "Unsupported system";
+in buildPythonPackage rec {
   pname = "panda3d";
-  version = "1.10.10";
+
+  inherit version;
+
   format = "wheel";
 
-  src = builtins.fetchurl (import ./wheel-urls.nix {
-    inherit version isPy37 isPy38 isPy39 isPy310;
-  });
+  src = fetchurl srcs."${stdenv.system}-${pyVerNoDot}" or unsupported;
 
-  disabled = !(isPy37 || isPy38 || isPy39 || isPy310);
+  disabled = !(isPy37 || isPy38 || isPy39);
 
   # NOTE(breakds): autoPatchelfHook fails to patch the tool binaries and we
   # probably do not need them to use panda3d as a python library.
@@ -29,7 +34,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [];
 
   buildInputs = [
-    llvmPackages_11.stdenv.cc.cc.lib
+    stdenv.cc.cc.lib
     libXext
     libGL
   ];
