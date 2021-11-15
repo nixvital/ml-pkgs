@@ -18,12 +18,12 @@
 
 buildPythonPackage rec {
   pname = "metadrive-simulator";
-  version = "0.2.3";
+  version = "2021.11.15";
 
   src = fetchFromGitHub {
     owner = "decisionforce";
     repo = "metadrive";
-    rev = "MetaDrive-${version}";
+    rev = "8fd4e30200eb022416a43d1accecf8a85f3ed44f";
     sha256 = "sha256-H/CojBnNKY1QlSDLV2ZxDpx44gaOEJk94wr0iwHiGBI=";
   };
 
