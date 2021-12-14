@@ -1,17 +1,17 @@
-From 7bc3fe439a9ec60e53cf7c7954f61d2a64eb087a Mon Sep 17 00:00:00 2001
+From 0e9694edf2ada602370244737b077bbe96f8f32b Mon Sep 17 00:00:00 2001
 From: Break Yang <breakds@gmail.com>
-Date: Mon, 25 Oct 2021 17:29:56 -0700
-Subject: [PATCH] Adjust python requirements
+Date: Tue, 14 Dec 2021 13:28:18 -0800
+Subject: [PATCH] Fix setup.py
 
 ---
- setup.py | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ setup.py | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 94fe037..29476d1 100644
+index af3ec69..96077e3 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -37,19 +37,18 @@ for ele in ext_modules:
+@@ -28,19 +28,18 @@ version = "0.2.3"
  
  install_requires = [
      "gym",
@@ -20,6 +20,7 @@ index 94fe037..29476d1 100644
      "matplotlib",
      "pandas",
      "pygame",
+     "tqdm",
 -    "yapf==0.30.0",
 +    "yapf",
      "seaborn",
@@ -29,8 +30,6 @@ index 94fe037..29476d1 100644
      "pillow",
      "pytest",
 -    "opencv-python-headless",
--    "Cython==0.29.6",
-+    "Cython",
  ]
  
  # if (not is_mac()) and (not is_win()):

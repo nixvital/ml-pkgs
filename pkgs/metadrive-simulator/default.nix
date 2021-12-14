@@ -14,17 +14,18 @@
 , panda3d-gltf
 , pillow
 , opencv4
+, tqdm
 , pytest }:
 
 buildPythonPackage rec {
   pname = "metadrive-simulator";
-  version = "2021.11.15";
+  version = "2021.12.10";
 
   src = fetchFromGitHub {
     owner = "decisionforce";
     repo = "metadrive";
-    rev = "8fd4e30200eb022416a43d1accecf8a85f3ed44f";
-    sha256 = "sha256-H/CojBnNKY1QlSDLV2ZxDpx44gaOEJk94wr0iwHiGBI=";
+    rev = "b96ff820ae6a8b715fed9222ce3f73e602045bad";
+    sha256 = "sha256-SBi+P2tFcqdaf56v+XXVGZUNl9xMcbsQ5fE01WCS26k=";
   };
 
   patches = [
@@ -45,6 +46,7 @@ buildPythonPackage rec {
     panda3d-gltf
     pillow
     opencv4
+    tqdm
     pytest
   ];
 
