@@ -32,6 +32,7 @@
           pytorchvizWithCuda11
           atari-py-with-rom
           py-glfw
+          huggingface-hub
           gym3
           procgen
           redshift-connector

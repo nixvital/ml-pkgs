@@ -41,6 +41,8 @@ final: prev: rec {
       panda3d-gltf = pyFinal.callPackage ./pkgs/panda3d-gltf {};
 
       metadrive-simulator = pyFinal.callPackage ./pkgs/metadrive-simulator {};
+
+      huggingface-hub = pyFinal.callPackage ./pkgs/huggingface-hub {};
     };
   };
 
