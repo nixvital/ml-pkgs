@@ -5,6 +5,7 @@
 , autoPatchelfHook
 , isPy37
 , isPy38
+, isPy39
 , stdenv
 , glib
 , numpy
@@ -19,9 +20,9 @@ buildPythonPackage rec {
   format = "wheel";
 
   src = builtins.fetchurl (import ./wheel-urls.nix {
-    inherit version isPy37 isPy38; });
+    inherit version isPy37 isPy38 isPy39; });
 
-  disabled = !(isPy37 || isPy38);
+  disabled = !(isPy37 || isPy38 || isPy39);
 
   propagatedBuildInputs = [
     numpy
