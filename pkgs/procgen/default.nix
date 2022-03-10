@@ -16,7 +16,7 @@
 
 buildPythonPackage rec {
   pname = "procgen";
-  version = "0.10.4";
+  version = "0.10.7";
   format = "wheel";
 
   src = builtins.fetchurl (import ./wheel-urls.nix {
