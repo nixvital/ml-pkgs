@@ -38,7 +38,6 @@
           procgen
           redshift-connector
           awswrangler
-          fastavro
           numerapi
           highway-env
           panda3d
