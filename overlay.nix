@@ -1,17 +1,23 @@
 final: prev: rec {
   python3 = prev.python3.override {
-    packageOverrides = pyFinal: pyPrev: rec {
+    packageOverrides = let
+      preferredCuda = prev.cudatoolkit_11_2;
+      preferredCudnn = prev.cudnn_cudatoolkit_11_2;
+      preferredNccl = prev.nccl_cudatoolkit_11;
+    in pyFinal: pyPrev: rec {
       pytorchWithCuda11 = pyPrev.pytorchWithCuda.override {
-        cudatoolkit = prev.cudatoolkit_11_2;
-        nccl = prev.nccl_cudatoolkit_11;
-        cudnn = prev.cudnn_cudatoolkit_11_2;
+        cudatoolkit = preferredCuda;
+        nccl = preferredNccl;
+        cudnn = preferredCudnn;
         magma = prev.magma.override {
-          cudatoolkit = prev.cudatoolkit_11_2;
+          cudatoolkit = preferredCuda;
         };
       };
 
       torchvisionWithCuda11 = pyPrev.torchvision.override {
         pytorch = pytorchWithCuda11;
+        cudatoolkit = preferredCuda;
+        cudnn = preferredCudnn;
       };
 
       pytorchvizWithCuda11 = pyFinal.callPackage ./pkgs/pytorchviz {
