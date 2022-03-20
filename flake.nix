@@ -26,6 +26,7 @@
       devShell = pkgs.callPackage ./pkgs/dev-shell {};
       
       packages = {
+        inherit (pkgs) preferredCuda preferredCudnn preferredNccl;
         inherit (pkgs.python3Packages)
           pytorchWithCuda11
           torchvisionWithCuda11
