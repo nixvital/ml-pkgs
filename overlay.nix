@@ -1,10 +1,10 @@
-final: prev: rec {
+final: prev: let
+  preferredCuda = prev.cudatoolkit_11_2;
+  preferredCudnn = prev.cudnn_cudatoolkit_11_2;
+  preferredNccl = prev.nccl_cudatoolkit_11;
+in rec {
   python3 = prev.python3.override {
-    packageOverrides = let
-      preferredCuda = prev.cudatoolkit_11_2;
-      preferredCudnn = prev.cudnn_cudatoolkit_11_2;
-      preferredNccl = prev.nccl_cudatoolkit_11;
-    in pyFinal: pyPrev: rec {
+    packageOverrides = pyFinal: pyPrev: rec {
       pytorchWithCuda11 = pyPrev.pytorchWithCuda.override {
         cudatoolkit = preferredCuda;
         nccl = preferredNccl;
@@ -54,4 +54,6 @@ final: prev: rec {
   };
 
   python3Packages = python3.pkgs;
+
+  inherit preferredCuda preferredCudnn preferredNccl;
 }
