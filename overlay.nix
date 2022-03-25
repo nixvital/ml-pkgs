@@ -32,6 +32,8 @@ in rec {
 
       procgen = pyFinal.callPackage ./pkgs/procgen {};
 
+      lxml = pyFinal.callPackage ./pkgs/lxml {};
+
       redshift-connector = pyFinal.callPackage ./pkgs/redshift-connector {};
 
       awswrangler = pyFinal.callPackage ./pkgs/awswrangler {};
