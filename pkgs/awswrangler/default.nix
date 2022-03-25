@@ -8,16 +8,17 @@
 , pyarrow
 , pymysql
 , redshift-connector
+, poetry
 }:
 
 buildPythonPackage rec {
   pname = "awswrangler";
-  version = "2.10.0";
+  version = "2.14.0";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-4nN83ykaJqhkd1O76Z8ckfZDwAm2yhCKOE95b3iOAU8=";
+    sha256 = "sha256-7DoCemudNHoaOuBJQAVhUfI8thz72DjQow9+ogtMg0E=";
   };
 
   format = "pyproject";
@@ -29,6 +30,7 @@ buildPythonPackage rec {
     pyarrow
     pymysql
     redshift-connector
+    poetry
   ];
 
   doCheck = false;

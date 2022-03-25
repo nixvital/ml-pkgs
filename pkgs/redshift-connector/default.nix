@@ -15,12 +15,12 @@
 
 buildPythonPackage rec {
   pname = "redshift-connector";
-  version = "2.0.884";
+  version = "2.0.905";
   format = "wheel";
 
   src = builtins.fetchurl {
-    url = "https://files.pythonhosted.org/packages/19/5c/0865f58e29a5c8106f58e4d1ef70ed8398be07e8615e06ca3a88cf64322d/redshift_connector-2.0.884-py3-none-any.whl";
-    sha256 = "1ggb94hq8abh8b8nhm3j0hmjbbvqmdh47vvf7iw4a15v3nx20j1j";
+    url = https://files.pythonhosted.org/packages/d9/6e/42c024a445da8ab057d9d16acc2add9d7a8f78e28f5b4a0e20afd6cf29c2/redshift_connector-2.0.905-py3-none-any.whl;
+    sha256 = "0q6hlzj2kbn8fj2w93a1mgq0plvjf3cynqkld7ws71zvlp378w79";
   };
 
   propagatedBuildInputs = [
