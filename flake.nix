@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/21.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
 
     utils.url = "github:numtide/flake-utils";
     utils.inputs.nixpkgs.follows = "nixpkgs";
@@ -26,7 +26,6 @@
       devShell = pkgs.callPackage ./pkgs/dev-shell {};
       
       packages = {
-        inherit (pkgs) preferredCuda preferredCudnn preferredNccl;
         inherit (pkgs.python3Packages)
           pytorchWithCuda11
           torchvisionWithCuda11
