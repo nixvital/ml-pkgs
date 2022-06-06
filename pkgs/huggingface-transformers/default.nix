@@ -14,11 +14,11 @@
 
 buildPythonPackage rec {
   pname = "transformers";
-  version = "4.10.0";
+  version = "4.19.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-BLTsnPwO1uaIHBzjx59zgGmnjfiotSigJEpoa2wSlgE=";
+    sha256 = "sha256-4ZpP8HRY7aFDxzjlJZyvSESfzweKY9axvRqoBlQ0QKM=";
   };
 
   format = "pyproject";

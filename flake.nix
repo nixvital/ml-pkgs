@@ -32,7 +32,6 @@
           pytorchvizWithCuda11
           atari-py-with-rom
           py-glfw
-          huggingface-hub
           huggingface-transformers
           gym3
           procgen

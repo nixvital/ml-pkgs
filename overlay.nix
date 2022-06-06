@@ -39,7 +39,6 @@ in rec {
 
       metadrive-simulator = pyFinal.callPackage ./pkgs/metadrive-simulator {};
 
-      huggingface-hub = pyFinal.callPackage ./pkgs/huggingface-hub {};
       huggingface-transformers = pyFinal.callPackage ./pkgs/huggingface-transformers {
         pytorch = pytorchWithCuda11;
       };
