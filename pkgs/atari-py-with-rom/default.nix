@@ -15,7 +15,7 @@
 }:
 
 let atari-roms = builtins.fetchurl {
-      url = "http://www.atarimania.com/roms/Roms.rar";
+      url = "https://extorage.breakds.org/atari/Roms.rar";
       sha256 = "0f60333knxzzl4m3jgi67kbpyw6vr7j8vmbc9v9cmrdshbrm5481";
     };
 
