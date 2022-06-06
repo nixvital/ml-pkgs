@@ -35,7 +35,6 @@
           huggingface-transformers
           gym3
           procgen
-          lxml
           redshift-connector
           awswrangler
           numerapi
