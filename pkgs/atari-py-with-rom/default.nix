@@ -16,7 +16,7 @@
 
 let atari-roms = builtins.fetchurl {
       url = "http://www.atarimania.com/roms/Roms.rar";
-      sha256 = "1654mhnsimb79qb99im6ka2i758b6r43m38gz04d19rxpngqfdaf";
+      sha256 = "0f60333knxzzl4m3jgi67kbpyw6vr7j8vmbc9v9cmrdshbrm5481";
     };
 
     # The following script is used to install ROMS in to atari-py.
@@ -30,32 +30,32 @@ let atari-roms = builtins.fetchurl {
       MD5_FILE=$2
       ROM_DIRECTORY=$3
       TARGET_DIRECTORY=$4
-      
+
       # Step 1 - Construct the hash -> bin file map
-      
+
       declare -A bin_hash_map
-      
+
       if [ ! -e ''${MD5_FILE} ]; then
           echo "[ERROR] ''${MD5_FILE} does not exist!"
           exit 125
       fi
-      
+
       if [ ! -d ''${ROM_DIRECTORY} ]; then
           echo "[ERROR] ''${ROM_DIRECTORY} does not exist!"
           exit 125
       fi
-      
+
       echo "Constructing .bin file and hash mapping from ''${MD5_FILE}"
-      
+
       let entry_count=0
-      
+
       while IFS=" " read -r hash fname; do
           if [ ''${#hash} == 32 ]; then
               bin_hash_map[''${hash}]=''${fname}
               let entry_count++
           fi
       done < ''${MD5_FILE}
-      
+
       echo "Finished reading the md5 list, found ''${entry_count} entries."
       # Step 2 - Copy the matched bin files
       ORIGINAL_IFS="$IFS"
@@ -99,10 +99,6 @@ in buildPythonPackage rec {
     pushd ${pkgPath}
     mkdir roms_temp
     ${unrar}/bin/unrar x "${atari-roms}" roms_temp/
-    pushd roms_temp    
-    ${unzip}/bin/unzip "HC ROMS.zip"
-    ${unzip}/bin/unzip "ROMS.zip"
-    popd
     head -n 10 ${pkgPath}/ale_interface/md5.txt
     ${import-atari-roms}/bin/import-atari-roms ${pkgPath} \
         ${pkgPath}/ale_interface/md5.txt \
@@ -112,7 +108,7 @@ in buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "atari_py" ];  
+  pythonImportsCheck = [ "atari_py" ];
 
   meta = with lib; {
     homepage = "https://github.com/openai/atari-py";
