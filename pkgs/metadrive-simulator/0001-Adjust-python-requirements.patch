@@ -1,17 +1,17 @@
-From 0e9694edf2ada602370244737b077bbe96f8f32b Mon Sep 17 00:00:00 2001
+From fc3d281351643e41c9a1da46653dfd910206434f Mon Sep 17 00:00:00 2001
 From: Break Yang <breakds@gmail.com>
 Date: Tue, 14 Dec 2021 13:28:18 -0800
 Subject: [PATCH] Fix setup.py
 
 ---
- setup.py | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ setup.py | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index af3ec69..96077e3 100644
+index 1c12366..47c5088 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -28,19 +28,18 @@ version = "0.2.3"
+@@ -28,7 +28,7 @@ version = "0.2.5.1"
  
  install_requires = [
      "gym",
@@ -20,12 +20,7 @@ index af3ec69..96077e3 100644
      "matplotlib",
      "pandas",
      "pygame",
-     "tqdm",
--    "yapf==0.30.0",
-+    "yapf",
-     "seaborn",
-     "panda3d~=1.10.8",
-     "panda3d-gltf",
+@@ -40,7 +40,6 @@ install_requires = [
      "panda3d-simplepbr",
      "pillow",
      "pytest",
@@ -34,5 +29,5 @@ index af3ec69..96077e3 100644
  
  # if (not is_mac()) and (not is_win()):
 -- 
-2.31.1
+2.36.0
 

@@ -19,13 +19,13 @@
 
 buildPythonPackage rec {
   pname = "metadrive-simulator";
-  version = "2021.12.10";
+  version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "decisionforce";
     repo = "metadrive";
-    rev = "b96ff820ae6a8b715fed9222ce3f73e602045bad";
-    sha256 = "sha256-SBi+P2tFcqdaf56v+XXVGZUNl9xMcbsQ5fE01WCS26k=";
+    rev = "13dbc2fa915073c5d126742390db2cc8e4dc56f8";
+    sha256 = "sha256-/9+iPoou/CEJl764O4a/QdQo9j+oPuI/sxyLgFT9g50=";
   };
 
   patches = [
