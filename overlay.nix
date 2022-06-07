@@ -15,6 +15,14 @@ in rec {
         pytorch = pytorchWithCuda11;
       };
 
+      jaxlibWithCuda11 = pyPrev.jaxlibWithCuda.override {
+        cudaPackages = cuda11;
+      };
+
+      jaxWithCuda11 = pyPrev.jax.override {
+        jaxlib = jaxlibWithCuda11;
+      };
+
       atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom {};
 
       py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};
