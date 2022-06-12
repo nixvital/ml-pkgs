@@ -23,6 +23,10 @@ in rec {
         jaxlib = jaxlibWithCuda11;
       };
 
+      equinoxWithCuda11 = pyFinal.callPackage ./pkgs/equinox {
+        jax = jaxWithCuda11;
+      };
+
       atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom {};
 
       py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};

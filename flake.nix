@@ -29,6 +29,7 @@
         inherit (pkgs.python3Packages)
           jaxWithCuda11
           jaxlibWithCuda11
+          equinoxWithCuda11
           pytorchWithCuda11
           torchvisionWithCuda11
           pytorchvizWithCuda11
