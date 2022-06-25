@@ -31,6 +31,7 @@
           jaxlibWithCuda11
           equinoxWithCuda11
           pytorchWithCuda11
+          pytorchLightningWithCuda11
           torchvisionWithCuda11
           pytorchvizWithCuda11
           atari-py-with-rom

@@ -7,6 +7,10 @@ in rec {
         cudaPackages = cuda11;
       };
 
+      pytorchLightningWithCuda11 = pyPrev.pytorch-lightning.override {
+        pytorch = pytorchWithCuda11;
+      };
+
       torchvisionWithCuda11 = pyPrev.torchvision.override {
         pytorch = pytorchWithCuda11;
       };
