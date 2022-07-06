@@ -9,6 +9,7 @@
 , cffi
 , cython
 , imageio
+, mujoco
 }:
 
 buildPythonPackage rec {
@@ -28,6 +29,7 @@ buildPythonPackage rec {
     cffi
     cython
     imageio
+    mujoco
   ];
 
   buildInputs = [
