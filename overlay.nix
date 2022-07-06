@@ -56,6 +56,8 @@ in rec {
       huggingface-transformers = pyFinal.callPackage ./pkgs/huggingface-transformers {
         pytorch = pytorchWithCuda11;
       };
+
+      mujoco-py = pyFinal.callPackage ./pkgs/mujoco-py {};
     };
   };
 

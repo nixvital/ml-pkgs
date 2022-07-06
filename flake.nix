@@ -46,7 +46,8 @@
           panda3d
           panda3d-simplepbr
           panda3d-gltf
-          metadrive-simulator;
+          metadrive-simulator
+          mujoco-py;
       };
 
       hydraJobs = {
