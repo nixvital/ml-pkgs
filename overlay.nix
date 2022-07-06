@@ -58,7 +58,6 @@ in rec {
       };
 
       mujoco = pyFinal.callPackage ./pkgs/mujoco {};
-      mujoco-py = pyFinal.callPackage ./pkgs/mujoco-py {};
     };
   };
 
