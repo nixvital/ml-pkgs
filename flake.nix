@@ -37,6 +37,8 @@
           atari-py-with-rom
           py-glfw
           huggingface-transformers
+          gym-notices
+          gym
           gym3
           procgen
           redshift-connector

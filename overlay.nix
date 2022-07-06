@@ -35,6 +35,8 @@ in rec {
 
       py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};
 
+      gym-notices = pyFinal.callPackage ./pkgs/gym-notices {};
+      gym = pyFinal.callPackage ./pkgs/gym {};
       gym3 = pyFinal.callPackage ./pkgs/gym3 {};
 
       procgen = pyFinal.callPackage ./pkgs/procgen {};
