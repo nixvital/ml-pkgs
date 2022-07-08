@@ -6,7 +6,7 @@
 , imageio
 , imageio-ffmpeg
 , moderngl
-, py-glfw
+, glfw
 , glcontext
 }:
 
@@ -31,7 +31,7 @@ buildPythonPackage rec {
     imageio
     imageio-ffmpeg
     moderngl
-    py-glfw
+    glfw
     glcontext
   ];
 

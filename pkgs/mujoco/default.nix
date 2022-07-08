@@ -4,7 +4,7 @@
 , fetchFromGitHub
 , stdenv
 , numpy
-, py-glfw
+, glfw
 , pyopengl
 , absl-py
 }:
@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     numpy
-    py-glfw
+    glfw
     pyopengl
     absl-py
   ];
