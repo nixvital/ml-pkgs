@@ -48,7 +48,8 @@
           panda3d-simplepbr
           panda3d-gltf
           metadrive-simulator
-          mujoco;
+          mujoco
+          nvitop;
       };
 
       hydraJobs = {
