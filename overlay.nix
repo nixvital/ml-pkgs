@@ -60,6 +60,10 @@ in rec {
       mujoco = pyFinal.callPackage ./pkgs/mujoco {};
 
       nvitop = pyFinal.callPackage ./pkgs/nvitop {};
+
+      pytorch-tabnet = pyFinal.callPackage ./pkgs/pytorch-tabnet {
+        pytorch = pytorchWithCuda11;
+      };
     };
   };
 

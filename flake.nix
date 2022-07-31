@@ -49,7 +49,8 @@
           panda3d-gltf
           metadrive-simulator
           mujoco
-          nvitop;
+          nvitop
+          pytorch-tabnet;
       };
 
       hydraJobs = {
