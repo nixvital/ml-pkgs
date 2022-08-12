@@ -1,31 +1,28 @@
-# NOTE(breakds): Added this because the default gym v0.21.0 cannot
-# handle the open source mujoco.
+# NOTE(breakds): Added this because the default gym v0.21.0 makes some
+# breaking change on how atari is being handled (use ale-py instead
+# atari-py).
 
 { lib
 , buildPythonPackage
 , fetchFromGitHub
 , numpy
 , cloudpickle
-, importlib-metadata
-, gym-notices
 }:
 
 buildPythonPackage rec {
   pname = "gym";
-  version = "0.24.1";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = pname;
-    rev = "${version}";
-    sha256 = "sha256-EGK5wkDu/QUnK1YZXBybyOPIFRt+rQAkJ5AR2U7usZY=";
+    rev = version;
+    sha256 = "sha256-0O/s9OVNGQmeX9j8B1x63RxdI6dhqfTEJcgDH2jtCv4=";
   };
 
   propagatedBuildInputs = [
-    importlib-metadata    
     cloudpickle
     numpy
-    gym-notices
   ];
 
   # The test needs MuJoCo that is not free library.

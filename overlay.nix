@@ -57,7 +57,7 @@ in rec {
         pytorch = pytorchWithCuda11;
       };
 
-      mujoco = pyFinal.callPackage ./pkgs/mujoco {};
+      # mujoco = pyFinal.callPackage ./pkgs/mujoco {};
 
       nvitop = pyFinal.callPackage ./pkgs/nvitop {};
 
