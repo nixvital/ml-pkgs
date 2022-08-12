@@ -37,6 +37,7 @@
           atari-py-with-rom
           huggingface-transformers
           gym-notices
+          matplotlib
           gym
           gym3
           procgen
