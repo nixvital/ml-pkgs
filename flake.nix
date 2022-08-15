@@ -35,6 +35,7 @@
           torchvisionWithCuda11
           pytorchvizWithCuda11
           atari-py-with-rom
+          ale-py
           huggingface-transformers
           gym-notices
           gym

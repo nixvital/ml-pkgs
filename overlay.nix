@@ -32,6 +32,7 @@ in rec {
       };
 
       atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom {};
+      ale-py = pyFinal.callPackage ./pkgs/ale-py {};
 
       gym-notices = pyFinal.callPackage ./pkgs/gym-notices {};
       gym = pyFinal.callPackage ./pkgs/gym {};
