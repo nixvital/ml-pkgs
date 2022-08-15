@@ -1,3 +1,6 @@
+# Warning: (deprecated) this package does not work with the updated
+# version of gym. Please use ale-py instead.
+
 # This packages the atari-py together with the Atari 2600 roms.
 
 { lib
