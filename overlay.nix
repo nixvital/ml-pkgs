@@ -1,8 +1,10 @@
-final: prev: let
+final: prev:
+let
   preferredCuda = prev.cudatoolkit_11_2;
   preferredCudnn = prev.cudnn_cudatoolkit_11_2;
   preferredNccl = prev.nccl_cudatoolkit_11;
-in rec {
+in
+rec {
   python3 = prev.python3.override {
     packageOverrides = pyFinal: pyPrev: rec {
       pytorchWithCuda11 = pyPrev.pytorchWithCuda.override {
@@ -12,6 +14,10 @@ in rec {
         magma = prev.magma.override {
           cudatoolkit = preferredCuda;
         };
+      };
+
+      pytorchLightningWithCuda11 = pyPrev.pytorch-lightning.override {
+        pytorch = pytorchWithCuda11;
       };
 
       torchvisionWithCuda11 = pyPrev.torchvision.override {
@@ -24,31 +30,32 @@ in rec {
         pytorch = pytorchWithCuda11;
       };
 
-      atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom {};
 
-      py-glfw = pyFinal.callPackage ./pkgs/py-glfw {};
+      atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom { };
 
-      gym3 = pyFinal.callPackage ./pkgs/gym3 {};
+      py-glfw = pyFinal.callPackage ./pkgs/py-glfw { };
 
-      procgen = pyFinal.callPackage ./pkgs/procgen {};
+      gym3 = pyFinal.callPackage ./pkgs/gym3 { };
 
-      lxml = pyFinal.callPackage ./pkgs/lxml {};
+      procgen = pyFinal.callPackage ./pkgs/procgen { };
 
-      redshift-connector = pyFinal.callPackage ./pkgs/redshift-connector {};
+      lxml = pyFinal.callPackage ./pkgs/lxml { };
 
-      awswrangler = pyFinal.callPackage ./pkgs/awswrangler {};
+      redshift-connector = pyFinal.callPackage ./pkgs/redshift-connector { };
 
-      numerapi = pyFinal.callPackage ./pkgs/numerapi {};
+      awswrangler = pyFinal.callPackage ./pkgs/awswrangler { };
 
-      highway-env = pyFinal.callPackage ./pkgs/highway-env {};
+      numerapi = pyFinal.callPackage ./pkgs/numerapi { };
 
-      panda3d = pyFinal.callPackage ./pkgs/panda3d {};
-      panda3d-simplepbr = pyFinal.callPackage ./pkgs/panda3d-simplepbr {};
-      panda3d-gltf = pyFinal.callPackage ./pkgs/panda3d-gltf {};
+      highway-env = pyFinal.callPackage ./pkgs/highway-env { };
 
-      metadrive-simulator = pyFinal.callPackage ./pkgs/metadrive-simulator {};
+      panda3d = pyFinal.callPackage ./pkgs/panda3d { };
+      panda3d-simplepbr = pyFinal.callPackage ./pkgs/panda3d-simplepbr { };
+      panda3d-gltf = pyFinal.callPackage ./pkgs/panda3d-gltf { };
 
-      huggingface-hub = pyFinal.callPackage ./pkgs/huggingface-hub {};
+      metadrive-simulator = pyFinal.callPackage ./pkgs/metadrive-simulator { };
+
+      huggingface-hub = pyFinal.callPackage ./pkgs/huggingface-hub { };
       huggingface-transformers = pyFinal.callPackage ./pkgs/huggingface-transformers {
         pytorch = pytorchWithCuda11;
       };
