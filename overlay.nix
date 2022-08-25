@@ -16,7 +16,7 @@ rec {
         };
       };
 
-      pytorchLightningWithCuda11 = pyPrev.pytorch-lightning.override {
+      pytorchLightningWithCuda11 = pyFinal.callPackage ./pkgs/pytorch-lightning {
         pytorch = pytorchWithCuda11;
       };
 
@@ -30,6 +30,15 @@ rec {
         pytorch = pytorchWithCuda11;
       };
 
+      py-deprecate = pyFinal.callPackage ./pkgs/py-deprecate {
+        pytorch = pytorchWithCuda11;
+      };
+
+      torchmetrics = pyFinal.callPackage ./pkgs/torchmetrics {
+        pytorch = pytorchWithCuda11;
+      };
+
+      typing-extensions = pyFinal.callPackage ./pkgs/typing-extensions { };
 
       atari-py-with-rom = pyFinal.callPackage ./pkgs/atari-py-with-rom { };
 
