@@ -65,6 +65,10 @@ in rec {
       pytorch-tabnet = pyFinal.callPackage ./pkgs/pytorch-tabnet {
         pytorch = pytorchWithCuda11;
       };
+
+      stable-diffusion = pyFinal.callPackage ./pkgs/stable-diffusion {
+        pytorch = pytorchWithCuda11;
+      };
     };
   };
 
