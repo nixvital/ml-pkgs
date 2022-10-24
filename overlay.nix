@@ -70,6 +70,8 @@ in rec {
         cudaPackages = cuda11;
         pytorchWithCuda = pytorchWithCuda11;
       };
+
+      vlmbench = pyFinal.callPackage ./pkgs/vlmbench {};
     };
   };
 

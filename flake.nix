@@ -52,7 +52,8 @@
           mujoco
           nvitop
           pytorch-tabnet
-          open3d;
+          open3d
+          vlmbench;
       };
 
       hydraJobs = {
