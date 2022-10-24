@@ -51,7 +51,8 @@
           metadrive-simulator
           mujoco
           nvitop
-          pytorch-tabnet;
+          pytorch-tabnet
+          open3d;
       };
 
       hydraJobs = {

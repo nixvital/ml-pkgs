@@ -65,6 +65,11 @@ in rec {
       pytorch-tabnet = pyFinal.callPackage ./pkgs/pytorch-tabnet {
         pytorch = pytorchWithCuda11;
       };
+
+      open3d = pyFinal.callPackage ./pkgs/open3d {
+        cudaPackages = cuda11;
+        pytorchWithCuda = pytorchWithCuda11;
+      };
     };
   };
 
