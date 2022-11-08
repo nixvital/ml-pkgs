@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?rev=824a1239312e52f0fed65c24985a6c31d642e008";
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=187ffe25d923cddcc159e7d002702525c4b22732";
 
     utils.url = "github:numtide/flake-utils";
     utils.inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +33,7 @@
           # pytorchWithCuda11
           # pytorchLightningWithCuda11
           # torchvisionWithCuda11
-          pytorchvizWithCuda11
+          # pytorchvizWithCuda11
           # atari-py-with-rom
           # ale-py-with-roms
           # huggingface-transformers

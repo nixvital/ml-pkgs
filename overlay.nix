@@ -1,5 +1,5 @@
 final: prev: let
-  cuda11 = prev.cudaPackages_11_8;
+  cuda11 = final.cudaPackages_11_8;
 in rec {
   python3 = prev.python3.override {
     packageOverrides = pyFinal: pyPrev: rec {
@@ -80,4 +80,9 @@ in rec {
   magmaWithCuda11 = prev.magma.override {
     cudaPackages = cuda11;
   };
+  cudaPackages_11_8 = prev.cudaPackages_11_8.overrideScope' (gfinal: gprev: {
+    cudnn = gprev.cudnn.override {
+      useCudatoolkitRunfile = true;
+    };
+  });
 }
