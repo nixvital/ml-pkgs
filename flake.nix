@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=824a1239312e52f0fed65c24985a6c31d642e008";
 
     utils.url = "github:numtide/flake-utils";
     utils.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,35 +27,35 @@
       
       packages = {
         inherit (pkgs.python3Packages)
-          jaxWithCuda11
-          jaxlibWithCuda11
-          equinoxWithCuda11
-          pytorchWithCuda11
-          pytorchLightningWithCuda11
-          torchvisionWithCuda11
+          # jaxWithCuda11
+          # jaxlibWithCuda11
+          # equinoxWithCuda11
+          # pytorchWithCuda11
+          # pytorchLightningWithCuda11
+          # torchvisionWithCuda11
           pytorchvizWithCuda11
-          atari-py-with-rom
-          ale-py-with-roms
-          huggingface-transformers
-          gym-notices
-          gym
-          gym3
-          procgen
+          # atari-py-with-rom
+          # ale-py-with-roms
+          # huggingface-transformers
+          # gym-notices
+          # gym
+          # gym3
+          # procgen
           redshift-connector
           awswrangler
           numerapi
           highway-env
           panda3d
-          panda3d-simplepbr
-          panda3d-gltf
-          metadrive-simulator
-          mujoco
-          nvitop
+          # panda3d-simplepbr
+          # panda3d-gltf
+          # metadrive-simulator
+          # mujoco
+          # nvitop
           pytorch-tabnet;
       };
 
-      hydraJobs = {
-        devShell = devShells.default;
-      };
+      # hydraJobs = {
+      #   devShell = devShell;
+      # };
     });
 }

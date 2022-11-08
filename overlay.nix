@@ -1,10 +1,11 @@
 final: prev: let
-  cuda11 = prev.cudaPackages_11_6;
+  cuda11 = prev.cudaPackages_11_8;
 in rec {
   python3 = prev.python3.override {
     packageOverrides = pyFinal: pyPrev: rec {
       pytorchWithCuda11 = pyPrev.pytorchWithCuda.override {
         cudaPackages = cuda11;
+        magma = final.magmaWithCuda11;
       };
 
       pytorchLightningWithCuda11 = pyPrev.pytorch-lightning.override {
@@ -76,4 +77,7 @@ in rec {
   };
 
   python3Packages = python3.pkgs;
+  magmaWithCuda11 = prev.magma.override {
+    cudaPackages = cuda11;
+  };
 }
