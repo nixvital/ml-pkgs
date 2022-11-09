@@ -9,7 +9,7 @@
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    overlay = import ./overlay.nix;
+    overlays.default = import ./overlay.nix;
   } // inputs.utils.lib.eachSystem [
     "x86_64-linux"
   ] (system:
@@ -19,11 +19,11 @@
           overlays = [
             # Use this overlay to provide customized python packages
             # for development environment.
-            self.overlay
+            self.overlays.default
           ];
         };
     in rec {
-      devShell = pkgs.callPackage ./pkgs/dev-shell {};
+      devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
       
       packages = {
         inherit (pkgs.python3Packages)
@@ -55,7 +55,7 @@
       };
 
       hydraJobs = {
-        devShell = devShell;
+        devShell = devShells.default;
       };
     });
 }
