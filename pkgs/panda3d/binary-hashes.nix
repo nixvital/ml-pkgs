@@ -19,5 +19,10 @@ version : builtins.getAttr version {
       url = https://files.pythonhosted.org/packages/3f/20/87b34580f6bfc414cd8b7b874a18e32da939ed102e48cf6e33c170edcd2c/panda3d-1.10.10-cp39-cp39-manylinux1_x86_64.whl;
       sha256 = "0w5q1yddb300r9vij3k9mmxr874vjfmz9ca0b2mrk5sgjh14a8mq";
     };
+    x86_64-linux-310 = {
+      name = "panda3d-1.10.10-cp310-cp310-manylinux2010_x86_64.whl";
+      url = https://files.pythonhosted.org/packages/24/a0/37e8853140428130b2e9d1a8dd51144c7812e4a22d259151fbc67e70343b/panda3d-1.10.10-cp310-cp310-manylinux2010_x86_64.whl;
+      sha256 = "1y1vxbqmp9ql8mnf6nj83cknqsrs85gqx59krwicffaiv0ialqgv";
+    };
   };
 }
