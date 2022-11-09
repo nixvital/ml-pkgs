@@ -6,7 +6,8 @@
   pandas,
   numpy,
   pygame,
-  pytestrunner }:
+  pytestrunner,
+  setuptools }:
 
 buildPythonPackage rec {
   pname = "highway-env";
@@ -19,6 +20,7 @@ buildPythonPackage rec {
   
   format = "pyproject";
 
+  buildInputs = [ setuptools ];
   propagatedBuildInputs = [ gym matplotlib pandas numpy pygame ];
 
   # Testing
