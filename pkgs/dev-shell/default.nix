@@ -6,7 +6,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # For both Dev and Deploy
       pytorchWithCuda11
       torchvisionWithCuda11
-      atari-py-with-rom
       procgen
     ]);
 
