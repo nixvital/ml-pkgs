@@ -3,9 +3,7 @@
 { lib
 , buildPythonPackage
 , autoPatchelfHook
-, isPy37
-, isPy38
-, isPy39
+, python
 , stdenv
 , glib
 , numpy
@@ -14,15 +12,15 @@
 , filelock
 }:
 
-buildPythonPackage rec {
+let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+
+in buildPythonPackage rec {
   pname = "procgen";
   version = "0.10.7";
   format = "wheel";
 
   src = builtins.fetchurl (import ./wheel-urls.nix {
-    inherit version isPy37 isPy38 isPy39; });
-
-  disabled = !(isPy37 || isPy38 || isPy39);
+    inherit version pyVerNoDot; });
 
   propagatedBuildInputs = [
     numpy
