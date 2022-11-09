@@ -23,8 +23,6 @@ in buildPythonPackage rec {
 
   src = fetchurl srcs."${stdenv.system}-${pyVerNoDot}" or unsupported;
 
-  disabled = !(isPy37 || isPy38 || isPy39);
-
   # NOTE(breakds): autoPatchelfHook fails to patch the tool binaries and we
   # probably do not need them to use panda3d as a python library.
   postInstall = ''

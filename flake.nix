@@ -40,15 +40,15 @@
           gym-notices
           gym
           gym3
-          # procgen
+          procgen
           redshift-connector
           awswrangler
           numerapi
           highway-env
-          # panda3d
-          # panda3d-simplepbr
-          # panda3d-gltf
-          # metadrive-simulator
+          panda3d
+          panda3d-simplepbr
+          panda3d-gltf
+          metadrive-simulator
           mujoco
           pytorch-tabnet;
           # open3d;
