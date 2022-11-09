@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?rev=187ffe25d923cddcc159e7d002702525c4b22732";
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=ff639fcd13f4adf5f7699fff135dcba2cac6cf08";
 
     utils.url = "github:numtide/flake-utils";
     utils.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,31 +27,31 @@
       
       packages = {
         inherit (pkgs.python3Packages)
-          # jaxWithCuda11
-          # jaxlibWithCuda11
-          # equinoxWithCuda11
-          # pytorchWithCuda11
-          # pytorchLightningWithCuda11
-          # torchvisionWithCuda11
-          # pytorchvizWithCuda11
+          jaxWithCuda11
+          jaxlibWithCuda11
+          equinoxWithCuda11
+          pytorchWithCuda11
+          pytorchLightningWithCuda11
+          torchvisionWithCuda11
+          pytorchvizWithCuda11
           # atari-py-with-rom
-          # ale-py-with-roms
-          # huggingface-transformers
-          # gym-notices
-          # gym
-          # gym3
+          ale-py-with-roms
+          huggingface-transformers
+          gym-notices
+          gym
+          gym3
           # procgen
           redshift-connector
           awswrangler
           numerapi
           highway-env
-          panda3d
+          # panda3d
           # panda3d-simplepbr
           # panda3d-gltf
           # metadrive-simulator
-          # mujoco
-          # nvitop
+          mujoco
           pytorch-tabnet;
+          # open3d;
       };
 
       # hydraJobs = {

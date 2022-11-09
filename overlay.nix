@@ -9,11 +9,11 @@ in rec {
       };
 
       pytorchLightningWithCuda11 = pyPrev.pytorch-lightning.override {
-        pytorch = pytorchWithCuda11;
+        torch = pytorchWithCuda11;
       };
 
       torchvisionWithCuda11 = pyPrev.torchvision.override {
-        pytorch = pytorchWithCuda11;
+        torch = pytorchWithCuda11;
       };
 
       pytorchvizWithCuda11 = pyFinal.callPackage ./pkgs/pytorchviz {
@@ -61,8 +61,6 @@ in rec {
 
       mujoco = pyFinal.callPackage ./pkgs/mujoco {};
 
-      nvitop = pyFinal.callPackage ./pkgs/nvitop {};
-
       pytorch-tabnet = pyFinal.callPackage ./pkgs/pytorch-tabnet {
         pytorch = pytorchWithCuda11;
       };
@@ -77,12 +75,9 @@ in rec {
   };
 
   python3Packages = python3.pkgs;
+
+  nvitop = final.callPackage ./pkgs/nvitop {};
   magmaWithCuda11 = prev.magma.override {
     cudaPackages = cuda11;
   };
-  cudaPackages_11_8 = prev.cudaPackages_11_8.overrideScope' (gfinal: gprev: {
-    cudnn = gprev.cudnn.override {
-      useCudatoolkitRunfile = true;
-    };
-  });
 }
