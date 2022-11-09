@@ -8,7 +8,9 @@
 , isPy39
 , autoPatchelfHook
 , libXext
-, libGL }:
+, libGL
+, libdrm
+, xorg }:
 
 let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
     version = "1.10.10";
@@ -26,7 +28,7 @@ in buildPythonPackage rec {
   # NOTE(breakds): autoPatchelfHook fails to patch the tool binaries and we
   # probably do not need them to use panda3d as a python library.
   postInstall = ''
-   rm -r $out/lib/python3.9/site-packages/panda3d_tools/*
+   rm -r $out/lib/python${python.pythonVersion}/site-packages/panda3d_tools/*
   '';
 
   propagatedBuildInputs = [];
@@ -35,6 +37,8 @@ in buildPythonPackage rec {
     stdenv.cc.cc.lib
     libXext
     libGL
+    libdrm
+    xorg.libXft
   ];
 
   nativeBuildInputs = [
