@@ -8,9 +8,9 @@
 , pytorchWithCuda
 , cudaPackages
 , jupyter-packaging
-, jupyterlab  
+, jupyterlab
 , addict
-, pyquaternion  
+, pyquaternion
 , scipy
 , scikitlearn
 , numpy
@@ -21,20 +21,29 @@
 , pyyaml
 , tqdm
 , tree
+, dash
+, configargparse
 , zip
 , autoPatchelfHook
+, pythonRelaxDepsHook
 # TODO(breakds): Should remove libtensorflow dependencies
 , libtensorflow-bin
+, nbformat
 , libusb
 , libGL }:
 
 let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-    version = "0.15.2";
+    version = "0.16.0";
     sources = {
       "39" = {
-        name = "open3d-0.15.2-cp39-cp39-manylinux_2_27_x86_64.whl";
-        url = https://files.pythonhosted.org/packages/e1/b2/58f3be3083e9e6893027acd9e80c7556706db3470ec671465b932c81d143/open3d-0.15.2-cp39-cp39-manylinux_2_27_x86_64.whl;
-        sha256 = "sha256-3s1oeI7elwrHNo1yEm7494MsCqx7uSooT45pGvlrVnk=";
+        name = "open3d-0.16.0-cp39-cp39-manylinux_2_27_x86_64.whl";
+        url = https://files.pythonhosted.org/packages/44/2d/039c3035cb6eb8f23203dd9a8bc401a4e05b340680f9a09959b2cce9233b/open3d-0.16.0-cp39-cp39-manylinux_2_27_x86_64.whl;
+        sha256 = "1yqyv1q0yh37kgkjlggb8rfihbgm65j0y210pksb049kyj9fl6i9";
+      };
+      "310" = {
+        name = "open3d-0.16.0-cp310-cp310-manylinux_2_27_x86_64.whl";
+        url = https://files.pythonhosted.org/packages/c5/18/0e50c0834a2504878bfac3549365704beba004b9322700160c1012d41cf8/open3d-0.16.0-cp310-cp310-manylinux_2_27_x86_64.whl;
+        sha256 = "0qapm9n6cyp2yp6d9cvwp6cpglbzc32y20mjnnr8igciqmr5xr7v";
       };
     };
 in buildPythonPackage rec {
@@ -46,17 +55,20 @@ in buildPythonPackage rec {
 
   nativeBuildInputs = [
     autoPatchelfHook
+    pythonRelaxDepsHook
   ];
 
   buildInputs = [
     # so deps
-    libtensorflow-bin    
+    libtensorflow-bin
     stdenv.cc.cc.lib
     libusb.out
     pytorchWithCuda
     cudaPackages.cudatoolkit.lib
     libGL
   ];
+
+  pythonRelaxDeps = [ "dash" "nbformat" ];
 
   propagatedBuildInputs = [
     # py deps
@@ -69,6 +81,9 @@ in buildPythonPackage rec {
     scikitlearn
     numpy
     matplotlib
+    dash
+    configargparse
+    nbformat
     # TODO(breakds): Having jupyter as dependencies is so weird. I will strip it
     # of from this package later.
     jupyter-packaging

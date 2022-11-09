@@ -66,10 +66,12 @@ in rec {
         pytorch = pytorchWithCuda11;
       };
 
-      open3d = pyFinal.callPackage ./pkgs/open3d {
-        cudaPackages = cuda11;
-        pytorchWithCuda = pytorchWithCuda11;
-      };
+      # This package is a shithole of dependency hell. Will revisit.
+      #
+      # open3d = pyFinal.callPackage ./pkgs/open3d {
+      #   cudaPackages = cuda11;
+      #   pytorchWithCuda = pytorchWithCuda11;
+      # };
     };
   };
 
