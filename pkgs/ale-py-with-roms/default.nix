@@ -7,15 +7,16 @@
 , unrar
 , autoPatchelfHook
 , numpy
+, typing-extensions
 , importlib-metadata
 , importlib-resources
 }:
 
 let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-    version = "0.7.5";
+    version = "0.8.0";
     srcs = import ./binary-hashes.nix version;
     unsupported = throw "Unsupported system";
-    
+
     atari-roms = builtins.fetchurl {
       url = "https://extorage.breakds.org/atari/Roms.rar";
       sha256 = "0f60333knxzzl4m3jgi67kbpyw6vr7j8vmbc9v9cmrdshbrm5481";
@@ -73,7 +74,7 @@ let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
       done
       IFS="$ORIGINAL_IFS"
     '';
-    
+
 in buildPythonPackage rec {
   pname = "ale-py";
   inherit version;
@@ -83,8 +84,9 @@ in buildPythonPackage rec {
 
   propagatedBuildInputs = [
     numpy
+    typing-extensions
     importlib-metadata
-    importlib-resources    
+    importlib-resources
   ];
 
   buildInputs = [
@@ -111,7 +113,7 @@ in buildPythonPackage rec {
     rm -rf roms_temp/
     popd
   '';
-  
+
 
   meta = with lib; {
     description = ''
