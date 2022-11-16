@@ -28,9 +28,9 @@
       packages = {
         inherit (pkgs.python3Packages)
           # TODO(breakds): Currently jax does not build. Should fix it.
-          jaxWithCuda11
-          jaxlibWithCuda11
-          equinoxWithCuda11
+          # jaxWithCuda11
+          # jaxlibWithCuda11
+          # equinoxWithCuda11
           pytorchWithCuda11
           pytorchLightningWithCuda11
           torchvisionWithCuda11
