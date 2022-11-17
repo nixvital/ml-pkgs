@@ -51,7 +51,8 @@
           panda3d-gltf
           metadrive-simulator
           mujoco
-          pytorch-tabnet;
+          pytorch-tabnet
+          pybulletx;
           # open3d;
       };
 

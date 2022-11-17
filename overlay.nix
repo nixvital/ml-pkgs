@@ -65,6 +65,8 @@ in rec {
         pytorch = pytorchWithCuda11;
       };
 
+      pybulletx = pyFinal.callPackage ./pkgs/pybulletx {};
+
       # This package is a shithole of dependency hell. Will revisit.
       #
       # open3d = pyFinal.callPackage ./pkgs/open3d {
