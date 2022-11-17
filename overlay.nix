@@ -66,6 +66,9 @@ in rec {
       };
 
       pybulletx = pyFinal.callPackage ./pkgs/pybulletx {};
+      pyopengl-accelerate = pyFinal.callPackage ./pkgs/pyopengl-accelerate {};
+      pyrender = pyFinal.callPackage ./pkgs/pyrender {};
+      tacto = pyFinal.callPackage ./pkgs/tacto {};
 
       # This package is a shithole of dependency hell. Will revisit.
       #

@@ -52,7 +52,11 @@
           metadrive-simulator
           mujoco
           pytorch-tabnet
-          pybulletx;
+          # For robotics
+          pybulletx
+          pyopengl-accelerate
+          pyrender
+          tacto;
           # open3d;
       };
 
