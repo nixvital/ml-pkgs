@@ -26,11 +26,13 @@
       devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
       
       packages = {
-        inherit (pkgs.python3Packages)
+        inherit (pkgs.python311Packages)
           # TODO(breakds): Currently jax does not build. Should fix it.
           # jaxWithCuda11
           # jaxlibWithCuda11
           # equinoxWithCuda11
+          pyext
+          tensorboard
           pytorchWithCuda11
           pytorchLightningWithCuda11
           torchvisionWithCuda11

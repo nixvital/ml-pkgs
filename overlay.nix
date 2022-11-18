@@ -1,8 +1,11 @@
 final: prev: let
   cuda11 = final.cudaPackages_11_8;
 in rec {
-  python3 = prev.python3.override {
+  python311 = prev.python311.override {
     packageOverrides = pyFinal: pyPrev: rec {
+      pyext = pyFinal.callPackage ./pkgs/py311ports/pyext {};
+      tensorboard = pyFinal.callPackage ./pkgs/py311ports/tensorboard {};
+      
       pytorchWithCuda11 = pyPrev.pytorchWithCuda.override {
         cudaPackages = cuda11;
         magma = final.magmaWithCuda11;
@@ -76,7 +79,7 @@ in rec {
     };
   };
 
-  python3Packages = python3.pkgs;
+  python311Packages = python311.pkgs;
 
   nvitop = final.callPackage ./pkgs/nvitop {};
   magmaWithCuda11 = prev.magma.override {
