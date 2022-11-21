@@ -12,13 +12,13 @@
 
 buildPythonPackage rec {
   pname = "gym";
-  version = "0.24.1";
+  version = "0.26.2";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = pname;
     rev = "${version}";
-    sha256 = "sha256-EGK5wkDu/QUnK1YZXBybyOPIFRt+rQAkJ5AR2U7usZY=";
+    sha256 = "sha256-uJgm8l1SxIRC5PV6BIH/ht/1ucGT5UaUhkFMdusejgA=";
   };
 
   propagatedBuildInputs = [
