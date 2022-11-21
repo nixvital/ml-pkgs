@@ -14,22 +14,24 @@
 , panda3d-gltf
 , pillow
 , opencv4
+, lxml
+, protobuf
 , tqdm
 , pytest }:
 
 buildPythonPackage rec {
   pname = "metadrive-simulator";
-  version = "0.2.5";
+  version = "0.2.5.2";
 
   src = fetchFromGitHub {
     owner = "decisionforce";
     repo = "metadrive";
-    rev = "13dbc2fa915073c5d126742390db2cc8e4dc56f8";
-    sha256 = "sha256-/9+iPoou/CEJl764O4a/QdQo9j+oPuI/sxyLgFT9g50=";
+    rev = "78ee891904ed70c3277971a563cb3807a614a38c";
+    sha256 = "sha256-0nofeqCqbcgLIPx//q95G0QM3dpdl1CQwU/Y3sdXBW4=";
   };
 
   patches = [
-    ./0001-Adjust-python-requirements.patch
+    ./0001-adjust-requirements-fix-gym.patch
   ];
 
   propagatedBuildInputs = [
@@ -46,6 +48,8 @@ buildPythonPackage rec {
     panda3d-gltf
     pillow
     opencv4
+    lxml
+    protobuf
     tqdm
     pytest
   ];

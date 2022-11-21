@@ -1,0 +1,54 @@
+diff --git a/metadrive/register.py b/metadrive/register.py
+index 2e41d0a..a3e11f8 100644
+--- a/metadrive/register.py
++++ b/metadrive/register.py
+@@ -70,17 +70,17 @@ marl_env = {
+ 
+ envs = []
+ for env_name, env_config in metadrive_environment_dict.items():
+-    if env_name not in registry.env_specs:
++    if env_name not in registry:
+         envs.append(env_name)
+         register(id=env_name, entry_point=MetaDriveEnv, kwargs=dict(config=env_config))
+ 
+ for env_name, env_config in safe_metadrive_environment_dict.items():
+-    if env_name not in registry.env_specs:
++    if env_name not in registry:
+         envs.append(env_name)
+         register(id=env_name, entry_point=SafeMetaDriveEnv, kwargs=dict(config=env_config))
+ 
+ for env_name, entry in marl_env.items():
+-    if env_name not in registry.env_specs:
++    if env_name not in registry:
+         envs.append(env_name)
+         register(id=env_name, entry_point=entry, kwargs=dict(config={}))
+ 
+diff --git a/setup.py b/setup.py
+index c949d31..b57cc9a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -27,7 +27,7 @@ print("We will install the following packages: ", packages)
+ version = "0.2.5.2"
+ 
+ install_requires = [
+-    "gym==0.19.0",
++    "gym",
+     "numpy",
+     "matplotlib",
+     "pandas",
+@@ -36,13 +36,12 @@ install_requires = [
+     "yapf",
+     "seaborn",
+     "tqdm",
+-    "panda3d==1.10.8",
++    "panda3d",
+     "panda3d-gltf",
+     "panda3d-simplepbr",
+     "pillow",
+-    "protobuf==3.20.1",
++    "protobuf",
+     "pytest",
+-    "opencv-python-headless",
+     "lxml",
+     "scipy"
+ ]
