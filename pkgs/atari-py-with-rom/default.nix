@@ -5,15 +5,15 @@
 
 { lib
 , buildPythonPackage
-, autoPatchelfHook
+, python
+, fetchFromGitHub
+, cmake
 , numpy
 , six
-, isPy37
-, isPy38
-, isPy39
+, nose2
 , stdenv
+, zlib
 , unrar
-, unzip
 , writeShellScriptBin
 }:
 
@@ -77,30 +77,32 @@ let atari-roms = builtins.fetchurl {
 
 in buildPythonPackage rec {
   pname = "atari-py";
-  version = "0.2.9";
-  format = "wheel";
+  version = "0.3.0";
 
-  src = builtins.fetchurl (import ./wheel-urls.nix {
-    inherit version isPy37 isPy38 isPy39; });
+  src = fetchFromGitHub {
+    owner = "openai";
+    repo = "atari-py";
+    rev = "b0117f704919ed4cbbd5addcec5ec1b0fb3bff99";
+    sha256 = "sha256-RYLO1mja6QOQKhEs1pTHGZ+QzSUt5bZViajnkOEL0f8=";
+  };
 
-  disabled = !(isPy37 || isPy38 || isPy39);
-
-  propagatedBuildInputs = [ numpy six ];
+  propagatedBuildInputs = [ numpy six nose2 ];
 
   buildInputs = [
-    stdenv.cc.cc.lib
+    zlib
   ];
 
   nativeBuildInputs = [
-    autoPatchelfHook
+    cmake
   ];
 
+  dontUseCmakeConfigure = true;  
+
   postFixup = let
-    pythonName = if isPy37 then "python3.7" else if isPy38 then "python3.8" else "python3.9";
-    pkgPath = "$out/lib/${pythonName}/site-packages/atari_py";
+    pkgPath = "$out/lib/python${python.pythonVersion}/site-packages/atari_py";
   in ''
     pushd ${pkgPath}
-    mkdir roms_temp
+    #   mkdir roms_temp
     ${unrar}/bin/unrar x "${atari-roms}" roms_temp/
     head -n 10 ${pkgPath}/ale_interface/md5.txt
     ${import-atari-roms}/bin/import-atari-roms ${pkgPath} \
