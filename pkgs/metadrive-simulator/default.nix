@@ -31,7 +31,7 @@ buildPythonPackage rec {
   };
 
   patches = [
-    ./0001-adjust-requirements-fix-gym.patch
+    ./0001-adjust-requirements.patch
   ];
 
   propagatedBuildInputs = [
