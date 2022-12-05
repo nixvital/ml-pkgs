@@ -36,10 +36,10 @@
           torchvisionWithCuda11
           pytorchvizWithCuda11
           # atari-py-with-rom
-          ale-py-with-roms
+          ale-py-with-roms  # TODO(breakds): Compatibility
           huggingface-transformers
           gym-notices
-          gym
+          gym  # TODO(breakds): Also bring in gymasim
           gym3
           procgen
           redshift-connector
