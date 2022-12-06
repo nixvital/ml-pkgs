@@ -78,7 +78,6 @@ in rec {
 
   python3Packages = python3.pkgs;
 
-  nvitop = final.callPackage ./pkgs/nvitop {};
   magmaWithCuda11 = prev.magma.override {
     cudaPackages = cuda11;
   };
