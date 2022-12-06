@@ -4,20 +4,27 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, pythonRelaxDepsHook
 , numpy
 , cloudpickle
 }:
 
 buildPythonPackage rec {
   pname = "gym";
-  version = "0.21.0";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-zOzLuwYwRbvCg5zxP6vHFFR7aK8KuZPLJ09k8HshZYk=";
+    rev = "${version}";
+    sha256 = "sha256-0O/s9OVNGQmeX9j8B1x63RxdI6dhqfTEJcgDH2jtCv4=";
   };
+
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+  ];
+
+  pythonRelaxDeps = [ "cloudpickle" ];
 
   propagatedBuildInputs = [
     cloudpickle
