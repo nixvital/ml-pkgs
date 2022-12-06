@@ -12,7 +12,7 @@ in rec {
         torch = pytorchWithCuda11;
       };
 
-      torchvisionWithCuda11 = pyPrev.torchvision.override {
+      torchvisionWithCuda11 = pyFinal.callPackage ./pkgs/torchvision {
         torch = pytorchWithCuda11;
       };
 
@@ -66,6 +66,10 @@ in rec {
       };
 
       pybulletx = pyFinal.callPackage ./pkgs/pybulletx {};
+
+      flash-attention = pyFinal.callPackage ./pkgs/flash-attention {
+        torch = pytorchWithCuda11;
+      };
 
       # This package is a shithole of dependency hell. Will revisit.
       #

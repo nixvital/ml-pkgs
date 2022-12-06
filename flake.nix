@@ -51,7 +51,8 @@
           metadrive-simulator
           mujoco
           pytorch-tabnet
-          pybulletx;
+          pybulletx
+          flash-attention;
           # open3d;
       };
 
