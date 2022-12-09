@@ -5,9 +5,9 @@
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # For both Dev and Deploy
       pytorchWithCuda11
-      torchvisionWithCuda11
-      procgen
-      atari-py-with-rom
+      # torchvisionWithCuda11
+      # procgen
+      # atari-py-with-rom
     ]);
 
     pythonIcon = "f3e2";
