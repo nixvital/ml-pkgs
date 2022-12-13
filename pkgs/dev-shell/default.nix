@@ -1,10 +1,12 @@
 { mkShell
 , python3
+, ninja
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # For both Dev and Deploy
       pytorchWithCuda11
+      isaac-gym
       # torchvisionWithCuda11
       # procgen
       # atari-py-with-rom
@@ -17,6 +19,7 @@ in mkShell rec {
 
   packages = [
     ml-pkgs-dev
+    ninja  # For gymtorch
   ];
 
   # This is to have a leading python icon to remind the user we are in

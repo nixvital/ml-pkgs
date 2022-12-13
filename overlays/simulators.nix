@@ -32,6 +32,11 @@ final: prev: {
       # Driving simulators. Based on Panda3d.
       highway-env = python-final.callPackage ../pkgs/highway-env {};
       metadrive-simulator = python-final.callPackage ../pkgs/metadrive-simulator {};
+
+      isaac-gym = python-final.callPackage ../pkgs/isaac-gym {
+        pytorch = python-final.pytorchWithCuda11;
+        torchvision = python-final.torchvisionWithCuda11;
+      };
     })
   ];
 }

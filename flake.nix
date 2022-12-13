@@ -35,13 +35,12 @@
           ];
         };
     in rec {
-      devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
-      devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
+      devShells.default = pkgs.callPackage ./pkgs/dev-shell {
         python3 = pkgs.python38;
       };
 
       packages = {
-        inherit (pkgs.python3Packages)
+        inherit (pkgs.python38Packages)
           # ----- Torch Family -----
           pytorchWithCuda11
           torchvisionWithCuda11
@@ -64,8 +63,9 @@
           procgen
           highway-env
           metadrive-simulator
+          isaac-gym
 
-        # ----- Misc -----
+          # ----- Misc -----
           numerapi
           huggingface-transformers;
       };
