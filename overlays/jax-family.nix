@@ -1,5 +1,5 @@
 final: prev: let
-  cuda11 = final.cudaPackages_11_8;
+  cuda11 = final.cudaPackages_11_6;
 
 in {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
