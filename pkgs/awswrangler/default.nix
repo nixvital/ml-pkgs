@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchPypi
+, pythonRelaxDepsHook
 , isPy3k
 , numpy
 , pandas
@@ -9,19 +10,31 @@
 , pymysql
 , redshift-connector
 , poetry
+, backoff
+, jsonpath-ng
+, requests-aws4auth
+, openpyxl
 }:
 
 buildPythonPackage rec {
   pname = "awswrangler";
-  version = "2.14.0";
+  version = "2.18.0";
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-7DoCemudNHoaOuBJQAVhUfI8thz72DjQow9+ogtMg0E=";
+    sha256 = "sha256-PTuIXySkw6DqGz/5qu+Syeip4rP4d/6fA0E2cbo5pIU=";
   };
 
   format = "pyproject";
+
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+  ];
+
+  pythonRelaxDeps = [
+    "pg8000"
+  ];
 
   propagatedBuildInputs = [
     numpy
@@ -31,6 +44,10 @@ buildPythonPackage rec {
     pymysql
     redshift-connector
     poetry
+    backoff
+    jsonpath-ng
+    requests-aws4auth
+    openpyxl    
   ];
 
   doCheck = false;
@@ -45,6 +62,7 @@ buildPythonPackage rec {
   # pythonImportsCheck = [ "dufte" ];
 
   meta = with lib; {
+    broken = true;  # It requires opensearch-py, which does not exist yet.
     description = ''
       Pandas on AWS - Easy integration with Athena, Glue, Redshift,
       Timestream, QuickSight, Chime, CloudWatchLogs, DynamoDB, EMR,

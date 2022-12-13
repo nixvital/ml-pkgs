@@ -9,19 +9,24 @@
 , packaging
 , boto3
 , pytz
+, setuptools
 }:
 
 # TODO(breakds): Make this for other systems such as MacOSX and Windows.
 
 buildPythonPackage rec {
   pname = "redshift-connector";
-  version = "2.0.907";
+  version = "2.0.909";
   format = "wheel";
 
   src = builtins.fetchurl {
-    url = https://files.pythonhosted.org/packages/47/90/415b21f7765c9f51f0ced590f8d00494ebc90ec85f1568c3bda704b5e5b1/redshift_connector-2.0.907-py3-none-any.whl;
-    sha256 = "0syapqa39lmzw12ckajb1m4qclahklyfihwx57lvfbnx2zvmvizh";
+    url = https://files.pythonhosted.org/packages/24/3c/471f5f7d43f1ed1be87494010f466849fe2376acf8bab49d4b676f870cf1/redshift_connector-2.0.909-py3-none-any.whl;
+    sha256 = "0hzl3m4qv6iv6jkmpq3hj3q2r14fyk21h1ww31ld4qgr59ff5c4z";
   };
+
+  buildInputs = [
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     beautifulsoup4
