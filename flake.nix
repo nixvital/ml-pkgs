@@ -32,11 +32,6 @@
           config.allowUnfree = true;
           overlays = [
             self.overlays.default
-            # self.overlays.torch-family
-            # self.overlays.jax-family
-            # self.overlays.data-utils
-            # self.overlays.simulators
-            # self.overlays.misc
           ];
         };
     in rec {
