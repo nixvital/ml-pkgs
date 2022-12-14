@@ -41,6 +41,7 @@
       };
 
       packages = {
+        inherit (pkgs) libopen3d;
         inherit (pkgs.python3Packages)
           # ----- Torch Family -----
           pytorchWithCuda11
@@ -64,8 +65,9 @@
           procgen
           highway-env
           metadrive-simulator
+          open3d
 
-        # ----- Misc -----
+          # ----- Misc -----
           numerapi
           huggingface-transformers;
       };

@@ -5,8 +5,7 @@
 , buildPythonPackage
 , fetchurl
 , python
-, pytorchWithCuda
-, cudaPackages
+, pytorch
 , jupyter-packaging
 , jupyterlab
 , addict
@@ -63,8 +62,7 @@ in buildPythonPackage rec {
     libtensorflow-bin
     stdenv.cc.cc.lib
     libusb.out
-    pytorchWithCuda
-    cudaPackages.cudatoolkit.lib
+    pytorch.cudaPackages.cudatoolkit.lib
     libGL
   ];
 
