@@ -32,6 +32,9 @@ final: prev: {
       # Driving simulators. Based on Panda3d.
       highway-env = python-final.callPackage ../pkgs/highway-env {};
       metadrive-simulator = python-final.callPackage ../pkgs/metadrive-simulator {};
+
+      # Supporting libraries
+      robot-descriptions = python-final.callPackage ../pkgs/robot-descriptions {};
     })
   ];
 }

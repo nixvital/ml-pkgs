@@ -64,6 +64,7 @@
           procgen
           highway-env
           metadrive-simulator
+          robot-descriptions
 
         # ----- Misc -----
           numerapi
