@@ -46,6 +46,8 @@
           pytorchWithCuda11
           torchvisionWithCuda11
           pytorchvizWithCuda11
+          torchmetricsWithCuda11
+          pytorchLightningWithCuda11
           pytorch-tabnet
 
           # ----- Jax Family -----

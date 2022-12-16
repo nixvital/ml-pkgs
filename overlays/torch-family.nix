@@ -14,6 +14,17 @@ in {
         magma = final.magmaWithCuda11;
       };
 
+      # The one in Nixpkgs is getting old. Override it with a newer version.
+      torchmetricsWithCuda11 = python-final.callPackage ../pkgs/torchmetrics {
+        torch = python-final.pytorchWithCuda11;
+      };
+
+      # The one in Nixpkgs is getting old. Override it with a newer version.      
+      pytorchLightningWithCuda11 = python-final.callPackage ../pkgs/torchmetrics {
+        torch = python-final.pytorchWithCuda11;
+        torchmetrics = python-final.torchmetricsWithCuda11;
+      };
+
       torchvisionWithCuda11 = python-prev.torchvision.override {
         torch = python-final.pytorchWithCuda11;
       };
