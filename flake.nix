@@ -68,9 +68,11 @@
           metadrive-simulator
           robot-descriptions
 
-        # ----- Misc -----
+          # ----- Misc -----
           numerapi
           huggingface-transformers;
+
+        inherit (pkgs) mujoco;
       };
 
       # hydraJobs = {

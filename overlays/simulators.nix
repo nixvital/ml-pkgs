@@ -12,7 +12,6 @@ final: prev: {
       panda3d-simplepbr = python-final.callPackage ../pkgs/panda3d-simplepbr {};
       panda3d-gltf = python-final.callPackage ../pkgs/panda3d-gltf {};
       pybulletx = python-final.callPackage ../pkgs/pybulletx {};
-      mujoco = python-final.callPackage ../pkgs/mujoco {};  # Broken
       # This package is a shithole of dependency hell. Will revisit.
       #
       # open3d = pyFinal.callPackage ../pkgs/open3d {
@@ -37,4 +36,6 @@ final: prev: {
       robot-descriptions = python-final.callPackage ../pkgs/robot-descriptions {};
     })
   ];
+
+  mujoco = final.callPackage ../bleeding/mujoco/default.nix {};
 }
