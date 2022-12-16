@@ -15,12 +15,12 @@ in {
       };
 
       # The one in Nixpkgs is getting old. Override it with a newer version.
-      torchmetricsWithCuda11 = python-final.callPackage ../pkgs/torchmetrics {
+      torchmetricsWithCuda11 = python-prev.torchmetrics.override {
         torch = python-final.pytorchWithCuda11;
       };
 
       # The one in Nixpkgs is getting old. Override it with a newer version.      
-      pytorchLightningWithCuda11 = python-final.callPackage ../pkgs/torchmetrics {
+      pytorchLightningWithCuda11 = python-final.callPackage ../pkgs/pytorch-lightning {
         torch = python-final.pytorchWithCuda11;
         torchmetrics = python-final.torchmetricsWithCuda11;
       };

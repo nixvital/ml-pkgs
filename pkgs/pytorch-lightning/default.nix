@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, pythonRelaxDepsHook
 , isPy27
 , future
 , fsspec
@@ -10,18 +11,20 @@
 , pyyaml
 , tensorboard
 , torchmetrics
-, tqdm }:
+, tqdm
+}:
 
 buildPythonPackage rec {
   pname = "pytorch-lightning";
-  version = "1.8.5";
+  version = "1.6.5";
 
   disabled = isPy27;
 
   src = fetchFromGitHub {
     owner = "PyTorchLightning";
     repo = pname;
-    rev = "refs/tags/v${version}";
+    rev = "refs/tags/${version}";
+    hash = "sha256-CgD5g5nhz2DI4gOQyPl8/Cq6wWHzL0ALgOB5SgUOgaI=";
   };
 
   propagatedBuildInputs = [
@@ -34,6 +37,9 @@ buildPythonPackage rec {
     torchmetrics
     tqdm
   ];
+
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = [ "protobuf" ];
 
   checkInputs = [ pytestCheckHook ];
   # Some packages are not in NixPkgs; other tests try to build distributed
