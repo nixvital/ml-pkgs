@@ -34,6 +34,9 @@ final: prev: {
 
       # Supporting libraries
       robot-descriptions = python-final.callPackage ../pkgs/robot-descriptions {};
+
+      # Mujoco (Official Python Binding)
+      mujoco-pybind = python-final.callPackage ../pkgs/mujoco-pybind {};
     })
   ];
 

@@ -67,6 +67,7 @@
           highway-env
           metadrive-simulator
           robot-descriptions
+          mujoco-pybind
 
           # ----- Misc -----
           numerapi
