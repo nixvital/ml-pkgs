@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "mujoco-menagerie"
+version = "1.0.0"
+description = "Wrapper of Deepmind's high-quality models for the MuJoCo physics engine"
+authors = ["curated by DeepMind"]
+license = "mit"
+packages = [{include = "mujoco_menagerie"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+mujoco = "^2.3.1.post1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

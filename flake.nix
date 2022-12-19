@@ -68,6 +68,7 @@
           metadrive-simulator
           robot-descriptions
           mujoco-pybind
+          mujoco-menagerie
 
           # ----- Misc -----
           numerapi

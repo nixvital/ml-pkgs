@@ -6,6 +6,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # For both Dev and Deploy
       pytorchWithCuda11
       mujoco-pybind
+      mujoco-menagerie
       # torchvisionWithCuda11
       # procgen
       # atari-py-with-rom
