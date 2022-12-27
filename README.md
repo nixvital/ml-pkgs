@@ -9,10 +9,10 @@ outputs = { self, nixpkgs, ... }@inputs: {
   overlays = {
     dev = nixpkgs.lib.composeManyExtensions [
       inputs.ml-pkgs.overlays.torch-family
-      ...  # some other overlays
+      # Add some other overlays
     ];
   };
-}
+};
 ```
 
 The available overlays in this flake are:
@@ -24,6 +24,10 @@ The available overlays in this flake are:
 - misc: miscellaneous packages for machine learning and data science
 
 Please note that some of the packages in this flake may have dependencies on proprietary or non-free software. To allow the installation of such packages, you may need to set the config.allowUnfree option in your Nix configuration.
+
+## Using templates
+
+Alternatively, you may want to automatically generate `flake.nix` for your project using templates. This is also the recommended way to start using `ml-pkgs`. Please refer to [nixvital/flake-templste](https://github.com/nixvital/flake-templates) for details.
 
 ----
 This README.md file was partly generated with the help of ChatGPT, an OpenAI language model.
