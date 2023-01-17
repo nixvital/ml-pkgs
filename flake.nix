@@ -69,6 +69,10 @@
           robot-descriptions
           mujoco-pybind
           mujoco-menagerie
+          dm-tree
+          dm-env
+          labmaze
+          dm-control
 
           # ----- Misc -----
           numerapi
