@@ -13,6 +13,7 @@
       jax-family = import ./overlays/jax-family.nix;
       data-utils = import ./overlays/data-utils.nix;
       simulators = import ./overlays/simulators.nix;
+      math = import ./overlays/math.nix;
       misc = import ./overlays/misc.nix;
 
       # Default is a composition of all above.
@@ -21,6 +22,7 @@
         self.overlays.jax-family
         self.overlays.data-utils
         self.overlays.simulators
+        self.overlays.math
         self.overlays.misc
       ];
     };
@@ -73,6 +75,9 @@
           dm-env
           labmaze
           dm-control
+
+          # ----- Math -----
+          numpy-quaternion
 
           # ----- Misc -----
           numerapi
