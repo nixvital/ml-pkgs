@@ -15,6 +15,7 @@
       simulators = import ./overlays/simulators.nix;
       math = import ./overlays/math.nix;
       misc = import ./overlays/misc.nix;
+      langchain = import ./overlays/langchain.nix;
 
       # Default is a composition of all above.
       default = nixpkgs.lib.composeManyExtensions [
@@ -24,6 +25,7 @@
         self.overlays.simulators
         self.overlays.math
         self.overlays.misc
+        self.overlays.langchain
       ];
     };
   } // inputs.utils.lib.eachSystem [
@@ -81,7 +83,10 @@
 
           # ----- Misc -----
           numerapi
-          huggingface-transformers;
+          huggingface-transformers
+
+          # ----- Lang Chain -----
+          langchain;
 
         inherit (pkgs) mujoco;
       };
