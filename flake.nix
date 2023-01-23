@@ -92,7 +92,7 @@
       };
 
       checks =  {
-        mujoco = pkgs.mujoco;
+        full-devshell = self.devShells."${system}".default;
       };
     });
 }
