@@ -1,11 +1,50 @@
 { mkShell
 , python3
+, mujoco
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
+      # ----- Torch Family -----
       pytorchWithCuda11
-      mujoco-menagerie
+      torchvisionWithCuda11
+      pytorchvizWithCuda11
+      torchmetricsWithCuda11
+      pytorchLightningWithCuda11
+      pytorch-tabnet
+
+      # ----- Jax Family -----
+      # jaxWithCuda11
+      # equinoxWithCuda11
+
+      # ----- Data Utils -----
+      redshift-connector
+      # awswrangler  # currently broken
+
+      # ----- Simulators -----
+      gym
+      gym3
+      atari-py-with-rom
+      ale-py-with-roms  # currently borken
+      procgen
+      highway-env
+      metadrive-simulator
+      robot-descriptions
       mujoco-pybind
+      mujoco-menagerie
+      dm-tree
+      dm-env
+      labmaze
+      dm-control
+
+      # ----- Math -----
+      numpy-quaternion
+
+      # ----- Misc -----
+      numerapi
+      huggingface-transformers
+
+      # ----- Lang Chain -----
+      langchain
     ]);
 
     pythonIcon = "f3e2";
@@ -15,6 +54,7 @@ in mkShell rec {
 
   packages = [
     ml-pkgs-dev
+    mujoco
   ];
 
   # This is to have a leading python icon to remind the user we are in

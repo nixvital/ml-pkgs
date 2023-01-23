@@ -1,5 +1,4 @@
 { lib
-, fetchurl
 , stdenv
 , buildPythonPackage
 , fetchurl
