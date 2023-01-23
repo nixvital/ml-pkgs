@@ -40,9 +40,9 @@
         };
     in rec {
       devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
-      devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
-        python3 = pkgs.python38;
-      };
+      # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
+      #   python3 = pkgs.python38;
+      # };
 
       packages = {
         inherit (pkgs.python3Packages)
