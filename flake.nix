@@ -91,8 +91,8 @@
         inherit (pkgs) mujoco;
       };
 
-      # hydraJobs = {
-      #   devShell = devShell;
-      # };
+      checks =  {
+        mujoco = pkgs.mujoco;
+      };
     });
 }
