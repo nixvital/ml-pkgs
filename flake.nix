@@ -91,7 +91,7 @@
         inherit (pkgs) mujoco;
       };
 
-      checks =  {
+      hydraJobs =  {
         full-devshell = self.devShells."${system}".default;
       };
     });
