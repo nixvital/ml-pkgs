@@ -1,4 +1,5 @@
 { lib
+, fetchurl
 , buildPythonPackage
 , panda3d
 , pytestrunner
@@ -11,7 +12,7 @@ buildPythonPackage rec {
   version = "0.9";
   format = "wheel";
 
-  src = builtins.fetchurl {
+  src = fetchurl {
     url = https://files.pythonhosted.org/packages/ec/d9/040ca6513485797a6a31a6e5cf8846c551cf3c8d1933e25180a73116deab/panda3d_simplepbr-0.9-py3-none-any.whl;
     sha256 = "1ywq35jmphxhmzrswj34g1szbg9dn4p8b4jxrj7n80682954rql2";
   };

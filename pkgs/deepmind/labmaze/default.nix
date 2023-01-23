@@ -1,4 +1,5 @@
 { lib
+, fetchurl
 , stdenv
 , buildPythonPackage
 , autoPatchelfHook
@@ -28,7 +29,7 @@ in buildPythonPackage rec {
   version = "1.0.6";
   format = "wheel";
 
-  src = builtins.fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
+  src = fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
 
   propagatedBuildInputs = [
     absl-py

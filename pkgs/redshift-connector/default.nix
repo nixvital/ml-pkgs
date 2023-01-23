@@ -1,4 +1,5 @@
 { lib
+, fetchurl
 , buildPythonPackage
 , fetchPypi
 , beautifulsoup4
@@ -19,7 +20,7 @@ buildPythonPackage rec {
   version = "2.0.909";
   format = "wheel";
 
-  src = builtins.fetchurl {
+  src = fetchurl {
     url = https://files.pythonhosted.org/packages/24/3c/471f5f7d43f1ed1be87494010f466849fe2376acf8bab49d4b676f870cf1/redshift_connector-2.0.909-py3-none-any.whl;
     sha256 = "0hzl3m4qv6iv6jkmpq3hj3q2r14fyk21h1ww31ld4qgr59ff5c4z";
   };

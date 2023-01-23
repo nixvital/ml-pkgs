@@ -1,4 +1,5 @@
 { lib
+, fetchurl
 , stdenv
 , buildPythonPackage
 , fetchurl
@@ -17,7 +18,7 @@ let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
     srcs = import ./binary-hashes.nix version;
     unsupported = throw "Unsupported system";
 
-    atari-roms = builtins.fetchurl {
+    atari-roms = fetchurl {
       url = "https://extorage.breakds.org/atari/Roms.rar";
       sha256 = "0f60333knxzzl4m3jgi67kbpyw6vr7j8vmbc9v9cmrdshbrm5481";
     };

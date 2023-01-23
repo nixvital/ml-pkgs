@@ -4,6 +4,7 @@
 # This packages the atari-py together with the Atari 2600 roms.
 
 { lib
+, fetchurl
 , buildPythonPackage
 , python
 , fetchFromGitHub
@@ -17,7 +18,7 @@
 , writeShellScriptBin
 }:
 
-let atari-roms = builtins.fetchurl {
+let atari-roms = fetchurl {
       url = "https://extorage.breakds.org/atari/Roms.rar";
       sha256 = "0f60333knxzzl4m3jgi67kbpyw6vr7j8vmbc9v9cmrdshbrm5481";
     };

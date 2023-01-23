@@ -1,6 +1,7 @@
 # This packages the atari-py together with the Atari 2600 roms.
 
 { lib
+, fetchurl
 , buildPythonPackage
 , autoPatchelfHook
 , python
@@ -19,7 +20,7 @@ in buildPythonPackage rec {
   version = "0.10.7";
   format = "wheel";
 
-  src = builtins.fetchurl (import ./wheel-urls.nix {
+  src = fetchurl (import ./wheel-urls.nix {
     inherit version pyVerNoDot; });
 
   propagatedBuildInputs = [

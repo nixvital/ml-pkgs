@@ -1,6 +1,7 @@
 # TODO(breakds): Build this from source so that we have 3.11 support as well.
 
 { lib
+, fetchurl
 , stdenv
 , buildPythonPackage
 , autoPatchelfHook
@@ -26,7 +27,7 @@ in buildPythonPackage rec {
   version = "2022.4.2";
   format = "wheel";
 
-  src = builtins.fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
+  src = fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
 
   propagatedBuildInputs = [
     numpy
