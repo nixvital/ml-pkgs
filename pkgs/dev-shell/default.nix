@@ -3,7 +3,7 @@
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
-      pytorchWithCuda11
+      # pytorchWithCuda11
       mujoco-menagerie
       mujoco-pybind
     ]);
