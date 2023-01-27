@@ -42,6 +42,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # ----- Misc -----
       numerapi
       huggingface-transformers
+      huggingface-accelerate
 
       # ----- Lang Chain -----
       langchain

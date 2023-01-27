@@ -84,6 +84,7 @@
           # ----- Misc -----
           numerapi
           huggingface-transformers
+          huggingface-accelerate
 
           # ----- Lang Chain -----
           langchain;

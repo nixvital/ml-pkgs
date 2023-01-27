@@ -9,6 +9,10 @@ final: prev: {
       huggingface-transformers = python-final.callPackage ../pkgs/huggingface-transformers {
         pytorch = python-final.pytorchWithCuda11;
       };
+
+      huggingface-accelerate = python-final.callPackage ../pkgs/huggingface-accelerate {
+        pytorch = python-final.pytorchWithCuda11;
+      };
     })
   ];
 }
