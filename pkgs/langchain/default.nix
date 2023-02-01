@@ -15,17 +15,18 @@
 , pytorch
 , jinja2
 , google-api-python-client
+, dataclasses-json
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "2023.01.19";
+  version = "0.0.75";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
-    rev = "bfb23f460836b0018087bc210ccec083a002eb65";
-    hash = "sha256-gGELX9xsd+oASwaWN27Y+Xrh+S27WDNNXjkBxL489rY=";
+    rev = "v${version}";
+    hash = "sha256-WZjaaYSL/GdTXDI6g85kJVN2nq7y2RoFKrP9kw3Kdro=";
   };
 
   format = "pyproject";
@@ -59,6 +60,7 @@ buildPythonPackage rec {
       # weaviate-client
       google-api-python-client
       # wolframalpha
+      dataclasses-json
     ];
   in requiredDeps ++ optionalDeps;
 
