@@ -1,0 +1,14 @@
+diff --git a/setup.py b/setup.py
+index 15e69dd..1c44212 100644
+--- a/setup.py
++++ b/setup.py
+@@ -38,6 +38,9 @@ def get_include_dirs():
+     import numpy
+ 
+     include_dirs.append(numpy.get_include())
++    eigen3_extra_include_dir = os.getenv("EIGEN3_INCLUDE_DIR")
++    if eigen3_extra_include_dir is not None:
++        include_dirs.append(eigen3_extra_include_dir)
+     return include_dirs
+ 
+ 

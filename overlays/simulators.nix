@@ -42,6 +42,7 @@ final: prev: {
       dm-env = python-final.callPackage ../pkgs/deepmind/dm-env {};
       labmaze = python-final.callPackage ../pkgs/deepmind/labmaze {};
       dm-control = python-final.callPackage ../pkgs/deepmind/dm-control {};
+      python-fcl = python-final.callPackage ../pkgs/python-fcl {};
     })
   ];
 

@@ -77,6 +77,7 @@
           dm-env
           labmaze
           dm-control
+          python-fcl
 
           # ----- Math -----
           numpy-quaternion
