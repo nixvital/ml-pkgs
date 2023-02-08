@@ -1,6 +1,7 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, pythonRelaxDepsHook
 , poetry
 , pydantic
 , sqlalchemy
@@ -16,17 +17,19 @@
 , jinja2
 , google-api-python-client
 , dataclasses-json
+, tenacity
+, faiss
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.75";
+  version = "0.0.79";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    hash = "sha256-WZjaaYSL/GdTXDI6g85kJVN2nq7y2RoFKrP9kw3Kdro=";
+    hash = "sha256-k6OtySWc5wL84nJMt+50Ri6MMtHPZhWG510Ewt1J/Lk=";
   };
 
   format = "pyproject";
@@ -34,6 +37,9 @@ buildPythonPackage rec {
   buildInputs = [
     poetry
   ];
+
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  pythonRelaxDeps = [ "tenacity" ];
 
   propagatedBuildInputs = let
     requiredDeps = [
@@ -44,7 +50,10 @@ buildPythonPackage rec {
       numpy      
     ];
     optionalDeps = [
-      # faiss-cpu
+      (faiss.override {
+        # Force using cpu version
+        cudaSupport = false;
+      })
       # wikipedia
       # elasticsearch
       redis
@@ -61,6 +70,7 @@ buildPythonPackage rec {
       google-api-python-client
       # wolframalpha
       dataclasses-json
+      tenacity
     ];
   in requiredDeps ++ optionalDeps;
 
