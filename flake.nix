@@ -50,6 +50,7 @@
           pytorchWithCuda11
           torchvisionWithCuda11
           pytorchvizWithCuda11
+          lightning-utilities
           torchmetricsWithCuda11
           pytorchLightningWithCuda11
           pytorch-tabnet
