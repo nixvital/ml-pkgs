@@ -14,6 +14,8 @@ final: prev: {
         pytorch = python-final.pytorchWithCuda11;
       };
 
+      blobfile = python-final.callPackage ../pkgs/blobfile {};
+
       tiktoken = python-final.callPackage ../pkgs/tiktoken {};
     })
   ];
