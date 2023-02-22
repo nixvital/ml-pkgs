@@ -87,6 +87,7 @@
           numerapi
           huggingface-transformers
           huggingface-accelerate
+          tiktoken
 
           # ----- Lang Chain -----
           langchain;

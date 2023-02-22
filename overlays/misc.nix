@@ -13,6 +13,8 @@ final: prev: {
       huggingface-accelerate = python-final.callPackage ../pkgs/huggingface-accelerate {
         pytorch = python-final.pytorchWithCuda11;
       };
+
+      tiktoken = python-final.callPackage ../pkgs/tiktoken {};
     })
   ];
 }
