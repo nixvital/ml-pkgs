@@ -89,6 +89,7 @@
           huggingface-accelerate
 
           # ----- Lang Chain -----
+          tiktoken
           langchain;
 
         inherit (pkgs) mujoco;

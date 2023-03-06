@@ -4,6 +4,8 @@
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
+      tiktoken = python-final.callPackage ../pkgs/tiktoken {};
+      
       langchain = python-final.callPackage ../pkgs/langchain {
         pytorch = python-final.pytorchWithCuda11;
       };
