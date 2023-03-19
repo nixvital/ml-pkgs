@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "transformers" ];
+  pythonImportsCheck = [ "accelerate" ];
 
   meta = with lib; {
     description = ''
