@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "accelerate";
-  version = "v0.15.0";
+  version = "v0.17.1";
 
   src = fetchFromGitHub {
     owner = "huggingface";
     repo = pname;
-    rev = "v0.15.0";
-    hash = "sha256-agfbOaa+Nm10HZkd2Y7zR3R37n+vLNsxCyxZax6O3Lo=";
+    rev = version;
+    hash = "sha256-+8wTxZRwZDCQZrhXa80zqah/jjxQd9sFjXcEFpD+r7k=";
   };
 
   format = "pyproject";
