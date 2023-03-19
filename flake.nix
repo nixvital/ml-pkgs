@@ -87,6 +87,7 @@
           numerapi
           huggingface-transformers
           huggingface-accelerate
+          huggingface-peft
 
           # ----- Lang Chain -----
           langchain;
