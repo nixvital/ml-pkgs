@@ -1,6 +1,6 @@
 { lib
 , buildPythonPackage
-, fetchPypi
+, fetchFromGitHub
 , jieba
 , regex
 , requests
@@ -14,13 +14,18 @@
 
 buildPythonPackage rec {
   pname = "transformers";
-  version = "4.27.1";
+  version = "4.27.1-llama";
 
-  src = fetchPypi {
-    inherit pname version;
-    sha256 = "sha256-BRINkeQHwNPbNk9dBxDNrMzRX2cRSwdfFhpxU1wTNpU=";
+  # TODO(breakds): This is a non-release version that has Meta's LLAMA
+  # specific commits on master. This should be replaced by a proper
+  # release later.
+  src = fetchFromGitHub {
+    owner = "huggingface";
+    repo = pname;
+    rev = "60d51ef5123d949fd8c59cd4d3254e711541d278";
+    hash = "sha256-e3E7ggw0dKKzk1/NvYjoccx7HZJFnP/yOhOKrOrF76k=";
   };
-
+  
   format = "pyproject";
 
   propagatedBuildInputs = [
