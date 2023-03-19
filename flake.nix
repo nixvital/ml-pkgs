@@ -88,6 +88,7 @@
           huggingface-transformers
           huggingface-accelerate
           huggingface-peft
+          bitsandbytes
 
           # ----- Lang Chain -----
           langchain;

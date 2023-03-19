@@ -17,6 +17,10 @@ final: prev: {
       huggingface-peft = python-final.callPackage ../pkgs/huggingface-peft {
         pytorch = python-final.pytorchWithCuda11;
       };
+
+      bitsandbytes = python-final.callPackage ../pkgs/bitsandbytes {
+        pytorch = python-final.pytorchWithCuda11;        
+      };
     })
   ];
 }
