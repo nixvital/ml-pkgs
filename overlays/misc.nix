@@ -6,7 +6,7 @@ final: prev: {
     (python-final: python-prev: {
       numerapi = python-final.callPackage ../pkgs/numerapi {};
 
-      huggingface-transformers = python-final.callPackage ../pkgs/huggingface-transformers {
+      huggingface-transformers = python-final.callPackage ../bleeding/huggingface-transformers {
         pytorch = python-final.pytorchWithCuda11;
       };
 
