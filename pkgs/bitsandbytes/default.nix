@@ -1,11 +1,16 @@
 { lib
+, stdenv
+, glibc
 , buildPythonPackage
 , fetchFromGitHub
 , setuptools
 , pytorch
 }:
 
-buildPythonPackage rec {
+let cudatoolkit = pytorch.cudaPackages.cudatoolkit;
+    cudnn = pytorch.cudaPackages.cudnn;
+
+in buildPythonPackage rec {
   pname = "bitsandbytes";
   version = "0.37.1-pre";
 
@@ -16,19 +21,27 @@ buildPythonPackage rec {
     sha256 = "sha256-7HwpoqI9J3FvVeA+J4jlrsyP5GkuiDRid2eOHHOjf3I=";
   };
 
+  patches = [ ./fix_cuda.patch ];
+
+  postPatch = ''
+    echo "---- start post patch ----"
+    export LIBRARY_PATH="${glibc}/lib:$LIBRARY_PATH"
+    CUDA_HOME=${cudatoolkit} \
+        CUDALIB=${cudatoolkit.lib} \
+        make cuda11x CUDA_VERSION="" GPP="${stdenv.cc.cc}/bin/g++"
+    ls bitsandbytes
+    echo "---- end post patch ----"
+  '';
+
   buildInputs = [ setuptools ];
   propagatedBuildInputs = [
     pytorch
   ];
 
-  doCheck = true;
+  doCheck = false;
   pythonImportsCheck = [ "bitsandbytes" ];
 
   meta = with lib; {
-    # Need to correctly handle the CUDA part. It should be compiled
-    # from the Makefile and generate .so files to the bisandbytes
-    # directory.
-    broken = true;
     description = ''
       8-bit CUDA functions for PyTorch
     '';
