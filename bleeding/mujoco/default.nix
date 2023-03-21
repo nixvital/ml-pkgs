@@ -13,8 +13,8 @@ let
   abseil-cpp = fetchFromGitHub {
     owner = "abseil";
     repo = "abseil-cpp";
-    rev = "8c0b94e793a66495e0b1f34a5eb26bd7dc672db0";
-    hash = "sha256-Od1FZOOWEXVQsnZBwGjDIExi6LdYtomyL0STR44SsG8=";
+    rev = "c8a2f92586fe9b4e1aff049108f5db8064924d8e";  # LTS 20230125.1
+    sha256 = "sha256-/OdFqE0gKl5gyeXeVdvpN6OlKqbyfBszwbp/gf1FtOs=";
   };
   benchmark = fetchFromGitHub {
     owner = "google";
@@ -31,14 +31,14 @@ let
   eigen3 = fetchFromGitLab {
     owner = "libeigen";
     repo = "eigen";
-    rev = "3bb6a48d8c171cf20b5f8e48bfb4e424fbd4f79e";
-    hash = "sha256-k71DoEsx8JpC9AlQ0cCRI0fWMIWFBFL/Yscx+2iBtNM=";
+    rev = "3460f3558e7b469efb8a225894e21929c8c77629";
+    hash = "sha256-0qX7JjkroQkxJ5K442R7y1RDVoxvjWmGceqZz+8CB6A=";
   };
   googletest = fetchFromGitHub {
     owner = "google";
     repo = "googletest";
-    rev = "refs/tags/release-1.12.1";
-    hash = "sha256-W+OxRTVtemt2esw4P7IyGWXOonUN5ZuscjvzqkYvZbM=";
+    rev = "v1.13.0";
+    hash = "sha256-LVLEn+e7c8013pwiLzJiiIObyrlbBHYaioO/SWbItPQ=";
   };
   lodepng = fetchFromGitHub {
     owner = "lvandeve";
@@ -61,8 +61,8 @@ let
   tinyxml2 = fetchFromGitHub {
     owner = "leethomason";
     repo = "tinyxml2";
-    rev = "refs/tags/9.0.0";
-    hash = "sha256-AQQOctXi7sWIH/VOeSUClX6hlm1raEQUOp+VoPjLM14=";
+    rev = "9a89766acc42ddfa9e7133c7d81a5bda108a0ade";
+    hash = "sha256-YGAe4+Ttv/xeou+9FoJjmQCKgzupTYdDhd+gzvtz/88=";
   };
 
   # See https://github.com/deepmind/mujoco/blob/573d331b69845c5d651b70f5d1b0f3a0d2a3a233/simulate/cmake/SimulateDependencies.cmake#L32-L35
@@ -75,13 +75,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "mujoco";
-  version = "2.3.1";
+  version = "2.3.3";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = pname;
     rev = version;
-    hash = "sha256-Bh+08AZWVocv+F3jpJ6ckZS4AQRB/+LNFr+p74BlJoA=";
+    hash = "sha256-BFAsF9RpMIBaHG82AdBpGuuGRDV0c4KK3qbSAyVAP5g=";
   };
 
   patches = [ ./dependencies.patch ];
@@ -105,7 +105,9 @@ stdenv.mkDerivation rec {
     ln -s ${benchmark} build/_deps/benchmark-src
     ln -s ${ccd} build/_deps/ccd-src
     ln -s ${eigen3} build/_deps/eigen3-src
-    ln -s ${glfw} build/_deps/glfw-src
+    # The target directory should be named glfw3 because of the following commit
+    # https://github.com/deepmind/mujoco/commit/ca70d8bfaf2a088b94b382528aa14ebb54792739
+    ln -s ${glfw} build/_deps/glfw3-src
     ln -s ${googletest} build/_deps/googletest-src
     ln -s ${lodepng} build/_deps/lodepng-src
     ln -s ${qhull} build/_deps/qhull-src
