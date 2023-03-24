@@ -2,7 +2,7 @@ final: prev: let
   cuda11 = final.cudaPackages_11_8;
 
 in {
-  magmaWithCuda11 = prev.magma.override {
+  magmaWithCuda11 = prev.magma-cuda.override {
     cudaPackages = cuda11;
   };
   

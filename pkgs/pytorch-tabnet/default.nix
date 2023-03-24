@@ -6,7 +6,7 @@
 , tqdm
 , scikit-learn
 , scipy
-, poetry
+, poetry-core
 }:
 
 buildPythonPackage rec {
@@ -22,7 +22,7 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  propagatedBuildInputs = [ poetry numpy pytorch tqdm scikit-learn scipy ];
+  propagatedBuildInputs = [ poetry-core numpy pytorch tqdm scikit-learn scipy ];
 
   doCheck = true;
 

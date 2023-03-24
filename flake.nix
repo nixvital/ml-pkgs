@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:junjihashimoto/nixpkgs/feat/pytorch2";
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=944c56e188e02c5e791e26357820566936f38060";
 
     utils.url = "github:numtide/flake-utils";
   };
@@ -37,6 +37,9 @@
           overlays = [
             self.overlays.default
           ];
+          cudaSupport = true;
+          cudaCapabilities = [ "8.6 "];
+          cudaForwardCompat = false;
         };
     in rec {
       devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
