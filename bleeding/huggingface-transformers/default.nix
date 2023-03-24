@@ -14,16 +14,13 @@
 
 buildPythonPackage rec {
   pname = "transformers";
-  version = "4.27.1-llama";
+  version = "4.27.3";
 
-  # TODO(breakds): This is a non-release version that has Meta's LLAMA
-  # specific commits on master. This should be replaced by a proper
-  # release later.
   src = fetchFromGitHub {
     owner = "huggingface";
     repo = pname;
-    rev = "60d51ef5123d949fd8c59cd4d3254e711541d278";
-    hash = "sha256-e3E7ggw0dKKzk1/NvYjoccx7HZJFnP/yOhOKrOrF76k=";
+    rev = "v${version}";
+    hash = "sha256-JoymCNmogjDb9aOPBNxTV3nWMawDzwaaY+vn/V8YAx0=";
   };
   
   format = "pyproject";
