@@ -21,6 +21,8 @@ final: prev: {
       bitsandbytes = python-final.callPackage ../pkgs/bitsandbytes {
         pytorch = python-final.pytorchWithCuda11;        
       };
+
+      tiktoken = python-final.callPackage ../pkgs/tiktoken {};
     })
   ];
 }

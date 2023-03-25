@@ -91,6 +91,7 @@
           huggingface-accelerate
           huggingface-peft
           bitsandbytes
+          tiktoken
 
           # ----- API -----
           jaraco_context
