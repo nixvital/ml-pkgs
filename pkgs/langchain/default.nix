@@ -26,6 +26,7 @@
 , psycopg2
 , openai
 , wolframalpha
+, tiktoken
 }:
 
 buildPythonPackage rec {
@@ -76,7 +77,7 @@ buildPythonPackage rec {
         # opensearch-py
         redis
         # manifest-ml
-        # tiktoken
+        tiktoken
         # tensorflow-text
         # sentence-transformers
         # pypdf
