@@ -15,6 +15,7 @@
       simulators = import ./overlays/simulators.nix;
       math = import ./overlays/math.nix;
       misc = import ./overlays/misc.nix;
+      apis = import ./overlays/apis.nix;
       langchain = import ./overlays/langchain.nix;
 
       # Default is a composition of all above.
@@ -25,6 +26,7 @@
         self.overlays.simulators
         self.overlays.math
         self.overlays.misc
+        self.overlays.apis
         self.overlays.langchain
       ];
     };
@@ -89,6 +91,10 @@
           huggingface-accelerate
           huggingface-peft
           bitsandbytes
+
+          # ----- API -----
+          jaraco_context
+          wolframalpha
 
           # ----- Lang Chain -----
           langchain;

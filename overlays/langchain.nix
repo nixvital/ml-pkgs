@@ -1,5 +1,5 @@
-# You will need torch-family overlay and misc overlay applied first to be able
-# to use this.
+# You will need torch-family overlay, misc overlay and the apis overlay applied
+# first to be able to use this.
 
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [

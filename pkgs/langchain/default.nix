@@ -25,6 +25,7 @@
 , networkx
 , psycopg2
 , openai
+, wolframalpha
 }:
 
 buildPythonPackage rec {
@@ -92,7 +93,7 @@ buildPythonPackage rec {
         google-api-python-client
         # anthropic
         # qdrant-client
-        # wolframalpha
+        wolframalpha
         # cohere
         openai
         # nlpcloud
