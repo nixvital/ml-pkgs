@@ -11,6 +11,7 @@
 , redis
 , spacy
 , nltk
+, huggingface-hub
 , huggingface-transformers
 , beautifulsoup4
 , pytorch
@@ -19,17 +20,22 @@
 , dataclasses-json
 , tenacity
 , faiss
+, aiohttp
+, elasticsearch
+, networkx
+, psycopg2
+, openai
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.88";
+  version = "0.0.123";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    sha256 = "sha256-7FBUMxv+XpO6CKw6XvsZkRZ4d6AXSqvOopUFvewce2Y=";
+    hash = "sha256-INUTp9cOySUErQVIs+rqK4TdAopFDmIfwRDNYFhTwh4=";
   };
 
   format = "pyproject";
@@ -42,37 +48,59 @@ buildPythonPackage rec {
   pythonRelaxDeps = [ "tenacity" ];
 
   propagatedBuildInputs = let
-    requiredDeps = [
+    coredDeps = [
       pydantic
       sqlalchemy
       requests
       pyyaml
-      numpy      
-    ];
-    optionalDeps = [
-      (faiss.override {
-        # Force using cpu version
-        cudaSupport = false;
-      })
-      # wikipedia
-      # elasticsearch
-      redis
-      # manifest-ml
+      numpy
       spacy
       nltk
+      huggingface-hub
       huggingface-transformers
       beautifulsoup4
       pytorch
       jinja2
-      # tiktoken
-      # pinecone-client
-      # weaviate-client
-      google-api-python-client
-      # wolframalpha
       dataclasses-json
       tenacity
+      aiohttp
     ];
-  in requiredDeps ++ optionalDeps;
+    optionalDeps = {
+      utils = [
+        (faiss.override {
+          # Force using cpu version
+          cudaSupport = false;
+        })
+        elasticsearch
+        # opensearch-py
+        redis
+        # manifest-ml
+        # tiktoken
+        # tensorflow-text
+        # sentence-transformers
+        # pypdf
+        networkx
+        # deeplake
+        # pgvector
+        psycopg2
+      ];
+
+      apis = [
+        # wikipedia
+        # pinecone-client
+        # weaviate-client
+        google-api-python-client
+        # anthropic
+        # qdrant-client
+        # wolframalpha
+        # cohere
+        openai
+        # nlpcloud
+        # google-search-results
+        # aleph-alpha-client
+      ];
+    };
+  in coredDeps ++ optionalDeps.utils ++ optionalDeps.apis;
 
   pythonImportsCheck = [
     "langchain"
@@ -87,4 +115,3 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ breakds ];
   };
 }
-  
