@@ -14,13 +14,13 @@
 
 buildPythonPackage rec {
   pname = "transformers";
-  version = "4.27.3";
+  version = "2023.03.24-llama";  # Use main branch since we need llama
 
   src = fetchFromGitHub {
     owner = "huggingface";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-JoymCNmogjDb9aOPBNxTV3nWMawDzwaaY+vn/V8YAx0=";
+    rev = "cae78c46d658a8e496a815c2ee49b9b178fb9c9a";
+    hash = "sha256-djcfdGASk3gsUjpfKO5mxFKVLPj9FRzSvEw3B2uec+0=";
   };
   
   format = "pyproject";
