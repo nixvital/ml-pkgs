@@ -27,17 +27,19 @@
 , openai
 , wolframalpha
 , tiktoken
+, boto3
+, pyowm
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.123";
+  version = "0.0.129";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    hash = "sha256-INUTp9cOySUErQVIs+rqK4TdAopFDmIfwRDNYFhTwh4=";
+    hash = "sha256-ZyASNlpL/6oaPu+lS9ffGxf0ssX/NOfp0ySgB2YrkYY=";
   };
 
   format = "pyproject";
@@ -85,6 +87,7 @@ buildPythonPackage rec {
         # deeplake
         # pgvector
         psycopg2
+        boto3
       ];
 
       apis = [
@@ -100,6 +103,8 @@ buildPythonPackage rec {
         # nlpcloud
         # google-search-results
         # aleph-alpha-client
+        # jina
+        pyowm  # open street map
       ];
     };
   in coredDeps ++ optionalDeps.utils ++ optionalDeps.apis;
