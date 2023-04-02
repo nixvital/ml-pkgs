@@ -96,6 +96,7 @@
           # ----- API -----
           jaraco_context
           wolframalpha
+          openai
 
           # ----- Lang Chain -----
           langchain;
