@@ -100,6 +100,7 @@
 
           # ----- Lang Chain -----
           async-timeout
+          openapi-schema-pydantic
           langchain;
 
         inherit (pkgs) mujoco;
