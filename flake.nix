@@ -99,6 +99,7 @@
           openai
 
           # ----- Lang Chain -----
+          async-timeout
           langchain;
 
         inherit (pkgs) mujoco;
