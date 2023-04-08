@@ -29,17 +29,19 @@
 , tiktoken
 , boto3
 , pyowm
+, openapi-schema-pydantic
+, async-timeout
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.129";
+  version = "0.0.134";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    hash = "sha256-ZyASNlpL/6oaPu+lS9ffGxf0ssX/NOfp0ySgB2YrkYY=";
+    hash = "sha256-p0S6LxzIyE02r0Mf5gMs9qZGixSzYiEDj2XMj+PREzw=";
   };
 
   format = "pyproject";
@@ -68,6 +70,8 @@ buildPythonPackage rec {
       dataclasses-json
       tenacity
       aiohttp
+      openapi-schema-pydantic
+      async-timeout
     ];
     optionalDeps = {
       utils = [
