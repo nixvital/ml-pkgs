@@ -99,6 +99,7 @@
           openai
 
           # ----- Lang Chain -----
+          gptcache
           async-timeout
           openapi-schema-pydantic
           langchain;

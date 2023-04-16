@@ -4,6 +4,7 @@
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
+      gptcache = python-final.callPackage ../pkgs/gptcache {};
       async-timeout = python-final.callPackage ../pkgs/async-timeout {};
       openapi-schema-pydantic = python-final.callPackage ../pkgs/openapi-schema-pydantic {};
       

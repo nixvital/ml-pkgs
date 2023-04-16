@@ -8,6 +8,7 @@
 , requests
 , pyyaml
 , numpy
+, numexpr
 , redis
 , spacy
 , nltk
@@ -31,17 +32,18 @@
 , pyowm
 , openapi-schema-pydantic
 , async-timeout
+, gptcache
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.134";
+  version = "0.0.141";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    hash = "sha256-p0S6LxzIyE02r0Mf5gMs9qZGixSzYiEDj2XMj+PREzw=";
+    hash = "sha256-GdOPV420YuckDbdMDQH8UQpwDUmnRNabGo25KsJOVkQ=";
   };
 
   format = "pyproject";
@@ -60,6 +62,7 @@ buildPythonPackage rec {
       requests
       pyyaml
       numpy
+      numexpr
       spacy
       nltk
       huggingface-hub
@@ -72,6 +75,7 @@ buildPythonPackage rec {
       aiohttp
       openapi-schema-pydantic
       async-timeout
+      gptcache
     ];
     optionalDeps = {
       utils = [
