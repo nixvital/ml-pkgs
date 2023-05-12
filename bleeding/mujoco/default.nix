@@ -75,13 +75,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "mujoco";
-  version = "2.3.4";
+  version = "2.3.5";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = pname;
     rev = version;
-    hash = "sha256-XBvTZYrDV1Q3a0y2uD5rIuGAqDQSCXvhfOa/BWWpxjk=";
+    hash = "sha256-lLMyyQzM8g6sZf2ZWA1rIueSorgpFPKmMVIUg7iexfc=";
   };
 
   patches = [ ./dependencies.patch ];
