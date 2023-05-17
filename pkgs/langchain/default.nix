@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , pythonRelaxDepsHook
-, poetry
+, poetry-core
 , pydantic
 , sqlalchemy
 , requests
@@ -49,7 +49,7 @@ buildPythonPackage rec {
   format = "pyproject";
 
   buildInputs = [
-    poetry
+    poetry-core
   ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];

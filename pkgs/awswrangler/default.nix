@@ -9,7 +9,7 @@
 , pyarrow
 , pymysql
 , redshift-connector
-, poetry
+, poetry-core
 , backoff
 , jsonpath-ng
 , requests-aws4auth
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     pyarrow
     pymysql
     redshift-connector
-    poetry
+    poetry-core
     backoff
     jsonpath-ng
     requests-aws4auth

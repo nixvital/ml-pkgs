@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , python
-, poetry
+, poetry-core
 }:
 
 let mujoco-menagerie-models = fetchFromGitHub {
@@ -21,7 +21,7 @@ in buildPythonPackage rec {
   format = "pyproject";
 
   buildInputs = [
-    poetry
+    poetry-core
   ];
 
   postFixup = let
