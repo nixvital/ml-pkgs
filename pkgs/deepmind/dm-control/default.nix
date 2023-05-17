@@ -23,14 +23,20 @@
 
 buildPythonPackage rec {
   pname = "dm_control";
-  version = "1.0.9";
+  version = "1.0.12";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = "dm_control";
-    rev = version;
-    hash = "sha256-ExOFtthl3rSW8Z4wFa1LKIrZt3hnLNOiRM3v7wjEg8c=";
+    rev = "330c91f41a21eacadcf8316f0a071327e3f5c017";
+    hash = "sha256-EeVZUArKfqAsgp4c55qrGkcwVp+pt6UzP0h/r2dxGBw=";
   };
+
+  patches = [
+    # The problem is that setup.py uses logging.DEBUG, whose enum ID has
+    # changed. The fix is just to silence that logging line in setup.py.
+    ./silence_logging.patch
+  ];
 
   buildInputs = [
     setuptools
