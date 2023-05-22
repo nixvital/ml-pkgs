@@ -58,8 +58,8 @@
           pytorch-tabnet
 
           # ----- Jax Family -----
-          jaxWithCuda11
-          equinoxWithCuda11
+          # jaxWithCuda11
+          # equinoxWithCuda11
 
           # ----- Data Utils -----
           redshift-connector
