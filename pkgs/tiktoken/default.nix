@@ -7,6 +7,8 @@
 , setuptools-rust
 , regex
 , requests
+, cargo
+, rustc
 }:
 
 buildPythonPackage rec {
@@ -30,10 +32,10 @@ buildPythonPackage rec {
     lockFile = ./Cargo.lock;
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
+  nativeBuildInputs = [
+    rustPlatform.cargoSetupHook
+    cargo
+    rustc
   ] ++ [setuptools-rust ];
 
   propagatedBuildInputs = [
