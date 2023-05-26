@@ -1,6 +1,8 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
+, pythonRelaxDepsHook
+, autoPatchelfHook
 , cython
 , gym
 , numpy
@@ -17,22 +19,28 @@
 , lxml
 , protobuf
 , tqdm
+, geopandas
+, shapely
+, psutil
 , pytest }:
 
 buildPythonPackage rec {
   pname = "metadrive-simulator";
-  version = "0.2.5.2";
+  version = "0.3.0.1";
 
   src = fetchFromGitHub {
     owner = "decisionforce";
     repo = "metadrive";
-    rev = "78ee891904ed70c3277971a563cb3807a614a38c";
-    sha256 = "sha256-0nofeqCqbcgLIPx//q95G0QM3dpdl1CQwU/Y3sdXBW4=";
+    rev = "MetaDrive-0.3.0.1";
+    hash = "sha256-eYMJU/dGnDnwfTsyLgkMViJf9+R4KsnKf6khcU/t78E=";
   };
 
-  patches = [
-    ./0001-adjust-requirements.patch
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
   ];
+
+  pythonRelaxDeps = [ "gym" "protobuf" ];
+  pythonRemoveDeps = [ "opencv-python" ];
 
   propagatedBuildInputs = [
     cython
@@ -51,6 +59,9 @@ buildPythonPackage rec {
     lxml
     protobuf
     tqdm
+    geopandas
+    shapely
+    psutil
     pytest
   ];
 

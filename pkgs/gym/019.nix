@@ -7,18 +7,17 @@
 , pythonRelaxDepsHook
 , numpy
 , cloudpickle
-, gym-notices
 }:
 
 buildPythonPackage rec {
   pname = "gym";
-  version = "0.25.2";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = pname;
     rev = "${version}";
-    hash = "sha256-dCJUgc99puh+/5qY2Hq9PA3Fu1JhxXTQhb4arnRHHao=";
+    sha256 = "sha256-0O/s9OVNGQmeX9j8B1x63RxdI6dhqfTEJcgDH2jtCv4=";
   };
 
   nativeBuildInputs = [
@@ -30,7 +29,6 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     cloudpickle
     numpy
-    gym-notices
   ];
 
   # The test needs MuJoCo that is not free library.
