@@ -13,7 +13,7 @@
 , xorg }:
 
 let pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-    version = "1.10.10";
+    version = "1.10.13";
     srcs = import ./binary-hashes.nix version;
     unsupported = throw "Unsupported system";
 in buildPythonPackage rec {
