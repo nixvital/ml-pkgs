@@ -36,7 +36,17 @@
   ] (system:
     let pkgs = import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            cudaSupport = true;
+            # cudaCapabilities = [
+            #   "7.5"  # 20X0 (Ti), T4
+            #   "8.0"  # A100
+            #   "8.6"  # 30X0 (Ti)
+            #   "8.9"  # 40X0 (Ti)
+            # ];
+            cudaForwardCompat = false;
+          };
           overlays = [
             self.overlays.default
           ];
