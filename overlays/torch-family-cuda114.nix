@@ -32,10 +32,6 @@ in {
       pytorchvizWithCuda114 = python-final.callPackage ../pkgs/pytorchviz {
         pytorch = python-final.pytorchWithCuda114;
       };
-
-      pytorch-tabnet = python-final.callPackage ../pkgs/pytorch-tabnet {
-        pytorch = python-final.pytorchWithCuda114;
-      };
     })
   ];
 }

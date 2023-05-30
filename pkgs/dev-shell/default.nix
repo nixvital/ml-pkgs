@@ -10,7 +10,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       pytorchvizWithCuda11
       torchmetricsWithCuda11
       pytorchLightningWithCuda11
-      pytorch-tabnet
 
       # ----- Jax Family -----
       # jaxWithCuda11
