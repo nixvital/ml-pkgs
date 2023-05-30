@@ -53,7 +53,7 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = [ "tenacity" "SQLAlchemy" ];
 
   propagatedBuildInputs = let
     coredDeps = [
