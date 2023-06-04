@@ -1,8 +1,13 @@
 final: prev: let
   cuda11 = final.cudaPackages_11_8.overrideScope' (cuFinal: cuPrev: {
+    # The libnvrtc.so does not even know it needs libnvrtc-builtins.so. This
+    # will cause torch to break at runtime at this moment. Before it is fixed
+    # upstream with a patch similar to this:
+    # https://github.com/SomeoneSerge/nixpkgs/commit/f55d2a112dc33855bad42980bf93d684505cbe6d
+    # It is fixed temporarily like below as suggested by @SomeoneSerge.
     cudatoolkit = cuPrev.cudatoolkit.overrideAttrs (oldAttrs: {
       preFixup = (oldAttrs.preFixup or "") + ''
-        patchelf $out/lib64/libnvrtc.so --add-needed libnvrtc-builtins.so 
+        patchelf $out/lib64/libnvrtc.so --add-needed libnvrtc-builtins.so
       '';
     });
   });
