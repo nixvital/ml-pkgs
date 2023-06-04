@@ -1,14 +1,20 @@
 final: prev: let
-  cuda11 = final.cudaPackages_11_8;
+  cuda11 = final.cudaPackages_11_8.overrideScope' (cuFinal: cuPrev: {
+    cudatoolkit = cuPrev.cudatoolkit.overrideAttrs (oldAttrs: {
+      preFixup = (oldAttrs.preFixup or "") + ''
+        patchelf $out/lib64/libnvrtc.so --add-needed libnvrtc-builtins.so 
+      '';
+    });
+  });
 
 in {
   magmaWithCuda11 = prev.magma.override {
     cudaPackages = cuda11;
   };
-  
+
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
-      
+
       pytorchWithCuda11 = python-prev.pytorchWithCuda.override {
         cudaPackages = cuda11;
         magma = final.magmaWithCuda11;
