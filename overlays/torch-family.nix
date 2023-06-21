@@ -1,5 +1,5 @@
 final: prev: let
-  cuda11 = final.cudaPackages_11_8.overrideScope' (cuFinal: cuPrev: {
+  cuda11 = final.cudaPackages_11_6.overrideScope' (cuFinal: cuPrev: {
     # The libnvrtc.so does not even know it needs libnvrtc-builtins.so. This
     # will cause torch to break at runtime at this moment. Before it is fixed
     # upstream with a patch similar to this:

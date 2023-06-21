@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=ac455609648554cf2fb40d9d1ce030202b0921b7";
 
     utils.url = "github:numtide/flake-utils";
   };
@@ -60,9 +60,7 @@
         };
     in rec {
       devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
-      # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
-      #   python3 = pkgs.python38;
-      # };
+      devShells.isaac = pkgs.callPackage ./pkgs/dev-shell/isaacgym.nix {};
 
       packages = {
         inherit (pkgs.python3Packages)
