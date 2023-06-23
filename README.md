@@ -1,6 +1,6 @@
 # ml-pkgs - Machine Learning and Data Science Nix Overlays
 
-This Nix flake provides a set of overlays for machine learning and data science packages. The overlays are defined in the overlays attribute set of the flake's outputs.
+This Nix flake provides a set of overlays for machine learning and data science packages. It also includes simulation and robotics packages that are widely used in machine learning research as well. The overlays are defined in the overlays attribute set of the flake's outputs.
 
 To use an overlay in another flake, you can import it in your flake's outputs block like this:
 
