@@ -10,19 +10,6 @@ final: prev: {
         pytorch = python-final.pytorchWithCuda11;
       };
 
-      huggingface-accelerate = python-final.callPackage ../pkgs/huggingface-accelerate {
-        pytorch = python-final.pytorchWithCuda11;
-      };
-
-      huggingface-peft = python-final.callPackage ../pkgs/huggingface-peft {
-        pytorch = python-final.pytorchWithCuda11;
-      };
-
-      bitsandbytes = python-final.callPackage ../pkgs/bitsandbytes {
-        pytorch = python-final.pytorchWithCuda11;        
-      };
-
-      tiktoken = python-final.callPackage ../pkgs/tiktoken {};
     })
   ];
 }

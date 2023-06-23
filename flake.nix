@@ -105,10 +105,6 @@
           # ----- Misc -----
           numerapi
           huggingface-transformers
-          huggingface-accelerate
-          huggingface-peft
-          bitsandbytes
-          tiktoken
 
           # ----- API -----
           jaraco_context
@@ -117,7 +113,6 @@
 
           # ----- Lang Chain -----
           gptcache
-          async-timeout
           openapi-schema-pydantic
           langchain;
 
