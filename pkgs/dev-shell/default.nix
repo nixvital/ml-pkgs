@@ -35,6 +35,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       labmaze
       dm-control
       python-fcl
+      sapien
 
       # ----- Math -----
       numpy-quaternion

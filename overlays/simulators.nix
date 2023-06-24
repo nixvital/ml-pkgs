@@ -45,6 +45,9 @@ final: prev: {
       dm-control = python-final.callPackage ../pkgs/deepmind/dm-control {};
       dm-control-109 = python-final.callPackage ../pkgs/deepmind/dm-control/1.0.9.nix {};
       python-fcl = python-final.callPackage ../pkgs/python-fcl {};
+
+      # SAPIEN from Hao Su's Lab
+      sapien = python-final.callPackage ../pkgs/sapien {};
     })
   ];
 

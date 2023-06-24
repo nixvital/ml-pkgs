@@ -98,6 +98,7 @@
           labmaze
           dm-control
           python-fcl
+          sapien
 
           # ----- Math -----
           numpy-quaternion
