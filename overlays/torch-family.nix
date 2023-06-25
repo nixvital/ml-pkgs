@@ -50,9 +50,14 @@ in {
         torch = python-final.pytorchWithCuda11;
       };
 
+      accelerate = python-prev.accelerate.override {
+        torch = python-final.pytorchWithCuda11;
+      };
+
       manifest-ml = python-prev.manifest-ml.override {
         torch = python-final.pytorchWithCuda11;
         transformers = python-final.transformers;
+        accelerate = python-final.accelerate;
       };
 
       sentence-transformers = python-prev.sentence-transformers.override {

@@ -112,7 +112,7 @@ buildPythonPackage rec {
         elasticsearch
         opensearch-py
         redis
-        # manifest-ml
+        manifest-ml
         tiktoken
         # tensorflow-text
         sentence-transformers
