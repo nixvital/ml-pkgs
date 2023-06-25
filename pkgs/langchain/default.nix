@@ -34,6 +34,7 @@
 , async-timeout
 , gptcache
 , azure-core
+, azure-identity  
 , tqdm
 , langchainplus-sdk
 }:
@@ -56,13 +57,11 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
-  pythonRelaxDeps = [ "tenacity" "SQLAlchemy" ];
 
   propagatedBuildInputs = let
     coredDeps = [
       pydantic
       sqlalchemy
-      azure-core
       tqdm
       requests
       pyyaml
@@ -105,6 +104,8 @@ buildPythonPackage rec {
       ];
 
       apis = [
+        azure-core
+        azure-identity
         # wikipedia
         # pinecone-client
         # weaviate-client
