@@ -43,6 +43,23 @@ in {
       pytorchvizWithCuda11 = python-final.callPackage ../pkgs/pytorchviz {
         pytorch = python-final.pytorchWithCuda11;
       };
+
+      # Override to use a customized version of pytorch, built against
+      # newer version of CUDA.
+      transformers = python-prev.transformers.override {
+        torch = python-final.pytorchWithCuda11;
+      };
+
+      manifest-ml = python-prev.manifest-ml.override {
+        torch = python-final.pytorchWithCuda11;
+        transformers = python-final.transformers;
+      };
+
+      sentence-transformers = python-prev.sentence-transformers.override {
+        torch = python-final.pytorchWithCuda11;
+        torchvision = python-final.torchvisionWithCuda11;
+        transformers = python-final.transformers;
+      };
     })
   ];
 }

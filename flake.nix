@@ -105,7 +105,6 @@
 
           # ----- Misc -----
           numerapi
-          huggingface-transformers
 
           # ----- API -----
           jaraco_context

@@ -13,7 +13,7 @@
 , spacy
 , nltk
 , huggingface-hub
-, huggingface-transformers
+, transformers
 , beautifulsoup4
 , pytorch
 , jinja2
@@ -34,9 +34,28 @@
 , async-timeout
 , gptcache
 , azure-core
-, azure-identity  
+, azure-identity
+, azure-cosmos
 , tqdm
 , langchainplus-sdk
+, pytesseract
+, html2text
+, duckduckgo-search
+, lark
+, anthropic
+, pinecone-client
+, weaviate-client
+, opensearch-py
+, manifest-ml
+, pypdf
+, pdfminer-six
+, pymupdf
+, sentence-transformers
+, pexpect
+, jq
+, steamship
+, lxml
+, gql
 }:
 
 buildPythonPackage rec {
@@ -70,7 +89,9 @@ buildPythonPackage rec {
       spacy
       nltk
       huggingface-hub
-      huggingface-transformers
+      (transformers.override {
+        torch = pytorch;
+      })
       beautifulsoup4
       pytorch
       jinja2
@@ -89,28 +110,38 @@ buildPythonPackage rec {
           cudaSupport = false;
         })
         elasticsearch
-        # opensearch-py
+        opensearch-py
         redis
         # manifest-ml
         tiktoken
         # tensorflow-text
-        # sentence-transformers
-        # pypdf
+        sentence-transformers
+        pypdf
         networkx
         # deeplake
         # pgvector
         psycopg2
         boto3
+        html2text
+        lark
+        pexpect
+        jq
+        pdfminer-six
+        pymupdf
+        lxml
+        # pypdfium2
+        gql
       ];
 
       apis = [
         azure-core
         azure-identity
+        azure-cosmos
         # wikipedia
-        # pinecone-client
-        # weaviate-client
+        pinecone-client
+        weaviate-client
         google-api-python-client
-        # anthropic
+        anthropic
         # qdrant-client
         wolframalpha
         # cohere
@@ -120,6 +151,13 @@ buildPythonPackage rec {
         # aleph-alpha-client
         # jina
         pyowm  # open street map
+        pytesseract  # Google OCR API
+        duckduckgo-search
+        # lancedb
+        # pyvespa
+        # O365
+        steamship  # ??
+        # docarray
       ];
     };
   in coredDeps ++ optionalDeps.utils ++ optionalDeps.apis;
