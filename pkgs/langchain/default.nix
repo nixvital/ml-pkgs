@@ -56,6 +56,11 @@
 , steamship
 , lxml
 , gql
+, pandas
+, telethon
+, chardet
+, requests-toolbelt
+, bibtexparser
 }:
 
 buildPythonPackage rec {
@@ -83,6 +88,7 @@ buildPythonPackage rec {
       sqlalchemy
       tqdm
       requests
+      requests-toolbelt
       pyyaml
       numpy
       numexpr
@@ -131,12 +137,20 @@ buildPythonPackage rec {
         lxml
         # pypdfium2
         gql
+        pandas
+        chardet  # Universal encoding detector
+        # scikit-learn
+        # streamlit
       ];
 
       apis = [
         azure-core
         azure-identity
         azure-cosmos
+        # azure-ai-formrecognizer
+        # azure-ai-vision
+        # azure-cognitiveservices-speech
+        # azure-search-documents
         # wikipedia
         pinecone-client
         weaviate-client
@@ -158,6 +172,22 @@ buildPythonPackage rec {
         # O365
         steamship  # ??
         # docarray
+        telethon
+        # neo4j
+        # psychicapi
+        # zep-python
+        # langkit
+        # openlm
+        # py-trello
+        # momento
+        bibtexparser
+        # singlestoredb
+        # pyspark
+        # clarifai
+        # tigrisdb
+        # nebula3-python
+        # awadb
+        # openllm
       ];
     };
   in coredDeps ++ optionalDeps.utils ++ optionalDeps.apis;
