@@ -33,17 +33,20 @@
 , openapi-schema-pydantic
 , async-timeout
 , gptcache
+, azure-core
+, tqdm
+, langchainplus-sdk
 }:
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.141";
+  version = "0.0.214";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    hash = "sha256-GdOPV420YuckDbdMDQH8UQpwDUmnRNabGo25KsJOVkQ=";
+    hash = "sha256-clSIeaEavcJyFjvXHvUqPJPLiNP9Z1kTzCyM4gdwhbQ=";
   };
 
   format = "pyproject";
@@ -59,6 +62,8 @@ buildPythonPackage rec {
     coredDeps = [
       pydantic
       sqlalchemy
+      azure-core
+      tqdm
       requests
       pyyaml
       numpy
@@ -76,6 +81,7 @@ buildPythonPackage rec {
       openapi-schema-pydantic
       async-timeout
       gptcache
+      langchainplus-sdk
     ];
     optionalDeps = {
       utils = [

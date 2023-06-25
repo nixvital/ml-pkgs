@@ -115,6 +115,7 @@
           # ----- Lang Chain -----
           gptcache
           openapi-schema-pydantic
+          langchainplus-sdk
           langchain;
 
         inherit (pkgs) mujoco;
