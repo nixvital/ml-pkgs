@@ -46,6 +46,7 @@ in {
 
       # Override to use a customized version of pytorch, built against
       # newer version of CUDA.
+
       transformers = python-prev.transformers.override {
         torch = python-final.pytorchWithCuda11;
       };
@@ -58,6 +59,20 @@ in {
         torch = python-final.pytorchWithCuda11;
         transformers = python-final.transformers;
         accelerate = python-final.accelerate;
+      };
+
+      peft = python-prev.peft.override {
+        torch = python-final.pytorchWithCuda11;
+        transformers = python-final.transformers;
+        accelerate = python-final.accelerate;
+      };
+
+      lion-pytorch = python-prev.lion-pytorch.override {
+        torch = python-final.pytorchWithCuda11;
+      };
+
+      bitsandbytes = python-prev.bitsandbytes.override {
+        torch = python-final.pytorchWithCuda11;
       };
 
       sentence-transformers = python-prev.sentence-transformers.override {
