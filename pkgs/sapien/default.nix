@@ -9,6 +9,7 @@
 , requests
 , opencv4
 , transforms3d
+, pyperclip
 , vulkan-headers
 , vulkan-loader
 }:
@@ -44,6 +45,7 @@ in buildPythonPackage rec {
     requests
     opencv4
     transforms3d
+    pyperclip
   ];
 
   pythonRemoveDeps = [ "opencv-python" ];
