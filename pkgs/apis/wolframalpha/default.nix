@@ -4,7 +4,7 @@
 , setuptools
 , xmltodict
 , more-itertools
-, jaraco_context
+, jaraco-context
 }:
 
 buildPythonPackage rec {
@@ -27,7 +27,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     xmltodict
     more-itertools
-    jaraco_context
+    jaraco-context
   ];
 
   doCheck = true;

@@ -25,13 +25,11 @@ in {
         magma = final.magmaWithCuda11;
       };
 
-      lightning-utilities = python-final.callPackage ../bleeding/lightning-utilities {};
-
-      torchmetricsWithCuda11 = python-final.callPackage ../bleeding/torchmetrics {
+      torchmetricsWithCuda11 = python-prev.torchmetrics.override {
         torch = python-final.pytorchWithCuda11;
       };
 
-      pytorchLightningWithCuda11 = python-final.callPackage ../bleeding/pytorch-lightning {
+      pytorchLightningWithCuda11 = python-prev.pytorch-lightning.override {
         torch = python-final.pytorchWithCuda11;
         torchmetrics = python-final.torchmetricsWithCuda11;
       };
