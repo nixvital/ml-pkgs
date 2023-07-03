@@ -9,7 +9,7 @@ final: prev: {
       langchainplus-sdk = python-final.callPackage ../pkgs/langchainplus-sdk {};
 
       langchain = python-final.callPackage ../pkgs/langchain {
-        pytorch = python-final.pytorchWithCuda11;
+        # pytorch = python-final.pytorchWithCuda11;
       };
     })
   ];

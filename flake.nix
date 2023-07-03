@@ -116,6 +116,13 @@
         inherit (pkgs) mujoco;
       };
 
+      apps = {
+        extract-langchain-deps = {
+          type = "app";
+          program = "${pkgs.callPackage ./pkgs/langchain/extract-langchain-deps.nix {}}/bin/extract";
+        };
+      };
+
       checks =  {
         full-devshell = self.devShells."${system}".default;
       };
