@@ -105,7 +105,6 @@
           numerapi
 
           # ----- API -----
-          jaraco_context
           wolframalpha
 
           # ----- Lang Chain -----
