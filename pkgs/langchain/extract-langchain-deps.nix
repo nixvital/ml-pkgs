@@ -52,7 +52,7 @@ let template = ./default.nix.tmpl;
         pytorch = { pypi = "torch"; };
         tiktoken = {};
         sentence-transformers = {};
-        tensorflow-text = { unpackged = true; };
+        tensorflow-text = { unpackaged = true; };
         scikit-learn = {};
       };
 
@@ -61,11 +61,11 @@ let template = ./default.nix.tmpl;
         steamship = {};
         cohere = {};
         manifest-ml = {};
-        nomic = { unpackged = true; };
-        jina = { unpackged = true; };
-        openlm = { unpackged = true; };
-        clarifai = { unpackged = true; };
-        openllm = { unpackged = true; };
+        nomic = { unpackaged = true; };
+        jina = { unpackaged = true; };
+        openlm = { unpackaged = true; };
+        clarifai = { unpackaged = true; };
+        openllm = { unpackaged = true; };
       };
 
       "utils" = {
@@ -77,7 +77,7 @@ let template = ./default.nix.tmpl;
         gql = {};
         bibtexparser = {};
         google-auth = {};
-        langkit = { unpackged = true; };
+        langkit = { unpackaged = true; };
         pyspark = {};
         esprima = {};  # Parser of ECMAScript
         streamlit = {};
@@ -87,7 +87,7 @@ let template = ./default.nix.tmpl;
 
       "search" = {
         google-api-python-client = {};
-        google-search-results = { unpackged = true; };
+        google-search-results = { unpackaged = true; };
         duckduckgo-search = {};
         opensearch-py = {};
       };
@@ -100,42 +100,42 @@ let template = ./default.nix.tmpl;
         redis = {};
         pymongo = {};  # MongoDB
         psycopg2 = { pypi = "psycopg2-binary"; };  # PosgreSQL
-        clickhouse-connect = { unpackged = true; };
-        docarray = { unpackged = true; };
+        clickhouse-connect = { unpackaged = true; };
+        docarray = { unpackaged = true; };
         neo4j = {};
-        momento = { unpackged = true; };
-        singlestoredb = { unpackged = true; };
-        tigrisdb = { unpackged = true; };
-        nebula3-python = { unpackged = true; };
+        momento = { unpackaged = true; };
+        singlestoredb = { unpackaged = true; };
+        tigrisdb = { unpackaged = true; };
+        nebula3-python = { unpackaged = true; };
       };
 
       "azure" = {
         azure-core = {};
         azure-identity = {};
         azure-cosmos = {};
-        azure-ai-formrecognizer = { unpackged = true; };
-        azure-ai-vision = { unpackged = true; };
-        azure-cognitiveservices-speech = { unpackged = true; };
-        azure-search-documents = { unpackged = true; };
+        azure-ai-formrecognizer = { unpackaged = true; };
+        azure-ai-vision = { unpackaged = true; };
+        azure-cognitiveservices-speech = { unpackaged = true; };
+        azure-search-documents = { unpackaged = true; };
       };
 
       "pdf" = {
         pypdf = {};
         pdfminer-six = {};
         pymupdf = {};
-        pypdfium2 = { unpackged = true; };
+        pypdfium2 = { unpackaged = true; };
       };
 
       "vector-store-apis" = {
         pinecone-client = {};
-        pinecone-text = { unpackged = true; };
+        pinecone-text = { unpackaged = true; };
         weaviate-client = {};
         qdrant-client = {};
-        pgvector = { unpackged = true; };
-        lancedb = { unpackged = true; };
-        pyvespa = { unpackged = true; };
-        zep-python = { unpackged = true; };
-        awadb = { unpackged = true; };
+        pgvector = { unpackaged = true; };
+        lancedb = { unpackaged = true; };
+        pyvespa = { unpackaged = true; };
+        zep-python = { unpackaged = true; };
+        awadb = { unpackaged = true; };
       };
 
       "extended-apis" = {
@@ -143,17 +143,17 @@ let template = ./default.nix.tmpl;
         wolframalpha = {};
         pyowm = {};  # OpenWeatherMap
         telethon = {};  # Telegram
-        wikipedia = { unpackged = true; };
+        wikipedia = { unpackaged = true; };
         nlpcloud = {};
-        octoai-sdk = { unpackged = true; };
-        arxiv= { unpackged = true; };
-        aleph-alpha-client = { unpackged = true; };
-        deeplake = { unpackged = true; };
+        octoai-sdk = { unpackaged = true; };
+        arxiv= { unpackaged = true; };
+        aleph-alpha-client = { unpackaged = true; };
+        deeplake = { unpackaged = true; };
         atlassian-python-api = {};
-        O365 = { unpackged = true; };
-        py-trello = { unpackged = true; };
-        psychicapi = { unpackged = true; };
-        cassio = { unpackged = true; };  # Riot Game
+        O365 = { unpackaged = true; };
+        py-trello = { unpackaged = true; };
+        psychicapi = { unpackaged = true; };
+        cassio = { unpackaged = true; };  # Riot Game
       };
 
     });
@@ -221,7 +221,7 @@ class Collector(object):
     def format(self, packages: List[dict]) -> List[str]:
         result = []
         for p in packages:
-            if p.get("unpackage", False):
+            if p.get("unpackaged", False):
                 continue
             if not p.get("cuda", True):
                 result.append(f"({p['nix']}.override "
@@ -233,10 +233,13 @@ class Collector(object):
     def format_inputs(self):
         result = []
         result.extend([
-            p["nix"] for p in self.core if not p.get("unpackage", False)])
+            p["nix"] for p in self.core if not p.get("unpackaged", False)])
         result.extend([
             p["nix"] for p in self.core_utils
-            if not p.get("unpackage", False)])
+            if not p.get("unpackaged", False)])
+        for x in self.classified.values():
+            result.extend([
+                p["nix"] for p in x if not p.get("unpackaged", False)])
         return result
 
     def format_core(self):
@@ -245,8 +248,14 @@ class Collector(object):
     def format_core_utils(self):
         return self.format(self.core_utils)
 
+    def format_categories(self):
+        result = []
+        for k, v in self.classified.items():
+            result.append({"name": k, "items": self.format(v)})
+        return result
+
     def print_unclassified(self):
-        print("------------------------------------------------------------")
+        print("-------------------- WARNING --------------------")
         print("The following packages are not classified.")
         print("They should be added to registry in extract-langchain-deps.nix")
         for pypi_name in self.unclassified:
@@ -290,7 +299,8 @@ def main(path):
         version=version,
         inputs=collector.format_inputs(),
         core=collector.format_core(),
-        core_utils=collector.format_core_utils())
+        core_utils=collector.format_core_utils(),
+        categories=collector.format_categories())
 
     print(nix_content)
 

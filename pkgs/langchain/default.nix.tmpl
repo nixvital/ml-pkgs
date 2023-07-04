@@ -36,7 +36,18 @@ buildPythonPackage rec {
       {{ item }}
       {% endfor %}
     ];
+
   in core ++ core-utils;
+
+  passthru.optional-dependencies = {
+    {% for category in categories %}
+    {{ category["name"] }} = [
+      {% for item in category["items"] -%}
+        {{ item }}
+      {% endfor %}
+    ];
+    {% endfor %}
+  };
 
   pythonImportsCheck = [
     "langchain"

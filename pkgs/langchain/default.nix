@@ -29,6 +29,49 @@
 , pandas
 , chardet
 , requests-toolbelt
+, azure-core
+, azure-identity
+, azure-cosmos
+, elasticsearch
+, wolframalpha
+, nlpcloud
+, pyowm
+, atlassian-python-api
+, telethon
+, opensearch-py
+, google-api-python-client
+, duckduckgo-search
+, redis
+, pymongo
+, psycopg2
+, neo4j
+, manifest-ml
+, anthropic
+, cohere
+, steamship
+, spacy
+, google-auth
+, networkx
+, gptcache
+, pytesseract
+, lark
+, gql
+, bibtexparser
+, pyspark
+, esprima
+, streamlit
+, transformers
+, pytorch
+, tiktoken
+, huggingface-hub
+, sentence-transformers
+, scikit-learn
+, pinecone-client
+, weaviate-client
+, qdrant-client
+, pypdf
+, pdfminer-six
+, pymupdf
 }:
 
 buildPythonPackage rec {
@@ -62,9 +105,9 @@ buildPythonPackage rec {
       async-timeout
       numexpr
       langchainplus-sdk
-
+      
     ];
-
+    
     core-utils = [
       tqdm
       (faiss.override { cudaSupport = false; })
@@ -79,9 +122,93 @@ buildPythonPackage rec {
       pandas
       chardet
       requests-toolbelt
-
+      
     ];
+
   in core ++ core-utils;
+
+  passthru.optional-dependencies = {
+    
+    azure = [
+      azure-core
+      azure-identity
+      azure-cosmos
+      
+    ];
+    
+    extended-apis = [
+      elasticsearch
+      wolframalpha
+      nlpcloud
+      pyowm
+      atlassian-python-api
+      telethon
+      
+    ];
+    
+    search = [
+      opensearch-py
+      google-api-python-client
+      duckduckgo-search
+      
+    ];
+    
+    db = [
+      redis
+      pymongo
+      psycopg2
+      neo4j
+      
+    ];
+    
+    model-apis = [
+      manifest-ml
+      anthropic
+      cohere
+      steamship
+      
+    ];
+    
+    utils = [
+      spacy
+      google-auth
+      networkx
+      gptcache
+      pytesseract
+      lark
+      gql
+      bibtexparser
+      pyspark
+      esprima
+      streamlit
+      
+    ];
+    
+    models = [
+      transformers
+      pytorch
+      tiktoken
+      huggingface-hub
+      sentence-transformers
+      scikit-learn
+      
+    ];
+    
+    vector-store-apis = [
+      pinecone-client
+      weaviate-client
+      qdrant-client
+      
+    ];
+    
+    pdf = [
+      pypdf
+      pdfminer-six
+      pymupdf
+      
+    ];
+    
+  };
 
   pythonImportsCheck = [
     "langchain"
