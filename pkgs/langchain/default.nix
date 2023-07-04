@@ -76,13 +76,13 @@
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.221";
+  version = "0.0.222";
 
   src = fetchFromGitHub {
     owner = "hwchase17";
     repo = "langchain";
     rev = "v${version}";
-    hash = "sha256-1L9BMZFAF3oLeSEfdQiVNU+q8L1WQQ7ZQbNf0qFwFZQ=";
+    hash = "sha256-/3R/yeFa3/a8uDw35VYA1vD8Nqbb16X+dmco2rVT+EU=";
   };
 
   format = "pyproject";
