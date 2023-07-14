@@ -1,7 +1,6 @@
 { cmake
 , fetchFromGitHub
 , fetchFromGitLab
-, git
 , lib
 , libGL
 , stdenv
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./dependencies.patch ];
 
-  nativeBuildInputs = [ cmake git ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     libGL
