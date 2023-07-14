@@ -87,6 +87,7 @@
           ale-py-with-roms  # currently borken
           procgen
           highway-env
+          open3d
           metadrive-simulator
           robot-descriptions
           mujoco-pybind

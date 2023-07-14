@@ -12,12 +12,12 @@ final: prev: {
       panda3d-simplepbr = python-final.callPackage ../pkgs/panda3d-simplepbr {};
       panda3d-gltf = python-final.callPackage ../pkgs/panda3d-gltf {};
       pybulletx = python-final.callPackage ../pkgs/pybulletx {};
-      # This package is a shithole of dependency hell. Will revisit.
-      #
-      # open3d = pyFinal.callPackage ../pkgs/open3d {
-      #   cudaPackages = cuda11;
-      #   pytorchWithCuda = pytorchWithCuda11;
-      # };
+
+      # NOTE(breakds): There are still missing libraries when autoPatchelf this
+      # package, and therefore some of the functionality may not be there.
+      open3d = python-final.callPackage ../pkgs/open3d {
+        torch = python-final.pytorchWithCuda11;
+      };
 
       # Atari. Note that though ale-py-with-roms is preferred, it does not fully
       # reproduce the result from atari-py yet. This means that we will stick to
