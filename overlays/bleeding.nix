@@ -1,7 +1,7 @@
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (py-final: py-prev: {
-      typing-extensions= py-prev.typing-extensions.overrideAttrs (oldAttrs: rec {
+      typing-extensions = py-prev.typing-extensions.overrideAttrs (oldAttrs: rec {
         version = "4.6.3";
         src = py-prev.fetchPypi {
           pname = "typing_extensions";
@@ -11,7 +11,7 @@ final: prev: {
       });
       annotated-types = py-final.callPackage ../bleeding/annotated-types {};
       pydantic-core = py-final.callPackage ../bleeding/pydantic-core {};
-      pydantic = py-final.callPackage ../bleeding/pydantic {};      
+      pydantic2 = py-final.callPackage ../bleeding/pydantic {};
     })
   ];
 }

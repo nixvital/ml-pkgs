@@ -82,7 +82,7 @@
           redshift-connector
           # awswrangler  # currently broken
           pydantic-core
-          pydantic
+          pydantic2
 
           # ----- Simulators -----
           gym
