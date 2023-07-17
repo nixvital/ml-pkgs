@@ -9,6 +9,7 @@ final: prev: {
           hash = "sha256-2R1ZGTV/5/aBqfK1tMsqXx7woen1nE2P8NNJHgXA/9U=";
         };
       });
+      typing-inspect = py-final.callPackage ../bleeding/typing-inspect {};
       annotated-types = py-final.callPackage ../bleeding/annotated-types {};
       pydantic-core = py-final.callPackage ../bleeding/pydantic-core {};
       pydantic2 = py-final.callPackage ../bleeding/pydantic {};

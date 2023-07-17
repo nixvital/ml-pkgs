@@ -68,6 +68,10 @@
 
       packages = {
         inherit (pkgs.python3Packages)
+          # ----- bleeding ----------
+          pydantic-core
+          pydantic2
+          
           # ----- Torch Family -----
           pytorchWithCuda11
           torchvisionWithCuda11
@@ -81,8 +85,6 @@
           # ----- Data Utils -----
           redshift-connector
           # awswrangler  # currently broken
-          pydantic-core
-          pydantic2
 
           # ----- Simulators -----
           gym
