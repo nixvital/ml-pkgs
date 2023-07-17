@@ -9,6 +9,7 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     overlays = {
+      bleeding = import ./overlays/bleeding.nix;
       torch-family = import ./overlays/torch-family.nix;
       torch-family-cuda114 = import ./overlays/torch-family-cuda114.nix;
       jax-family = import ./overlays/jax-family.nix;
@@ -21,6 +22,7 @@
 
       # Default is a composition of all above.
       default = nixpkgs.lib.composeManyExtensions [
+        self.overlays.bleeding
         self.overlays.torch-family
         self.overlays.jax-family
         self.overlays.data-utils
@@ -79,6 +81,8 @@
           # ----- Data Utils -----
           redshift-connector
           # awswrangler  # currently broken
+          pydantic-core
+          pydantic
 
           # ----- Simulators -----
           gym
