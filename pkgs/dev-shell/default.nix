@@ -4,6 +4,8 @@
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
+      pydantic
+      
       # ----- Torch Family -----
       pytorchWithCuda11
       torchvisionWithCuda11
