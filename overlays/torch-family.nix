@@ -42,6 +42,10 @@ in {
         pytorch = python-final.pytorchWithCuda11;
       };
 
+      flash-attention = python-final.callPackage ../pkgs/flash-attention {
+        torch = python-final.pytorchWithCuda11;
+      };
+
       # Override to use a customized version of pytorch, built against
       # newer version of CUDA.
 

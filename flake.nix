@@ -75,6 +75,7 @@
           torchvisionWithCuda11
           pytorchvizWithCuda11
           pytorchLightningWithCuda11
+          flash-attention
 
           # ----- Jax Family -----
           # jaxWithCuda11
