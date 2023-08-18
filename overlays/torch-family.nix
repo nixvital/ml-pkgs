@@ -42,6 +42,12 @@ in {
         pytorch = python-final.pytorchWithCuda11;
       };
 
+
+      LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
+        pytorch = python-final.pytorchWithCuda11;
+        torchvision = python-final.torchvisionWithCuda11;
+      };      
+
       # Override to use a customized version of pytorch, built against
       # newer version of CUDA.
 
@@ -77,6 +83,11 @@ in {
         torch = python-final.pytorchWithCuda11;
         torchvision = python-final.torchvisionWithCuda11;
         transformers = python-final.transformers;
+      };
+
+      clip = python-prev.clip.override {
+        torch = python-final.pytorchWithCuda11;
+        torchvision = python-final.torchvisionWithCuda11;
       };
     })
   ];

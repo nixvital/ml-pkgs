@@ -75,6 +75,7 @@
           torchvisionWithCuda11
           pytorchvizWithCuda11
           pytorchLightningWithCuda11
+          LIV-robotics
 
           # ----- Jax Family -----
           # jaxWithCuda11
