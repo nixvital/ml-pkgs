@@ -19,6 +19,7 @@
 , moviepy
 , termcolor
 , wandb
+, ftfy
 }:
 
 buildPythonPackage rec {
@@ -26,18 +27,19 @@ buildPythonPackage rec {
   version = "0.1.5";
 
   src = fetchFromGitHub {
-    owner = "breakds";
+    owner = "HorizonRoboticsInternal";
     repo = "LIV";
-    rev = "1dfa88d55a869b468cf66ab6fc8498c39c1203a8";
-    hash = "sha256-W+DiG8xBZRu6cuM6edSjOWlQF/dRb61ISchvCxqZl+o=";
+    rev = "0b74e9bf088d2453df0eed5e5af7f9e0f7057340";
+    hash = "sha256-VG8Zqq2fvfqqWc9OZnyCmhfJNmcSxqTByAoxvdr7F4s=";
   };
+
+  patches = [
+    ./0001-Relax-deps.patch
+  ];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook
   ];
-
-  # pythonRelaxDeps = [
-  # ];
 
   pythonRemoveDeps = [
     "opencv-python"
@@ -61,6 +63,7 @@ buildPythonPackage rec {
     moviepy
     termcolor
     wandb
+    ftfy
   ];
 
   doCheck = false;

@@ -1,0 +1,46 @@
+From 724b34d5dd1fb65253925ee9be2b9d98f255936c Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Fri, 18 Aug 2023 15:02:13 -0700
+Subject: [PATCH] Relax deps and add missing __init__.py
+
+---
+ liv/models/clip/__init__.py |  0
+ setup.py                    | 12 ++++--------
+ 2 files changed, 4 insertions(+), 8 deletions(-)
+ create mode 100644 liv/models/clip/__init__.py
+
+diff --git a/liv/models/clip/__init__.py b/liv/models/clip/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/setup.py b/setup.py
+index 139ad27..0a13201 100644
+--- a/setup.py
++++ b/setup.py
+@@ -19,20 +19,16 @@ setup(
+     author='Jason Ma',
+     install_requires=[
+         'torch',
+-        'torchvision>=0.8.2',
+-        'omegaconf==2.1.1',
+-        'hydra-core==1.1.1',
+-        'pillow==9.5.0', # This version is compatible with tensorboard
+-        'opencv-python',
++        'torchvision',
++        'omegaconf',
++        'hydra-core',
++        'pillow', # This version is compatible with tensorboard
+         'matplotlib',
+         'flatten_dict',
+         'gdown',
+         'huggingface_hub',
+         'tabulate',
+         'pandas',
+-        'scipy',
+-        'scikit-learn',
+-        'scikit-video',
+         'transforms3d',
+         'moviepy',
+         'termcolor',
+-- 
+2.40.1
+
