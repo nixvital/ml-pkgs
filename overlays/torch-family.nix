@@ -20,10 +20,15 @@ in {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
 
-      pytorchWithCuda11 = python-prev.pytorchWithCuda.override {
+      pytorchWithCuda11 = (python-prev.pytorchWithCuda.override {
         cudaPackages = cuda11;
         magma = final.magmaWithCuda11;
-      };
+      }).overrideAttrs (oldAttrs: {
+        # TODO(breakds): The current HEAD of nixpkgs had a typo here:
+        # see
+        # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/python-modules/torch/default.nix#L227
+        USE_SYSTEM_PYBIND11 = true;
+      });
 
       torchmetricsWithCuda11 = python-prev.torchmetrics.override {
         torch = python-final.pytorchWithCuda11;
