@@ -71,6 +71,7 @@
           torchvisionWithCuda11
           pytorchvizWithCuda11
           pytorchLightningWithCuda11
+          einops
 
           # ----- Jax Family -----
           # jaxWithCuda11

@@ -42,6 +42,9 @@ in {
         pytorch = python-final.pytorchWithCuda11;
       };
 
+      # Newer version of einops
+      einops = python-final.callPackage ../bleeding/einops {};
+
       # Override to use a customized version of pytorch, built against
       # newer version of CUDA.
 
