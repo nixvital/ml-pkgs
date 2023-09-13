@@ -76,6 +76,7 @@
           pytorchvizWithCuda11
           pytorchLightningWithCuda11
           LIV-robotics
+          einops
 
           # ----- Jax Family -----
           # jaxWithCuda11

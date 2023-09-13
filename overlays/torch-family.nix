@@ -47,6 +47,8 @@ in {
         pytorch = python-final.pytorchWithCuda11;
       };
 
+      # Newer version of einops
+      einops = python-final.callPackage ../bleeding/einops {};
 
       LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
         pytorch = python-final.pytorchWithCuda11;
