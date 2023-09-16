@@ -118,6 +118,7 @@
 
           # ----- Symbolic -----
           pyjulia
+          pysr
 
           # ----- Lang Chain -----
           gptcache
