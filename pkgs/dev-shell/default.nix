@@ -1,6 +1,7 @@
 { mkShell
 , python3
 , mujoco
+, julia  
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
@@ -47,6 +48,9 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
 
       # ----- Lang Chain -----
       langchain
+
+      # ----- Symbolic -----
+      pyjulia
     ]);
 
     pythonIcon = "f3e2";
@@ -57,6 +61,7 @@ in mkShell rec {
   packages = [
     ml-pkgs-dev
     mujoco
+    julia
   ];
 
   # This is to have a leading python icon to remind the user we are in

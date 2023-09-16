@@ -22,6 +22,7 @@
       misc = import ./overlays/misc.nix;
       apis = import ./overlays/apis.nix;
       langchain = import ./overlays/langchain.nix;
+      symbolic = import ./overlays/symbolic.nix;
 
       # Default is a composition of all above.
       default = nixpkgs.lib.composeManyExtensions [
@@ -33,6 +34,7 @@
         self.overlays.misc
         self.overlays.apis
         self.overlays.langchain
+        self.overlays.symbolic
       ];
     };
   } // inputs.utils.lib.eachSystem [
@@ -113,6 +115,9 @@
 
           # ----- API -----
           wolframalpha
+
+          # ----- Symbolic -----
+          pyjulia
 
           # ----- Lang Chain -----
           gptcache
