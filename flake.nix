@@ -9,6 +9,7 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     overlays = {
+      cc-batteries = import ./overlays/cc-batteries.nix;
       # Please be very careful including the bleeding overlay. It provides
       # pydantic 2.0 but it will break pydantic 1.0 and everything depending on
       # it.
@@ -26,6 +27,7 @@
 
       # Default is a composition of all above.
       default = nixpkgs.lib.composeManyExtensions [
+        self.overlays.cc-batteries
         self.overlays.torch-family
         self.overlays.jax-family
         self.overlays.data-utils
@@ -126,7 +128,14 @@
           langchainplus-sdk
           langchain;
 
-        inherit (pkgs) mujoco;
+        inherit (pkgs)
+          mujoco
+          aria-csv-parser
+          cpp-sort
+          fast-float
+          scnlib
+          unordered-dense
+          xxhash-cpp;
       };
 
       apps = {

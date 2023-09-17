@@ -23,6 +23,8 @@ The available overlays in this flake are:
 - simulators: packages for simulators and environments for reinforcement learning
 - misc: miscellaneous packages for machine learning and data science
 
+There is also a special overlay for scientific computing / machine learning related c++ packages, called `cc-batteries`.
+
 Please note that some of the packages in this flake may have dependencies on proprietary or non-free software. To allow the installation of such packages, you may need to set the config.allowUnfree option in your Nix configuration.
 
 ## Using templates
