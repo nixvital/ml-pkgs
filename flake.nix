@@ -135,7 +135,8 @@
           fast-float
           scnlib
           unordered-dense
-          xxhash-cpp;
+          xxhash-cpp
+          vectorclass;
       };
 
       apps = {

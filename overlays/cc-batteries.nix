@@ -5,4 +5,5 @@ final: prev: {
   scnlib = final.callPackage ../cc-batteries/scnlib {};
   unordered-dense = final.callPackage ../cc-batteries/unordered-dense {};
   xxhash-cpp = final.callPackage ../cc-batteries/xxhash-cpp {};
+  vectorclass = final.callPackage ../cc-batteries/vectorclass {};
 }
