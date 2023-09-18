@@ -1,0 +1,66 @@
+From 3c4cdb10ca0bd1b8527961f6c46786ba3ddd9835 Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Mon, 18 Sep 2023 13:41:01 -0700
+Subject: [PATCH] Debug
+
+---
+ dm_control/_render/pyopengl/egl_renderer.py | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/dm_control/_render/pyopengl/egl_renderer.py b/dm_control/_render/pyopengl/egl_renderer.py
+index e3d4fe3..783976d 100644
+--- a/dm_control/_render/pyopengl/egl_renderer.py
++++ b/dm_control/_render/pyopengl/egl_renderer.py
+@@ -42,6 +42,7 @@ from OpenGL import error
+ 
+ def create_initialized_headless_egl_display():
+   """Creates an initialized EGL display directly on a device."""
++  print("-> create_initialized_headless_egl_display()")
+   all_devices = EGL.eglQueryDevicesEXT()
+   selected_device = os.environ.get('MUJOCO_EGL_DEVICE_ID', None)
+   if selected_device is None:
+@@ -66,7 +67,9 @@ def create_initialized_headless_egl_display():
+         pass
+       else:
+         if initialized == EGL.EGL_TRUE and EGL.eglGetError() == EGL.EGL_SUCCESS:
++          print(f"    Found display {display}")
+           return display
++  print("    Could not find display")
+   return EGL.EGL_NO_DISPLAY
+ 
+ 
+@@ -85,8 +88,8 @@ EGL_ATTRIBUTES = (
+     EGL.EGL_STENCIL_SIZE, 8,
+     EGL.EGL_COLOR_BUFFER_TYPE, EGL.EGL_RGB_BUFFER,
+     EGL.EGL_SURFACE_TYPE, EGL.EGL_PBUFFER_BIT,
+-    EGL.EGL_RENDERABLE_TYPE, EGL.EGL_OPENGL_BIT,
+-    EGL.EGL_NONE
++    EGL.EGL_RENDERABLE_TYPE, EGL.EGL_OPENGL_BIT,  
++    EGL.EGL_NONE,
+ )
+ 
+ 
+@@ -101,9 +104,12 @@ class EGLContext(base.ContextBase):
+ 
+   def _platform_init(self, unused_max_width, unused_max_height):
+     """Initialization this EGL context."""
++    EGL_DISPLAY = create_initialized_headless_egl_display()
+     num_configs = ctypes.c_long(0)
++    print(f"num_configs: {num_configs}")
+     config_size = 1
+     config = EGL.EGLConfig()
++    print(f"config: {config}")
+     EGL.eglReleaseThread()
+     EGL.eglChooseConfig(
+         EGL_DISPLAY,
+@@ -116,6 +122,7 @@ class EGLContext(base.ContextBase):
+           'EGL failed to find a framebuffer configuration that matches the '
+           'desired attributes: {}'.format(EGL_ATTRIBUTES))
+     EGL.eglBindAPI(EGL.EGL_OPENGL_API)
++    print(f"EGL_DISPLAY = {EGL_DISPLAY}, {EGL.EGL_NO_CONTEXT}")
+     self._context = EGL.eglCreateContext(
+         EGL_DISPLAY, config, EGL.EGL_NO_CONTEXT, None)
+     if not self._context:
+-- 
+2.40.1
+
