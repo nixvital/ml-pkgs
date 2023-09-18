@@ -23,13 +23,13 @@
 
 buildPythonPackage rec {
   pname = "dm_control";
-  version = "1.0.12";
+  version = "1.0.13";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = "dm_control";
-    rev = "330c91f41a21eacadcf8316f0a071327e3f5c017";
-    hash = "sha256-EeVZUArKfqAsgp4c55qrGkcwVp+pt6UzP0h/r2dxGBw=";
+    rev = version;
+    hash = "sha256-mnuWk41k6YQdcnsCLa3SVsiy5OFg81oFfzYmnDJsuA8=";
   };
 
   patches = [
