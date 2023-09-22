@@ -139,7 +139,8 @@
           vectorclass
           outcome
           quickcpplib
-          status-code;
+          status-code
+          eve;
       };
 
       apps = {
