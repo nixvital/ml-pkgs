@@ -6,4 +6,8 @@ final: prev: {
   unordered-dense = final.callPackage ../cc-batteries/unordered-dense {};
   xxhash-cpp = final.callPackage ../cc-batteries/xxhash-cpp {};
   vectorclass = final.callPackage ../cc-batteries/vectorclass {};
+
+  quickcpplib = final.callPackage ../cc-batteries/ned14/quickcpplib {};
+  status-code = final.callPackage ../cc-batteries/ned14/status-code {};
+  outcome = final.callPackage ../cc-batteries/ned14/outcome {};  
 }

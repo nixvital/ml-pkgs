@@ -136,7 +136,10 @@
           scnlib
           unordered-dense
           xxhash-cpp
-          vectorclass;
+          vectorclass
+          outcome
+          quickcpplib
+          status-code;
       };
 
       apps = {
