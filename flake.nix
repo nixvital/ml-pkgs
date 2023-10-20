@@ -88,8 +88,7 @@
           equinoxWithCuda11
 
           # ----- Data Utils -----
-          redshift-connector
-          # awswrangler  # currently broken
+          awswrangler
 
           # ----- Simulators -----
           gym
