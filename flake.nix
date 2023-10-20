@@ -83,8 +83,9 @@
           einops
 
           # ----- Jax Family -----
-          # jaxWithCuda11
-          # equinoxWithCuda11
+          jaxlibWithCuda11
+          jaxWithCuda11
+          equinoxWithCuda11
 
           # ----- Data Utils -----
           redshift-connector
