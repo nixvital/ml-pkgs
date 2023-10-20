@@ -22,7 +22,6 @@
       math = import ./overlays/math.nix;
       misc = import ./overlays/misc.nix;
       apis = import ./overlays/apis.nix;
-      langchain = import ./overlays/langchain.nix;
       symbolic = import ./overlays/symbolic.nix;
 
       # Default is a composition of all above.
@@ -35,7 +34,6 @@
         self.overlays.math
         self.overlays.misc
         self.overlays.apis
-        self.overlays.langchain
         self.overlays.symbolic
       ];
     };
@@ -120,13 +118,7 @@
 
           # ----- Symbolic -----
           pyjulia
-          pysr
-
-          # ----- Lang Chain -----
-          gptcache
-          openapi-schema-pydantic
-          langchainplus-sdk
-          langchain;
+          pysr;
 
         inherit (pkgs)
           mujoco
@@ -144,6 +136,7 @@
       };
 
       apps = {
+        # TODO(breakds): Deprecate this in the future
         extract-langchain-deps = {
           type = "app";
           program = "${pkgs.callPackage ./pkgs/langchain/extract-langchain-deps.nix {}}/bin/extract";
