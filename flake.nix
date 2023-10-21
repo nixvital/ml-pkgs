@@ -99,6 +99,7 @@
           metadrive-simulator
           robot-descriptions
           mujoco-pybind
+          mujoco-mjx
           mujoco-menagerie
           dm-tree
           dm-env
