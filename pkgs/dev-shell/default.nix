@@ -46,9 +46,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # ----- Misc -----
       numerapi
 
-      # ----- Lang Chain -----
-      langchain
-
       # ----- Symbolic -----
       pyjulia
       pysr

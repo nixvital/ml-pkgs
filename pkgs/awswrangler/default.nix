@@ -62,7 +62,6 @@ buildPythonPackage rec {
   # pythonImportsCheck = [ "dufte" ];
 
   meta = with lib; {
-    broken = true;  # It requires opensearch-py, which does not exist yet.
     description = ''
       Pandas on AWS - Easy integration with Athena, Glue, Redshift,
       Timestream, QuickSight, Chime, CloudWatchLogs, DynamoDB, EMR,
