@@ -36,6 +36,7 @@ buildPythonPackage rec {
     # The problem is that setup.py uses logging.DEBUG, whose enum ID has
     # changed. The fix is just to silence that logging line in setup.py.
     ./silence_logging.patch
+    ./0001-DEBUG-crash-at-EGLContext-creation.patch
   ];
 
   buildInputs = [

@@ -1,0 +1,28 @@
+From b87ae2cd4fa5b530cdaf00b211706297b7e81dfb Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Fri, 10 Nov 2023 16:40:29 -0800
+Subject: [PATCH] [DEBUG] crash at EGLContext creation
+
+---
+ dm_control/_render/pyopengl/egl_renderer.py | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/dm_control/_render/pyopengl/egl_renderer.py b/dm_control/_render/pyopengl/egl_renderer.py
+index e3d4fe3..5e5e0ac 100644
+--- a/dm_control/_render/pyopengl/egl_renderer.py
++++ b/dm_control/_render/pyopengl/egl_renderer.py
+@@ -96,6 +96,11 @@ class EGLContext(base.ContextBase):
+   def __init__(self, max_width, max_height):
+     # EGLContext currently only works with `PassthroughRenderExecutor`.
+     # TODO(b/110927854) Make this work with the offloading executor.
++    import psutil
++    p = psutil.Process(os.getpid())
++    f = psutil.Process(p.ppid())
++    g = psutil.Process(f.ppid())
++    print(f"current process {p.name()}, PID = {p.pid}, {g.name()} ⇨ {f.name()} ⇨ {p.name()}")
+     self._context = None
+     super().__init__(max_width, max_height, executor.PassthroughRenderExecutor)
+ 
+-- 
+2.40.1
+
