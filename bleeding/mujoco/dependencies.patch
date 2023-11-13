@@ -1,8 +1,18 @@
+From 12736e60de4ff2c1cd208724dbc6d339ade3a04f Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Mon, 13 Nov 2023 15:01:26 -0800
+Subject: [PATCH] simplify dependency
+
+---
+ cmake/MujocoDependencies.cmake            | 38 -----------------------
+ simulate/cmake/SimulateDependencies.cmake |  8 -----
+ 2 files changed, 46 deletions(-)
+
 diff --git a/cmake/MujocoDependencies.cmake b/cmake/MujocoDependencies.cmake
-index 29a623f..a93b039 100644
+index 4e3e2c8..bc3fd5a 100644
 --- a/cmake/MujocoDependencies.cmake
 +++ b/cmake/MujocoDependencies.cmake
-@@ -82,8 +82,6 @@ set(BUILD_SHARED_LIBS
+@@ -93,8 +93,6 @@ set(BUILD_SHARED_LIBS
  if(NOT TARGET lodepng)
    FetchContent_Declare(
      lodepng
@@ -11,7 +21,16 @@ index 29a623f..a93b039 100644
    )
  
    FetchContent_GetProperties(lodepng)
-@@ -108,10 +106,6 @@ findorfetch(
+@@ -113,8 +111,6 @@ endif()
+ if(NOT TARGET marchingcubecpp)
+   FetchContent_Declare(
+     marchingcubecpp
+-    GIT_REPOSITORY https://github.com/aparis69/MarchingCubeCpp.git
+-    GIT_TAG ${MUJOCO_DEP_VERSION_MarchingCubeCpp}
+   )
+ 
+   FetchContent_GetProperties(marchingcubecpp)
+@@ -133,10 +129,6 @@ findorfetch(
    qhull
    LIBRARY_NAME
    qhull
@@ -22,7 +41,7 @@ index 29a623f..a93b039 100644
    TARGETS
    qhull
    EXCLUDE_FROM_ALL
-@@ -132,10 +126,6 @@ findorfetch(
+@@ -157,10 +149,6 @@ findorfetch(
    tinyxml2
    LIBRARY_NAME
    tinyxml2
@@ -33,7 +52,7 @@ index 29a623f..a93b039 100644
    TARGETS
    tinyxml2
    EXCLUDE_FROM_ALL
-@@ -150,10 +140,6 @@ findorfetch(
+@@ -175,10 +163,6 @@ findorfetch(
    tinyobjloader
    LIBRARY_NAME
    tinyobjloader
@@ -44,7 +63,18 @@ index 29a623f..a93b039 100644
    TARGETS
    tinyobjloader
    EXCLUDE_FROM_ALL
-@@ -168,10 +154,6 @@ findorfetch(
+@@ -194,10 +178,6 @@ findorfetch(
+   sdflib
+   LIBRARY_NAME
+   sdflib
+-  GIT_REPO
+-  https://github.com/UPC-ViRVIG/SdfLib.git
+-  GIT_TAG
+-  ${MUJOCO_DEP_VERSION_sdflib}
+   TARGETS
+   SdfLib
+   EXCLUDE_FROM_ALL
+@@ -214,10 +194,6 @@ findorfetch(
    ccd
    LIBRARY_NAME
    ccd
@@ -55,7 +85,7 @@ index 29a623f..a93b039 100644
    TARGETS
    ccd
    EXCLUDE_FROM_ALL
-@@ -208,10 +190,6 @@ if(MUJOCO_BUILD_TESTS)
+@@ -254,10 +230,6 @@ if(MUJOCO_BUILD_TESTS)
      absl
      LIBRARY_NAME
      abseil-cpp
@@ -66,7 +96,7 @@ index 29a623f..a93b039 100644
      TARGETS
      absl::core_headers
      EXCLUDE_FROM_ALL
-@@ -235,10 +213,6 @@ if(MUJOCO_BUILD_TESTS)
+@@ -281,10 +253,6 @@ if(MUJOCO_BUILD_TESTS)
      GTest
      LIBRARY_NAME
      googletest
@@ -77,7 +107,7 @@ index 29a623f..a93b039 100644
      TARGETS
      gtest
      gmock
-@@ -269,10 +243,6 @@ if(MUJOCO_BUILD_TESTS)
+@@ -315,10 +283,6 @@ if(MUJOCO_BUILD_TESTS)
      benchmark
      LIBRARY_NAME
      benchmark
@@ -88,7 +118,7 @@ index 29a623f..a93b039 100644
      TARGETS
      benchmark::benchmark
      benchmark::benchmark_main
-@@ -289,8 +259,6 @@ if(MUJOCO_TEST_PYTHON_UTIL)
+@@ -335,8 +299,6 @@ if(MUJOCO_TEST_PYTHON_UTIL)
  
      FetchContent_Declare(
        Eigen3
@@ -98,7 +128,7 @@ index 29a623f..a93b039 100644
  
      FetchContent_GetProperties(Eigen3)
 diff --git a/simulate/cmake/SimulateDependencies.cmake b/simulate/cmake/SimulateDependencies.cmake
-index fa539c2..fbc7d0d 100644
+index 5141406..fbc7d0d 100644
 --- a/simulate/cmake/SimulateDependencies.cmake
 +++ b/simulate/cmake/SimulateDependencies.cmake
 @@ -49,10 +49,6 @@ findorfetch(
@@ -106,7 +136,7 @@ index fa539c2..fbc7d0d 100644
    LIBRARY_NAME
    mujoco
 -  GIT_REPO
--  https://github.com/deepmind/mujoco.git
+-  https://github.com/google-deepmind/mujoco.git
 -  GIT_TAG
 -  main
    TARGETS
@@ -123,3 +153,6 @@ index fa539c2..fbc7d0d 100644
    TARGETS
    glfw
    EXCLUDE_FROM_ALL
+-- 
+2.40.1
+

@@ -52,6 +52,8 @@ final: prev: {
     })
   ];
 
+  # mujoco depends on sdflib now, which in turn depends on cereal >= 1.3.1
+  cereal = final.cereal_1_3_2;
   mujoco = final.callPackage ../bleeding/mujoco/default.nix {};
   mujoco-231 = final.callPackage ../bleeding/mujoco/2.3.1.nix {};
 }

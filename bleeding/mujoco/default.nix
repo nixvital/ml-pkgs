@@ -5,6 +5,10 @@
 , libGL
 , stdenv
 , xorg
+, glm
+, spdlog
+, cereal
+, assimp
 }:
 
 let
@@ -12,14 +16,14 @@ let
   abseil-cpp = fetchFromGitHub {
     owner = "abseil";
     repo = "abseil-cpp";
-    rev = "c8a2f92586fe9b4e1aff049108f5db8064924d8e";  # LTS 20230125.1
-    sha256 = "sha256-/OdFqE0gKl5gyeXeVdvpN6OlKqbyfBszwbp/gf1FtOs=";
+    rev = "fb3621f4f897824c0dbe0615fa94543df6192f30"; # LTS 20230802.1
+    hash = "sha256-uNGrTNg5G5xFGtc+BSWE389x0tQ/KxJQLHfebNWas/k=";
   };
   benchmark = fetchFromGitHub {
     owner = "google";
     repo = "benchmark";
-    rev = "refs/tags/v1.7.1";
-    hash = "sha256-gg3g/0Ki29FnGqKv9lDTs5oA9NjH23qQ+hTdVtSU+zo=";
+    rev = "refs/tags/v1.8.3";
+    hash = "sha256-gztnxui9Fe/FTieMjdvfJjWHjkImtlsHn6fM1FruyME=";
   };
   ccd = fetchFromGitHub {
     owner = "danfis";
@@ -30,14 +34,14 @@ let
   eigen3 = fetchFromGitLab {
     owner = "libeigen";
     repo = "eigen";
-    rev = "3460f3558e7b469efb8a225894e21929c8c77629";
-    hash = "sha256-0qX7JjkroQkxJ5K442R7y1RDVoxvjWmGceqZz+8CB6A=";
+    rev = "e8515f78ac098329ab9f8cab21c87caede090a3f";
+    hash = "sha256-HXKtFJsKGpug+wNPjYynTuyaG0igo3oG4rFQktveh1g=";
   };
   googletest = fetchFromGitHub {
     owner = "google";
     repo = "googletest";
-    rev = "v1.13.0";
-    hash = "sha256-LVLEn+e7c8013pwiLzJiiIObyrlbBHYaioO/SWbItPQ=";
+    rev = "v1.14.0";
+    hash = "sha256-t0RchAHTJbuI5YW4uyBPykTvcjy90JW9AOPNjIhwh6U=";
   };
   lodepng = fetchFromGitHub {
     owner = "lvandeve";
@@ -63,6 +67,18 @@ let
     rev = "9a89766acc42ddfa9e7133c7d81a5bda108a0ade";
     hash = "sha256-YGAe4+Ttv/xeou+9FoJjmQCKgzupTYdDhd+gzvtz/88=";
   };
+  marchingcubecpp = fetchFromGitHub {
+    owner = "aparis69";
+    repo = "MarchingCubeCpp";
+    rev = "5b79e5d6bded086a0abe276a4b5a69fc17ae9bf1";
+    hash = "sha256-L0DH1GJZ/3vatQAU/KZj/2xTKE6Fwcw9eQYzLdqX2N4=";
+  };
+  sdflib = fetchFromGitHub {
+    owner = "UPC-ViRVIG";
+    repo = "SdfLib";
+    rev = "7c49cfba9bbec763b5d0f7b90b26555f3dde8088";
+    hash = "sha256-5bnQ3rHH9Pw1jRVpZpamFnhIJHWnGm6krgZgIBqNtVg=";
+  };
 
   # See https://github.com/deepmind/mujoco/blob/573d331b69845c5d651b70f5d1b0f3a0d2a3a233/simulate/cmake/SimulateDependencies.cmake#L32-L35
   glfw = fetchFromGitHub {
@@ -74,13 +90,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "mujoco";
-  version = "2.3.6";
+  version = "3.0.1pre";
 
   src = fetchFromGitHub {
     owner = "deepmind";
     repo = pname;
-    rev = version;
-    hash = "sha256-BhEiaYeGtkN9me5D0h6IPMykOtH7FOV7tI0R67YMpSI=";
+    rev = "97ad54305113570ce9149fbc486044de3211e00f";
+    hash = "sha256-3BFRh9/IsxudLm6S+WUjSxZ6s+JGX0W0b9O2toETGTA=";
   };
 
   patches = [ ./dependencies.patch ];
@@ -95,6 +111,10 @@ stdenv.mkDerivation rec {
     xorg.libXi
     xorg.libXinerama
     xorg.libXrandr
+    glm
+    spdlog
+    cereal
+    assimp
   ];
 
   # Move things into place so that cmake doesn't try downloading dependencies.
@@ -112,10 +132,16 @@ stdenv.mkDerivation rec {
     ln -s ${qhull} build/_deps/qhull-src
     ln -s ${tinyobjloader} build/_deps/tinyobjloader-src
     ln -s ${tinyxml2} build/_deps/tinyxml2-src
+    ln -s ${marchingcubecpp} build/_deps/marchingcubecpp-src
+    ln -s ${sdflib} build/_deps/sdflib-src
   '';
 
   cmakeFlags = [
     "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=TRUE"
+    "-DSDFLIB_USE_SYSTEM_GLM=ON"
+    "-DSDFLIB_USE_SYSTEM_SPDLOG=ON"
+    "-DSDFLIB_USE_SYSTEM_CEREAL=ON"
+    "-DSDFLIB_USE_SYSTEM_ASSIMP=ON"
   ];
 
   meta = with lib; {
