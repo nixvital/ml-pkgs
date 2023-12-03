@@ -20,6 +20,10 @@ let wheels = {
         url = https://files.pythonhosted.org/packages/d7/0c/7af44d49886cf99f701c96030b0b02c52092014ebb3a8f7e84fc25d50b46/numpy_quaternion-2022.4.2-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
         sha256 = "1ymf53kp13nf500inrhg2vk5g9gzxc4m0v1gspyxyj2fbr6slzjz";
       };
+      "x86_64-linux-python-3.11" = {
+        url = https://files.pythonhosted.org/packages/69/dc/4ac0a138b37ae9313cec6d1d7c135561af976987e76337524e0154be2343/numpy_quaternion-2022.4.4-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+        sha256 = "1jz3gpdxas6x3zfrz601fks7xivg51kihs33k071j9bycprm6s50";
+      };
     };
 
 in buildPythonPackage rec {

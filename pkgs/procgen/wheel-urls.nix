@@ -25,6 +25,11 @@ let urls = {
           url = https://files.pythonhosted.org/packages/eb/9e/4dea48895a9350ff045ae724cbebf1fb8f2d2eafff16b6a39fc8842e1084/procgen-0.10.7-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
           sha256 = "0lszhsy4q4mpf2sl6cqcr6cyn1mrfx22k7lswmk223rgwha4snab";
         };
+
+        "311" = {
+          url = https://files.pythonhosted.org/packages/af/ac/09bd5615260ed8223eb61f309b4b48c820879f5e192310ff479c49250dbc/procgen2-0.10.7-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+          sha256 = "0597wqfkhayr9v0cfqidz77w8hp22ml5qdvxjkdxgzfqpz215pfn";
+        };
       };
     };
 in urls."${version}"."${pyVerNoDot}"
