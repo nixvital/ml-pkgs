@@ -106,6 +106,7 @@
           dm-control
           python-fcl
           sapien
+          glfw
 
           # ----- Math -----
           numpy-quaternion
