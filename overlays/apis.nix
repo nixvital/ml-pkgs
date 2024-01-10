@@ -5,4 +5,5 @@ final: prev: {
       openai = python-final.callPackage ../bleeding/openai {};
     })
   ];
+  librealsense = final.callPackage ../bleeding/librealsense {};
 }

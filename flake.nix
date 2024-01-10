@@ -134,7 +134,8 @@
           outcome
           quickcpplib
           status-code
-          eve;
+          eve
+          librealsense;
       };
 
       apps = {
