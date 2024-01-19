@@ -28,7 +28,7 @@
 
 buildPythonPackage rec {
   pname = "mujoco-mjx";
-  version = "3.0.0";
+  version = "3.1.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -36,8 +36,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "google-deepmind";
     repo = "mujoco";
-    rev = "3.0.0";
-    hash = "sha256-zHK1uYtWkKFWBMqkw/NwuBlLoXyiZJeNC/sSXwSfgW4=";
+    rev = version;
+    hash = "sha256-+2nt7G8j6Pi60cfMBPYWPGwD8wpxDOSylenm0oCitzM=";
   };
 
   # MuJoCo MJX is actually a completely re-implementation of MuJoCo using Jax.
