@@ -80,8 +80,8 @@
           LIV-robotics
 
           # ----- Jax Family -----
-          jaxlibWithCuda11
-          jaxWithCuda11
+          jaxlibWithCuda
+          jax
           equinoxWithCuda11
 
           # ----- Data Utils -----
