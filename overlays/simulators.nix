@@ -38,8 +38,7 @@ final: prev: {
       mujoco-pybind = python-final.callPackage ../pkgs/mujoco-pybind {};
       mujoco-pybind-231 = python-final.callPackage ../pkgs/mujoco-pybind/2.3.1.nix {};
       mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
-        jax = python-final.jaxWithCuda11;
-        jaxlib = python-final.jaxlibWithCuda11;
+        jaxlib = python-final.jaxlibWithCuda;
       };
       mujoco-menagerie = python-final.callPackage ../pkgs/mujoco-menagerie {};
       dm-tree = python-final.callPackage ../pkgs/deepmind/dm-tree {};
