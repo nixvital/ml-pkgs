@@ -8,6 +8,10 @@
 , glfw
 , pyopengl
 , absl-py
+, etils
+, zipp
+, typing-extensions
+, importlib-resources
 }:
 
 let wheels = {
@@ -37,6 +41,10 @@ in buildPythonPackage rec {
     glfw
     pyopengl
     absl-py
+    etils
+    zipp
+    typing-extensions
+    importlib-resources
   ];
 
   buildInputs = [

@@ -37,6 +37,8 @@ final: prev: {
       # Mujoco (Official Python Binding) and friends
       mujoco-pybind = python-final.callPackage ../pkgs/mujoco-pybind {};
       mujoco-pybind-231 = python-final.callPackage ../pkgs/mujoco-pybind/2.3.1.nix {};
+
+      ml-dtypes = python-final.callPackage ../bleeding/ml-dtypes {};
       mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
         jaxlib = python-final.jaxlibWithCuda;
       };

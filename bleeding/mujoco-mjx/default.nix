@@ -24,6 +24,7 @@
 , pyparsing
 , tomli
 , execnet
+, mujoco-pybind
 }:
 
 buildPythonPackage rec {
@@ -68,6 +69,7 @@ buildPythonPackage rec {
     pluggy
     pyparsing
     execnet
+    mujoco-pybind
   ] ++ (lib.optionals (pythonOlder "3.11") [ exceptiongroup tomli ]);
 
   meta = with lib; {
