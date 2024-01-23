@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     utils.url = "github:numtide/flake-utils";
   };
@@ -39,8 +39,7 @@
 
         packages = [
           (pkgs.python3.withPackages (py-pkgs: with py-pkgs; [
-            jax
-            jaxlibWithCuda
+            jaxlib-bin
           ]))
         ];
       };
