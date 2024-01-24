@@ -14,7 +14,9 @@ final: prev: {
 
       # NOTE(breakds): There are still missing libraries when autoPatchelf this
       # package, and therefore some of the functionality may not be there.
-      open3d = python-final.callPackage ../pkgs/open3d {};
+      open3d = python-final.callPackage ../pkgs/open3d {
+        torch = python-final.torchWithCuda;
+      };
 
       # Atari. Note that though ale-py-with-roms is preferred, it does not fully
       # reproduce the result from atari-py yet. This means that we will stick to

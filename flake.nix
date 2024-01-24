@@ -75,7 +75,7 @@
       packages = {
         inherit (pkgs.python3Packages)
           # ----- Torch Family -----
-          torch
+          torchWithCuda
 
           # ----- Jax Family -----
           jaxlib-bin

@@ -8,7 +8,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       pydantic
       
       # ----- Torch Family -----
-      torch   # This is actually torchWithCuda
+      torchWithCuda
       pytorchviz
       LIV-robotics
 

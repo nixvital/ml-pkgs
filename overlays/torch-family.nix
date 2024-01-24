@@ -1,8 +1,16 @@
 final: prev:
 
-let cuda12 = prev.cudaPackages_12_2;
+let cuda12 = final.cudaPackages_12_2;
 
 in {
+  magma = prev.magma.override {
+    cudaPackages = cuda12;
+  };
+
+  mpi = prev.mpi.override {
+    cudaPackages = cuda12;
+  };
+  
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
 
@@ -15,16 +23,64 @@ in {
         cudaPackages = cuda12;
       };
 
-      # Now torch becomes torchWithCuda (12).
-      torch = python-final.torchWithCuda;
-      
-
-      pytorchviz = python-final.callPackage ../pkgs/pytorchviz {
-        pytorch = python-final.torch;
+      LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
+        pytorch = python-final.torchWithCuda;
       };
 
-      LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
-        pytorch = python-final.torch;
+      torchmetrics = python-prev.torchmetrics.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      pytorch-lightning = python-prev.pytorch-lightning.override {
+        torch = python-final.torchWithCuda;
+        torchmetrics = python-final.torchmetricsWithCuda11;
+      };
+
+      torchvision = python-prev.torchvision.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      pytorchviz = python-final.callPackage ../pkgs/pytorchviz {
+        pytorch = python-final.torchWithCuda;
+      };
+
+      # Override to use a customized version of pytorch, built against
+      # newer version of CUDA.
+
+      wandb = python-prev.wandb.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      transformers = python-prev.transformers.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      accelerate = python-prev.accelerate.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      manifest-ml = python-prev.manifest-ml.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      peft = python-prev.peft.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      lion-pytorch = python-prev.lion-pytorch.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      bitsandbytes = python-prev.bitsandbytes.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      sentence-transformers = python-prev.sentence-transformers.override {
+        torch = python-final.torchWithCuda;
+      };
+
+      clip = python-prev.clip.override {
+        torch = python-final.torchWithCuda;
       };
     })
   ];
