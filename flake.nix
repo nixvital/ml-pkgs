@@ -15,7 +15,6 @@
       # it.
       bleeding = import ./overlays/bleeding.nix;
       torch-family = import ./overlays/torch-family.nix;
-      torch-family-cuda114 = import ./overlays/torch-family-cuda114.nix;
       jax-family = import ./overlays/jax-family.nix;
       data-utils = import ./overlays/data-utils.nix;
       simulators = import ./overlays/simulators.nix;
