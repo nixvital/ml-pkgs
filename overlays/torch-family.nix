@@ -3,9 +3,16 @@ final: prev:
 let cuda12 = final.cudaPackages_12_2;
 
 in {
-  magma = prev.magma.override {
+  magma = (prev.magma.override {
     cudaPackages = cuda12;
-  };
+  }).overrideAttrs (oldAttrs: {
+    # See https://github.com/NixOS/nixpkgs/issues/281656
+    cmakeFlags = oldAttrs.cmakeFlags ++ [
+      "-DCMAKE_C_FLAGS=-DADD_"
+      "-DCMAKE_CXX_FLAGS=-DADD_"
+      "-DFORTRAN_CONVENTION:STRING=-DADD_"
+    ];
+  });
 
   mpi = prev.mpi.override {
     cudaPackages = cuda12;
