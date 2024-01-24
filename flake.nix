@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     utils.url = "github:numtide/flake-utils";
   };
@@ -57,14 +57,17 @@
             # 8.6 - 30X0 (Ti)
             # 8.9 - 40X0 (Ti)
             cudaCapabilities = [ "7.5" "8.6" ];
-            cudaForwardCompat = false;
+            cudaForwardCompat = true;
           };
           overlays = [
             self.overlays.default
           ];
         };
     in rec {
-      devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
+      devShells = {
+        default = pkgs.callPackage ./pkgs/dev-shell {};
+        jax = pkgs.callPackage ./pkgs/dev-shell/jax.nix {};
+      };
       # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
       #   python3 = pkgs.python38;
       # };
@@ -72,16 +75,12 @@
       packages = {
         inherit (pkgs.python3Packages)
           # ----- Torch Family -----
-          pytorchWithCuda11
-          torchvisionWithCuda11
-          pytorchvizWithCuda11
-          pytorchLightningWithCuda11
-          LIV-robotics
+          torch
 
           # ----- Jax Family -----
-          jaxlibWithCuda
+          jaxlib-bin
           jax
-          equinoxWithCuda11
+          equinox
 
           # ----- Data Utils -----
           awswrangler

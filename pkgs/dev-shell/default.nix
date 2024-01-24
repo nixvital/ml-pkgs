@@ -8,15 +8,13 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       pydantic
       
       # ----- Torch Family -----
-      pytorchWithCuda11
-      torchvisionWithCuda11
-      pytorchvizWithCuda11
-      torchmetricsWithCuda11
-      pytorchLightningWithCuda11
+      torch   # This is actually torchWithCuda
+      pytorchviz
+      LIV-robotics
 
       # ----- Jax Family -----
-      # jaxWithCuda11
-      # equinoxWithCuda11
+      jaxlib-bin
+      jax
 
       # ----- Data Utils -----
       redshift-connector
