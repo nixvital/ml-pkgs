@@ -1,6 +1,6 @@
 final: prev:
 
-let cuda12 = prev.cudaPackages_12;
+let cuda12 = prev.cudaPackages_12_2;
 
 in {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
