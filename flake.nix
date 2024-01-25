@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     utils.url = "github:numtide/flake-utils";
   };
