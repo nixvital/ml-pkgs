@@ -18,20 +18,18 @@
             cudaCapabilities = [ "7.5" "8.6" ];
             cudaForwardCompat = false;
           };
-          # overlays = [
-          #   (final: prev: {
-          #     cudaPackagesGoogle = prev.cudaPackages_11_7;
-          #     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-          #       (python-final: python-prev: {
-          #         jaxlibWithCuda = python-final.callPackage ./bleeding/jaxlib {
-          #           inherit (final.darwin) cctools;
-          #           inherit (final.config) cudaSupport;
-          #           IOKit = python-final.darwin.apple_sdk_11_0.IOKit;
-          #         };
-          #       })
-          #     ];
-          #   })
-          # ];
+          overlays = [
+            (final: prev: {
+              cudaPackagesGoogle = prev.cudaPackages_11_8;
+              pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+                (python-final: python-prev: {
+                  jaxlib-bin = python-final.callPackage ./bleeding/jaxlib/bin.nix {
+                    inherit (final.config) cudaSupport;
+                  };
+                })
+              ];
+            })
+          ];
         };
     in rec {
       devShells.default = pkgs.mkShell {
