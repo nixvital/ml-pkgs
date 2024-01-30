@@ -15,7 +15,7 @@ final: prev: {
       # NOTE(breakds): There are still missing libraries when autoPatchelf this
       # package, and therefore some of the functionality may not be there.
       open3d = python-final.callPackage ../pkgs/open3d {
-        torch = python-final.pytorchWithCuda11;
+        torch = python-final.torchWithCuda;
       };
 
       # Atari. Note that though ale-py-with-roms is preferred, it does not fully
@@ -37,8 +37,10 @@ final: prev: {
       # Mujoco (Official Python Binding) and friends
       mujoco-pybind = python-final.callPackage ../pkgs/mujoco-pybind {};
       mujoco-pybind-231 = python-final.callPackage ../pkgs/mujoco-pybind/2.3.1.nix {};
+
+      # Requires overlay of jax-family.
       mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
-        jaxlib = python-final.jaxlibWithCuda;
+        jaxlib = python-final.jaxlib-bin;
       };
       mujoco-menagerie = python-final.callPackage ../pkgs/mujoco-menagerie {};
       dm-tree = python-final.callPackage ../pkgs/deepmind/dm-tree {};

@@ -15,7 +15,6 @@
       # it.
       bleeding = import ./overlays/bleeding.nix;
       torch-family = import ./overlays/torch-family.nix;
-      torch-family-cuda114 = import ./overlays/torch-family-cuda114.nix;
       jax-family = import ./overlays/jax-family.nix;
       data-utils = import ./overlays/data-utils.nix;
       simulators = import ./overlays/simulators.nix;
@@ -58,14 +57,17 @@
             # 8.6 - 30X0 (Ti)
             # 8.9 - 40X0 (Ti)
             cudaCapabilities = [ "7.5" "8.6" ];
-            cudaForwardCompat = false;
+            cudaForwardCompat = true;
           };
           overlays = [
             self.overlays.default
           ];
         };
     in rec {
-      devShells.default = pkgs.callPackage ./pkgs/dev-shell {};
+      devShells = {
+        default = pkgs.callPackage ./pkgs/dev-shell {};
+        jax = pkgs.callPackage ./pkgs/dev-shell/jax.nix {};
+      };
       # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
       #   python3 = pkgs.python38;
       # };
@@ -73,16 +75,12 @@
       packages = {
         inherit (pkgs.python3Packages)
           # ----- Torch Family -----
-          pytorchWithCuda11
-          torchvisionWithCuda11
-          pytorchvizWithCuda11
-          pytorchLightningWithCuda11
-          LIV-robotics
+          torchWithCuda
 
           # ----- Jax Family -----
-          jaxlibWithCuda
+          jaxlib-bin
           jax
-          equinoxWithCuda11
+          equinox
 
           # ----- Data Utils -----
           awswrangler
