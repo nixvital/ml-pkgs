@@ -122,7 +122,7 @@ let
   # work. The cuda12 jaxlib binaries only works with CUDA 12.2, and cuda11
   # jaxlib binaries only works with CUDA 11.8. This is why we need to find a
   # binary that matches the provided cudaVersion.
-  gpuSrcVersionString = "cuda${cudaVersion}-${pythonVersion}";
+  gpuSrcVersionString = "cuda${cudaVersion}-${pythonVersion}";  
 
   # Find new releases at https://storage.googleapis.com/jax-releases
   # When upgrading, you can get these hashes from prefetch.sh. See
@@ -231,6 +231,6 @@ buildPythonPackage {
       !(cudaSupport -> (cudaPackagesGoogle ? cudatoolkit) && lib.versionAtLeast cudatoolkit.version "11.1")
       || !(cudaSupport -> (cudaPackagesGoogle ? cudnn) && lib.versionAtLeast cudnn.version "8.2")
       || !(cudaSupport -> stdenv.isLinux)
-      || !(cudaSupport -> (gpuSrcs ? gpuSrcVersionString));
+      || !(cudaSupport -> (gpuSrcs ? "cuda${cudaVersion}-${pythonVersion}"));
   };
 }
