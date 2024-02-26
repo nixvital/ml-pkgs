@@ -38,9 +38,12 @@ in {
         torch = python-final.torchWithCuda;
       };
 
+      tensorboardx = python-prev.tensorboardx.override {
+        torch = python-final.torchWithCuda;        
+      };
+
       pytorch-lightning = python-prev.pytorch-lightning.override {
         torch = python-final.torchWithCuda;
-        torchmetrics = python-final.torchmetricsWithCuda11;
       };
 
       torchvision = python-prev.torchvision.override {
