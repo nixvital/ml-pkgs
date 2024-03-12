@@ -12,22 +12,22 @@
 
 let wheels = {
       "x86_64-linux-python-3.10" = {
-        url = https://files.pythonhosted.org/packages/7b/d3/9ae4171d6454f3fd2119bfe9e31849c6fc45c68aa29c84d91998674f994b/mujoco-3.1.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
-        sha256 = "0iwaz4bxm7r8l8jw1s1jfwdp5iqd6aqblwf553k2wqbfy2fhzb2i";
+        url = https://files.pythonhosted.org/packages/51/b5/63e576514c5897bb64cb7dc635cef3b494c86e2f110d2a7267d61f47f3c9/mujoco-3.1.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+        sha256 = "0k0mn4i2rlx28ss697lfaqa8l14aykn1dk4k133x27jqzxwq4mzi";
       };
       "x86_64-linux-python-3.11" = {
-        url = https://files.pythonhosted.org/packages/d5/52/f034c94af7c398729f0cc6b4251e324700444478483168552b2dcc774a13/mujoco-3.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
-        sha256 = "04005rarx0597hhsgz9895vy5czbhhixs2gwqsh46m3zyad8mvis";
+        url = https://files.pythonhosted.org/packages/f6/67/563b4755fd77a898cda35f448d4f8f5f062932965d7833de75287451ffcd/mujoco-3.1.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+        sha256 = "1fdl17wnsl2x5irgc2z45jjrwqj5dpm7ph334r6jg9wh9h9wd7gp";
       };
       "x86_64-linux-python-3.12" = {
-        url = https://files.pythonhosted.org/packages/a3/d5/b8be6ad03eb055bd32cb0c8ceda413f2b02f38a59622bc9ebd790be83ea4/mujoco-3.1.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
-        sha256 = "14dmwnmv4n4fln6wf6caszndds3n5n9scpr0rqp32fdpxzkchcap";
+        url = https://files.pythonhosted.org/packages/be/a9/270cc9947fdb60ebe0eeb9c701e94fe161ba21407b79a402df19fbabcb33/mujoco-3.1.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+        sha256 = "14hlivc2gsjf7snyqxcpvvm4lv6ddggb2pizir9i36pq9d0j1hfl";
       };
     };
 
 in buildPythonPackage rec {
   pname = "mujoco";
-  version = "3.1.1";
+  version = "3.1.3";
   format = "wheel";
 
   src = fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
