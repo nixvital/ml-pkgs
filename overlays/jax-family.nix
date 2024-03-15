@@ -12,6 +12,14 @@ final: prev: {
       equinox = python-prev.equinox.override {
         jaxlib = python-final.jaxlib-bin;
       };
+
+      optax = python-prev.optax.override {
+        jaxlib = python-final.jaxlib-bin;
+      };
+
+      chex = python-prev.chex.override {
+        jaxlib = python-final.jaxlib-bin;
+      };
     })
   ];
 }
