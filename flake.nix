@@ -107,6 +107,7 @@
           sapien
           glfw
           gputil
+          objaverse
           procthor
 
           # ----- Math -----

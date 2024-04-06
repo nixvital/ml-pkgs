@@ -59,6 +59,7 @@ final: prev: {
       # Procedually generated room layouts
       gputil = python-final.callPackage ../pkgs/allenai/gputil {};
       procthor = python-final.callPackage ../pkgs/allenai/procthor {};
+      objaverse = python-final.callPackage ../pkgs/allenai/objaverse {};
     })
   ];
 

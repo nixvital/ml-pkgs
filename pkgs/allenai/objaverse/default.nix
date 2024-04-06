@@ -9,7 +9,7 @@
 , tqdm
 , loguru
 , fsspec
-, gputils
+, gputil  
 }:
 
 buildPythonPackage rec {
@@ -23,6 +23,7 @@ buildPythonPackage rec {
     owner = "allenai";
     repo = "objaverse-xl";
     rev = version;
+    hash = "sha256-Jun1iShXQ4QaQCaWfClIi5CWyMwcSJsEx6CF+08cZ5A=";
   };
 
   buildInputs = [
@@ -30,14 +31,23 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [
-    
+    requests
+    pandas
+    pyarrow
+    tqdm
+    loguru
+    fsspec
+    gputil
   ];
+
+  pythonImportsCheck = [ "objaverse" ];
 
   meta = with lib; {
     description = ''
-      Scaling Embodied AI by Procedurally Generating Interactive 3D Houses
+      Objaverse-XL is a Universe of 10M+ 3D Objects. Contains API
+      Scripts for Downloading and Processing!
     '';
-    homepage = "https://procthor.allenai.org/";
+    homepage = "https://objaverse.allenai.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [ breakds ];
   };
