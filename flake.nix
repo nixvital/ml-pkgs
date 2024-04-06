@@ -67,6 +67,7 @@
       devShells = {
         default = pkgs.callPackage ./pkgs/dev-shell {};
         jax = pkgs.callPackage ./pkgs/dev-shell/jax.nix {};
+        quicktest = pkgs.callPackage ./pkgs/dev-shell/quicktest.nix {};
       };
       # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
       #   python3 = pkgs.python38;
@@ -105,6 +106,7 @@
           python-fcl
           sapien
           glfw
+          gputil
           procthor
 
           # ----- Math -----

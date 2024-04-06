@@ -57,7 +57,8 @@ final: prev: {
       glfw = python-final.callPackage ../bleeding/glfw {};
 
       # Procedually generated room layouts
-      procthor = python-final.callPackage ../pkgs/procthor {};
+      gputil = python-final.callPackage ../pkgs/allenai/gputil {};
+      procthor = python-final.callPackage ../pkgs/allenai/procthor {};
     })
   ];
 

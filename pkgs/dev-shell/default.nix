@@ -37,6 +37,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       dm-control
       python-fcl
       sapien
+      gputil
 
       # ----- Math -----
       numpy-quaternion
