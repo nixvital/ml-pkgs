@@ -60,6 +60,8 @@ final: prev: {
       gputil = python-final.callPackage ../pkgs/allenai/gputil {};
       procthor = python-final.callPackage ../pkgs/allenai/procthor {};
       objaverse = python-final.callPackage ../pkgs/allenai/objaverse {};
+      objathor = python-final.callPackage ../pkgs/allenai/objathor {};
+      ai2thor = python-final.callPackage ../pkgs/allenai/ai2thor {};
     })
   ];
 

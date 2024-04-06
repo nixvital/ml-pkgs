@@ -9,7 +9,7 @@
 , tqdm
 , loguru
 , fsspec
-, gputil  
+, gputil
 }:
 
 buildPythonPackage rec {

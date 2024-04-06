@@ -108,6 +108,8 @@
           glfw
           gputil
           objaverse
+          objathor
+          ai2thor
           procthor
 
           # ----- Math -----
