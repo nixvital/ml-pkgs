@@ -54,7 +54,10 @@ final: prev: {
       sapien = python-final.callPackage ../pkgs/sapien {};
 
       # nixpkgs has a problematic glfw on 23.11 at this moment.
-      glfw = python-final.callPackage ../bleeding/glfw {};      
+      glfw = python-final.callPackage ../bleeding/glfw {};
+
+      # Procedually generated room layouts
+      procthor = python-final.callPackage ../pkgs/procthor {};
     })
   ];
 

@@ -105,6 +105,7 @@
           python-fcl
           sapien
           glfw
+          procthor
 
           # ----- Math -----
           numpy-quaternion
