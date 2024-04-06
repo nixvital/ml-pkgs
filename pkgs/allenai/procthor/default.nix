@@ -9,6 +9,7 @@
 , python-sat
 , python-fcl
 , canonicaljson
+, ai2thor
 }:
 
 buildPythonPackage rec {
@@ -36,6 +37,7 @@ buildPythonPackage rec {
     python-sat
     python-fcl
     canonicaljson
+    ai2thor
   ];
 
   meta = with lib; {

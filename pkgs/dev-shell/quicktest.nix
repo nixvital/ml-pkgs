@@ -3,7 +3,8 @@
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
-      objaverse
+      ai2thor
+      procthor
     ]);
 
     pythonIcon = "f3e2";
