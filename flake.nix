@@ -107,6 +107,7 @@
           sapien
           glfw
           gputil
+          aws-requests-auth
           objaverse
           objathor
           ai2thor

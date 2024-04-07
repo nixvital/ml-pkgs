@@ -58,6 +58,7 @@ final: prev: {
 
       # Procedually generated room layouts
       gputil = python-final.callPackage ../pkgs/allenai/gputil {};
+      aws-requests-auth = python-final.callPackage ../pkgs/allenai/aws-requests-auth {};
       procthor = python-final.callPackage ../pkgs/allenai/procthor {};
       objaverse = python-final.callPackage ../pkgs/allenai/objaverse {};
       objathor = python-final.callPackage ../pkgs/allenai/objathor {};

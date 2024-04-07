@@ -10,6 +10,8 @@
 , python-fcl
 , canonicaljson
 , ai2thor
+, shapely
+, moviepy
 }:
 
 buildPythonPackage rec {
@@ -38,6 +40,8 @@ buildPythonPackage rec {
     python-fcl
     canonicaljson
     ai2thor
+    shapely
+    moviepy
   ];
 
   meta = with lib; {
