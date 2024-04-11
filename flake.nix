@@ -22,6 +22,7 @@
       misc = import ./overlays/misc.nix;
       apis = import ./overlays/apis.nix;
       symbolic = import ./overlays/symbolic.nix;
+      tools = import ./overlays/tools.nix;
 
       # Default is a composition of all above.
       default = nixpkgs.lib.composeManyExtensions [
@@ -34,6 +35,7 @@
         self.overlays.misc
         self.overlays.apis
         self.overlays.symbolic
+        self.overlays.tools
       ];
     };
   } // inputs.utils.lib.eachSystem [
@@ -125,7 +127,10 @@
 
           # ----- Symbolic -----
           pyjulia
-          pysr;
+          pysr
+
+          # ----- Tools -----
+          aider;
 
         inherit (pkgs)
           mujoco
