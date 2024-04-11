@@ -8,7 +8,7 @@
 , requests
 , progressbar2
 , botocore
-,aws-requests-auth
+, aws-requests-auth
 , msgpack
 , pillow
 , xlib
