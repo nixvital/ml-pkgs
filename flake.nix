@@ -127,10 +127,7 @@
 
           # ----- Symbolic -----
           pyjulia
-          pysr
-
-          # ----- Tools -----
-          aider;
+          pysr;
 
         inherit (pkgs)
           mujoco
@@ -144,7 +141,8 @@
           outcome
           quickcpplib
           status-code
-          eve;
+          eve
+          aider;
       };
 
       apps = {

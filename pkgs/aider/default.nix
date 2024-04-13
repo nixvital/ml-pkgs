@@ -1,34 +1,9 @@
 { lib
-, pythonOlder
-, buildPythonPackage
+, python3Packages
 , fetchFromGitHub
-, setuptools
-, configargparse
-, gitpython
-, openai
-, tiktoken
-, jsonschema
-, rich
-, prompt-toolkit
-, numpy
-, scipy
-, backoff
-, pathspec
-, networkx
-, diskcache
-, grep-ast
-, packaging
-, sounddevice
-, soundfile
-, beautifulsoup4
-, pyyaml
-, pillow
-, diff-match-patch
-, playwright
-, pypandoc
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonApplication rec {
   pname = "aider";
   version = "0.28.0";
   format = "pyproject";
@@ -40,11 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-10O88VKBO9Ph7R3hTyyahYO5dVl58Wvlwp3aD0ghuMg=";
   };
 
-  buildInputs = [
+  buildInputs = with python3Packages; [
     setuptools
   ];
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     configargparse
     gitpython
     openai
@@ -68,6 +43,7 @@ buildPythonPackage rec {
     diff-match-patch
     playwright
     pypandoc
+    httpx
   ];
 
   meta = with lib; {
