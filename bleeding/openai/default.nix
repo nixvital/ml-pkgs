@@ -16,6 +16,7 @@
 , pydantic
 , tqdm
 , typing-extensions
+, hatch-fancy-pypi-readme  
 
 # Check deps
 , pytestCheckHook
@@ -28,7 +29,7 @@
 
 buildPythonPackage rec {
   pname = "openai";
-  version = "1.7.2";
+  version = "1.16.2";
   pyproject = true;
 
   disabled = pythonOlder "3.7.1";
@@ -37,7 +38,7 @@ buildPythonPackage rec {
     owner = "openai";
     repo = "openai-python";
     rev = "refs/tags/v${version}";
-    hash = "sha256-fJo3d+AKh/1jajOPsZGz43+0Z/1QOr8Hm1Lfi060BUc=";
+    hash = "sha256-7JWwEoVEdAy+tPcaYUPN7xA62Egzlv/2NNcDqvmDYh4=";
   };
 
   nativeBuildInputs = [ hatchling ];
@@ -49,6 +50,7 @@ buildPythonPackage rec {
     pydantic
     tqdm
     typing-extensions
+    hatch-fancy-pypi-readme
   ] ++ lib.optionals withOptionalDependencies passthru.optional-dependencies.datalib;
 
   passthru.optional-dependencies = {
