@@ -9,7 +9,7 @@ final: prev: {
         jaxlib = python-final.jaxlib-bin;
       };
 
-      equinox = python-prev.equinox.override {
+      equinox = python-final.callPackage ../bleeding/equinox {
         jaxlib = python-final.jaxlib-bin;
       };
 
