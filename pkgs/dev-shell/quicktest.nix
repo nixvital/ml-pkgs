@@ -3,8 +3,9 @@
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
-      ai2thor
-      procthor
+      # ai2thor
+      # procthor
+      tree-sitter-languages
     ]);
 
     pythonIcon = "f3e2";
