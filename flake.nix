@@ -123,7 +123,6 @@
 
           # ----- API -----
           wolframalpha
-          openai  # 1.3.5
 
           # ----- Symbolic -----
           pyjulia
