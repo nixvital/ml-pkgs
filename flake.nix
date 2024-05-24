@@ -10,9 +10,6 @@
   outputs = { self, nixpkgs, ... }@inputs: {
     overlays = {
       cc-batteries = import ./overlays/cc-batteries.nix;
-      # Please be very careful including the bleeding overlay. It provides
-      # pydantic 2.0 but it will break pydantic 1.0 and everything depending on
-      # it.
       bleeding = import ./overlays/bleeding.nix;
       torch-family = import ./overlays/torch-family.nix;
       jax-family = import ./overlays/jax-family.nix;
