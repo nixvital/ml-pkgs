@@ -34,20 +34,11 @@ final: prev: {
       # Supporting libraries
       robot-descriptions = python-final.callPackage ../pkgs/robot-descriptions {};
 
-      # Mujoco (Official Python Binding) and friends
-      mujoco-pybind = python-final.callPackage ../pkgs/mujoco-pybind {};
-      mujoco-pybind-231 = python-final.callPackage ../pkgs/mujoco-pybind/2.3.1.nix {};
-
       # Requires overlay of jax-family.
       mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
         jaxlib = python-final.jaxlib-bin;
       };
       mujoco-menagerie = python-final.callPackage ../pkgs/mujoco-menagerie {};
-      dm-tree = python-final.callPackage ../pkgs/deepmind/dm-tree {};
-      dm-env = python-final.callPackage ../pkgs/deepmind/dm-env {};
-      labmaze = python-final.callPackage ../pkgs/deepmind/labmaze {};
-      dm-control = python-final.callPackage ../pkgs/deepmind/dm-control {};
-      dm-control-109 = python-final.callPackage ../pkgs/deepmind/dm-control/1.0.9.nix {};
       python-fcl = python-final.callPackage ../pkgs/python-fcl {};
 
       # SAPIEN from Hao Su's Lab
@@ -68,6 +59,4 @@ final: prev: {
 
   # mujoco depends on sdflib now, which in turn depends on cereal >= 1.3.1
   cereal = final.cereal_1_3_2;
-  mujoco = final.callPackage ../bleeding/mujoco/default.nix {};
-  mujoco-231 = final.callPackage ../bleeding/mujoco/2.3.1.nix {};
 }

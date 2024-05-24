@@ -98,12 +98,8 @@
           open3d
           metadrive-simulator
           robot-descriptions
-          mujoco-pybind
           mujoco-mjx
           mujoco-menagerie
-          dm-tree
-          dm-env
-          labmaze
           dm-control
           python-fcl
           sapien
