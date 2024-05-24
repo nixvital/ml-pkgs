@@ -1,10 +1,10 @@
 final: prev:
 
-let cuda11 = final.cudaPackages_11_8;
+let cuda = final.cudaPackages;
 
 in {
   magma = (prev.magma.override {
-    cudaPackages = cuda11;
+    cudaPackages = cuda;
   }).overrideAttrs (oldAttrs: {
     # See https://github.com/NixOS/nixpkgs/issues/281656
     cmakeFlags = oldAttrs.cmakeFlags ++ [
@@ -15,19 +15,19 @@ in {
   });
 
   mpi = prev.mpi.override {
-    cudaPackages = cuda11;
+    cudaPackages = cuda;
   };
   
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
 
       openai-triton-bin = python-prev.openai-triton-bin.override {
-        cudaPackages = cuda11;
+        cudaPackages = cuda;
       };
 
       torchWithCuda = python-prev.torchWithCuda.override {
         openai-triton = python-final.openai-triton-bin;
-        cudaPackages = cuda11;
+        cudaPackages = cuda;
       };
 
       LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
