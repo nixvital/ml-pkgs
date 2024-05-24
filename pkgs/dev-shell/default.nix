@@ -17,7 +17,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       jax
 
       # ----- Data Utils -----
-      redshift-connector
       # awswrangler  # currently broken
 
       # ----- Simulators -----
