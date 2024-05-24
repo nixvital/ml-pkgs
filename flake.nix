@@ -125,7 +125,6 @@
           mujoco
           aria-csv-parser
           cpp-sort
-          fast-float
           scnlib
           unordered-dense
           xxhash-cpp
