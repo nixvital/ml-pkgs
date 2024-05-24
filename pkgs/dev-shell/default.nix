@@ -10,43 +10,40 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # ----- Torch Family -----
       torchWithCuda
       pytorchviz
-      LIV-robotics
+      # LIV-robotics
 
-      # ----- Jax Family -----
-      jaxlib-bin
-      jax
+      # # ----- Jax Family -----
+      # jaxlib-bin
+      # jax
 
-      # ----- Data Utils -----
-      # awswrangler  # currently broken
+      # # ----- Data Utils -----
+      # # awswrangler  # currently broken
 
-      # ----- Simulators -----
-      gym
-      gym3
-      atari-py-with-rom
-      ale-py-with-roms  # currently borken
-      procgen
-      highway-env
-      metadrive-simulator
-      robot-descriptions
-      mujoco-pybind
-      mujoco-menagerie
-      dm-tree
-      dm-env
-      labmaze
-      dm-control
-      python-fcl
-      sapien
-      gputil
+      # # ----- Simulators -----
+      # gym
+      # gym3
+      # atari-py-with-rom
+      # ale-py-with-roms  # currently borken
+      # procgen
+      # highway-env
+      # metadrive-simulator
+      # robot-descriptions
+      # mujoco
+      # mujoco-menagerie
+      # dm-control
+      # python-fcl
+      # sapien
+      # gputil
 
-      # ----- Math -----
-      numpy-quaternion
+      # # ----- Math -----
+      # numpy-quaternion
 
-      # ----- Misc -----
-      numerapi
+      # # ----- Misc -----
+      # numerapi
 
-      # ----- Symbolic -----
-      pyjulia
-      pysr
+      # # ----- Symbolic -----
+      # pyjulia
+      # pysr
     ]);
 
     pythonIcon = "f3e2";
