@@ -1,34 +1,9 @@
 final: prev:
 
-let cuda = final.cudaPackages;
-
-in {
-  magma = (prev.magma.override {
-    cudaPackages = cuda;
-  }).overrideAttrs (oldAttrs: {
-    # See https://github.com/NixOS/nixpkgs/issues/281656
-    cmakeFlags = oldAttrs.cmakeFlags ++ [
-      "-DCMAKE_C_FLAGS=-DADD_"
-      "-DCMAKE_CXX_FLAGS=-DADD_"
-      "-DFORTRAN_CONVENTION:STRING=-DADD_"
-    ];
-  });
-
-  mpi = prev.mpi.override {
-    cudaPackages = cuda;
-  };
-  
+{
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
-
-      openai-triton-bin = python-prev.openai-triton-bin.override {
-        cudaPackages = cuda;
-      };
-
-      torchWithCuda = python-prev.torchWithCuda.override {
-        openai-triton = python-final.openai-triton-bin;
-        cudaPackages = cuda;
-      };
+      torchWithCuda = python-prev.torchWithCuda;
 
       LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
         pytorch = python-final.torchWithCuda;
