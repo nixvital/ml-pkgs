@@ -1,7 +1,7 @@
 { mkShell
 , python3
 , mujoco
-, julia  
+, julia
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
@@ -10,7 +10,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # ----- Torch Family -----
       torchWithCuda
       pytorchviz
-      # LIV-robotics
+      LIV-robotics
 
       # # ----- Jax Family -----
       # jaxlib-bin
@@ -20,20 +20,20 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # # awswrangler  # currently broken
 
       # # ----- Simulators -----
-      # gym
-      # gym3
-      # atari-py-with-rom
-      # ale-py-with-roms  # currently borken
-      # procgen
-      # highway-env
-      # metadrive-simulator
-      # robot-descriptions
-      # mujoco
-      # mujoco-menagerie
-      # dm-control
+      gym
+      gym3
+      atari-py-with-rom
+      ale-py-with-roms  # currently borken
+      procgen
+      highway-env
+      metadrive-simulator
+      robot-descriptions
+      mujoco
+      mujoco-menagerie
+      dm-control
       # python-fcl
-      # sapien
-      # gputil
+      sapien
+      gputil
 
       # # ----- Math -----
       # numpy-quaternion
