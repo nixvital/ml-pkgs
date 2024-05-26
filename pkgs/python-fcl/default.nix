@@ -21,7 +21,7 @@ buildPythonPackage rec {
   };
 
   patches = [
-    ./eigen_fix.patch
+    ./0001-Fix-the-build.patch
   ];
 
   propagatedBuildInputs = [

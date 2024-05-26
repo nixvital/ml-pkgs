@@ -1,17 +1,17 @@
-From de3c00663c56600a61b3a31a1c5aab85d036cdf0 Mon Sep 17 00:00:00 2001
+From 77d0450f50b3a7b3bf693fa7ec8063024f74aa3c Mon Sep 17 00:00:00 2001
 From: Break Yang <breakds@gmail.com>
 Date: Sat, 25 May 2024 12:01:06 -0700
 Subject: [PATCH] Fix the build
 
-1. Cython 3.0 does not allow implicit `noexcept`. Turn on the compiler
-directive for backward compatibility.
+1. Cython 3.0 does not allow implicit `noexcept`. Adding `noexcept`.
 2. Be smart about finding eigen3.
 ---
- setup.py | 4 ++++
- 1 file changed, 4 insertions(+)
+ setup.py        | 3 +++
+ src/fcl/fcl.pyx | 4 ++--
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 15e69dd..bc0b163 100644
+index 15e69dd..1c44212 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -38,6 +38,9 @@ def get_include_dirs():
@@ -24,14 +24,23 @@ index 15e69dd..bc0b163 100644
      return include_dirs
  
  
-@@ -72,6 +75,7 @@ setup(
-                 libraries=get_libraries(),
-                 language="c++",
-                 extra_compile_args=["-std=c++11"],
-+                compiler_directives={"legacy_implicit_noexcept": True},
-             )
-         ],
-     )
+diff --git a/src/fcl/fcl.pyx b/src/fcl/fcl.pyx
+index 7738bad..169bbb2 100644
+--- a/src/fcl/fcl.pyx
++++ b/src/fcl/fcl.pyx
+@@ -761,10 +761,10 @@ cdef class DistanceFunction:
+         (&dist)[0] = <double?> py_r[1]
+         return <bool?> py_r[0]
+ 
+-cdef inline bool CollisionCallBack(defs.CollisionObjectd*o1, defs.CollisionObjectd*o2, void*cdata):
++cdef inline bool CollisionCallBack(defs.CollisionObjectd*o1, defs.CollisionObjectd*o2, void*cdata) noexcept:
+     return (<CollisionFunction> cdata).eval_func(o1, o2)
+ 
+-cdef inline bool DistanceCallBack(defs.CollisionObjectd*o1, defs.CollisionObjectd*o2, void*cdata, double& dist):
++cdef inline bool DistanceCallBack(defs.CollisionObjectd*o1, defs.CollisionObjectd*o2, void*cdata, double& dist) noexcept:
+     return (<DistanceFunction> cdata).eval_func(o1, o2, dist)
+ 
+ 
 -- 
 2.42.0
 
