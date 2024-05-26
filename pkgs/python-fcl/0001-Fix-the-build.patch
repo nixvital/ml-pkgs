@@ -1,0 +1,37 @@
+From de3c00663c56600a61b3a31a1c5aab85d036cdf0 Mon Sep 17 00:00:00 2001
+From: Break Yang <breakds@gmail.com>
+Date: Sat, 25 May 2024 12:01:06 -0700
+Subject: [PATCH] Fix the build
+
+1. Cython 3.0 does not allow implicit `noexcept`. Turn on the compiler
+directive for backward compatibility.
+2. Be smart about finding eigen3.
+---
+ setup.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index 15e69dd..bc0b163 100644
+--- a/setup.py
++++ b/setup.py
+@@ -38,6 +38,9 @@ def get_include_dirs():
+     import numpy
+ 
+     include_dirs.append(numpy.get_include())
++    eigen3_extra_include_dir = os.getenv("EIGEN3_INCLUDE_DIR")
++    if eigen3_extra_include_dir is not None:
++        include_dirs.append(eigen3_extra_include_dir)
+     return include_dirs
+ 
+ 
+@@ -72,6 +75,7 @@ setup(
+                 libraries=get_libraries(),
+                 language="c++",
+                 extra_compile_args=["-std=c++11"],
++                compiler_directives={"legacy_implicit_noexcept": True},
+             )
+         ],
+     )
+-- 
+2.42.0
+

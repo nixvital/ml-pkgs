@@ -13,8 +13,8 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       LIV-robotics
 
       # # ----- Jax Family -----
-      # jaxlib-bin
-      # jax
+      jaxlib-bin
+      jax
 
       # # ----- Data Utils -----
       # # awswrangler  # currently broken
