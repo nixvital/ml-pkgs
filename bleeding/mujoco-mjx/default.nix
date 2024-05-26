@@ -24,12 +24,12 @@
 , pyparsing
 , tomli
 , execnet
-, mujoco-pybind
+, mujoco
 }:
 
 buildPythonPackage rec {
   pname = "mujoco-mjx";
-  version = "3.1.3";
+  version = "3.1.5";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     owner = "google-deepmind";
     repo = "mujoco";
     rev = version;
-    hash = "sha256-22yH3zAD479TRNS3XSqy6PuuLqyWmjvwScUTVfKumzY=";
+    hash = "sha256-XKN489oexHf2/Gv0MVxXUzqyeJJTJXV99+fNi8shdsg=";
   };
 
   # MuJoCo MJX is actually a completely re-implementation of MuJoCo using Jax.
@@ -69,7 +69,7 @@ buildPythonPackage rec {
     pluggy
     pyparsing
     execnet
-    mujoco-pybind
+    mujoco
   ] ++ (lib.optionals (pythonOlder "3.11") [ exceptiongroup tomli ]);
 
   meta = with lib; {
