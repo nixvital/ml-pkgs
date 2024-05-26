@@ -78,7 +78,7 @@
           torchWithCuda
 
           # ----- Jax Family -----
-          jaxlib-bin
+          jaxlib
           jax
           equinox
 

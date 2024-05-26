@@ -31,7 +31,7 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       mujoco
       mujoco-menagerie
       dm-control
-      # python-fcl
+      python-fcl
       sapien
       gputil
 
