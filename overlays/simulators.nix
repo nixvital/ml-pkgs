@@ -34,10 +34,6 @@ final: prev: {
       # Supporting libraries
       robot-descriptions = python-final.callPackage ../pkgs/robot-descriptions {};
 
-      # Requires overlay of jax-family.
-      mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
-        jaxlib = python-final.jaxlib-bin;
-      };
       mujoco-menagerie = python-final.callPackage ../pkgs/mujoco-menagerie {};
       python-fcl = python-final.callPackage ../pkgs/python-fcl {};
 

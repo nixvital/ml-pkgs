@@ -20,6 +20,10 @@ final: prev: {
       chex = python-prev.chex.override {
         jaxlib = python-final.jaxlib;
       };
+
+      mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
+        jaxlib = python-final.jaxlib;
+      };
     })
   ];
 }
