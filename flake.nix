@@ -2,7 +2,7 @@
   description = "Provide extra Nix packages for Machine Learning and Data Science";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     utils.url = "github:numtide/flake-utils";
   };
@@ -10,9 +10,6 @@
   outputs = { self, nixpkgs, ... }@inputs: {
     overlays = {
       cc-batteries = import ./overlays/cc-batteries.nix;
-      # Please be very careful including the bleeding overlay. It provides
-      # pydantic 2.0 but it will break pydantic 1.0 and everything depending on
-      # it.
       bleeding = import ./overlays/bleeding.nix;
       torch-family = import ./overlays/torch-family.nix;
       jax-family = import ./overlays/jax-family.nix;
@@ -81,7 +78,7 @@
           torchWithCuda
 
           # ----- Jax Family -----
-          jaxlib-bin
+          jaxlib
           jax
           equinox
 
@@ -98,12 +95,8 @@
           open3d
           metadrive-simulator
           robot-descriptions
-          mujoco-pybind
           mujoco-mjx
           mujoco-menagerie
-          dm-tree
-          dm-env
-          labmaze
           dm-control
           python-fcl
           sapien
@@ -123,7 +116,6 @@
 
           # ----- API -----
           wolframalpha
-          openai  # 1.3.5
 
           # ----- Symbolic -----
           pyjulia
@@ -133,7 +125,6 @@
           mujoco
           aria-csv-parser
           cpp-sort
-          fast-float
           scnlib
           unordered-dense
           xxhash-cpp

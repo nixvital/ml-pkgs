@@ -1,24 +1,28 @@
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
-      jaxlib-bin = python-final.callPackage ../bleeding/jaxlib/bin.nix {
+      jaxlib = python-prev.jaxlib.override {
         inherit (final.config) cudaSupport;
       };
         
-      jax = python-final.callPackage ../bleeding/jax {
-        jaxlib = python-final.jaxlib-bin;
+      jax = python-prev.jax.override {
+        jaxlib = python-final.jaxlib;
       };
 
-      equinox = python-final.callPackage ../bleeding/equinox {
-        jaxlib = python-final.jaxlib-bin;
+      equinox = python-prev.equinox.override {
+        jaxlib = python-final.jaxlib;
       };
 
       optax = python-prev.optax.override {
-        jaxlib = python-final.jaxlib-bin;
+        jaxlib = python-final.jaxlib;
       };
 
       chex = python-prev.chex.override {
-        jaxlib = python-final.jaxlib-bin;
+        jaxlib = python-final.jaxlib;
+      };
+
+      mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
+        jaxlib = python-final.jaxlib;
       };
     })
   ];

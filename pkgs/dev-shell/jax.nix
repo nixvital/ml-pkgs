@@ -7,8 +7,9 @@ mkShell rec {
 
   packages = [
     (python3.withPackages (p: with p; [
-      jaxlib-bin
+      jaxlib
       jax
+      equinox
       mujoco-mjx
     ]))
   ];
