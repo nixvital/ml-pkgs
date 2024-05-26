@@ -36,14 +36,14 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       gputil
 
       # # ----- Math -----
-      # numpy-quaternion
+      numpy-quaternion
 
       # # ----- Misc -----
-      # numerapi
+      numerapi
 
       # # ----- Symbolic -----
-      # pyjulia
-      # pysr
+      pyjulia
+      pysr
     ]);
 
     pythonIcon = "f3e2";
