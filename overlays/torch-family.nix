@@ -3,7 +3,29 @@ final: prev:
 {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
-      torchWithCuda = python-prev.torchWithCuda;
+
+      # The newer version of torch decides to lazily load `nvrtc` but apparently
+      # it did not explicitly list it as a dependency:
+      # https://github.com/NixOS/nixpkgs/issues/296179
+      #
+      # This is @SomeoneSerge's temporary fix:
+      # https://github.com/SomeoneSerge/dust3r.nix/commit/8715f78a6f875fa5a1795da8f56e05fe2b2811d6
+      #
+      # The proper fix is still a pending PR: https://github.com/NixOS/nixpkgs/pull/297590
+      torchWithCuda = python-prev.torchWithCuda.overridePythonAttrs (oldAttrs: {
+        extraRunpaths = [ "${prev.lib.getLib final.cudaPackages.cuda_nvrtc}/lib" ];
+        postPhases = prev.lib.optionals final.stdenv.hostPlatform.isUnix ["postPatchelfPhase" ];
+        postPatchelfPhase = ''
+          while IFS= read -r -d $'\0' elf ; do
+            for extra in $extraRunpaths ; do
+              echo patchelf "$elf" --add-rpath "$extra" >&2
+              patchelf "$elf" --add-rpath "$extra"
+            done
+          done < <(
+            find "''${!outputLib}" "$out" -type f -iname '*.so' -print0
+          )
+        '';
+      });
 
       LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
         pytorch = python-final.torchWithCuda;
@@ -14,7 +36,7 @@ final: prev:
       };
 
       tensorboardx = python-prev.tensorboardx.override {
-        torch = python-final.torchWithCuda;        
+        torch = python-final.torchWithCuda;
       };
 
       pytorch-lightning = python-prev.pytorch-lightning.override {
