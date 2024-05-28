@@ -50,6 +50,9 @@ final: prev: {
       objaverse = python-final.callPackage ../pkgs/allenai/objaverse {};
       objathor = python-final.callPackage ../pkgs/allenai/objathor {};
       ai2thor = python-final.callPackage ../pkgs/allenai/ai2thor {};
+
+      # Robocasa
+      robocasa = python-final.callPackage ../research-community/robocasa {};
     })
   ];
 

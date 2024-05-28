@@ -107,6 +107,7 @@
           objathor
           ai2thor
           procthor
+          robocasa
 
           # ----- Math -----
           numpy-quaternion
