@@ -3,9 +3,7 @@
 }:
 
 let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
-      # ai2thor
-      # procthor
-      tree-sitter-languages
+      robocasa
     ]);
 
     pythonIcon = "f3e2";

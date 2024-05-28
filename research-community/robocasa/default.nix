@@ -18,6 +18,7 @@
 , h5py
 , lxml
 , hidapi
+, robosuite
 }:
 
 buildPythonPackage rec {
@@ -56,6 +57,7 @@ buildPythonPackage rec {
     h5py
     lxml
     hidapi
+    robosuite
   ];
 
   pythonRelaxDeps = [ "numpy" "mujoco" ];

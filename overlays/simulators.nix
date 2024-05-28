@@ -51,7 +51,8 @@ final: prev: {
       objathor = python-final.callPackage ../pkgs/allenai/objathor {};
       ai2thor = python-final.callPackage ../pkgs/allenai/ai2thor {};
 
-      # Robocasa
+      # Robocasa/Robosuite
+      robosuite = python-final.callPackage ../research-community/robosuite {};
       robocasa = python-final.callPackage ../research-community/robocasa {};
     })
   ];
