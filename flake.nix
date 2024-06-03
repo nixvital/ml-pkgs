@@ -22,8 +22,9 @@
       misc = import ./overlays/misc.nix;
       apis = import ./overlays/apis.nix;
       symbolic = import ./overlays/symbolic.nix;
+      time-series = import ./overlays/time-series.nix;
       tools = import ./overlays/tools.nix;
-
+      
       # Default is a composition of all above.
       default = nixpkgs.lib.composeManyExtensions [
         self.overlays.cc-batteries
@@ -35,6 +36,7 @@
         self.overlays.misc
         self.overlays.apis
         self.overlays.symbolic
+        self.overlays.time-series
         self.overlays.tools
       ];
     };
@@ -124,6 +126,11 @@
           # ----- API -----
           wolframalpha
           openai  # 1.3.5
+
+          # ----- Time Series -----
+          pyod
+          nfoursid
+          darts
 
           # ----- Symbolic -----
           pyjulia
