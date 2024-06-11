@@ -93,6 +93,10 @@ final: prev:
       rerun-sdk = python-prev.rerun-sdk.override {
         torch = python-final.torchWithCuda;        
       };
+
+      safetensors = python-prev.safetensors.override {
+        torch = python-final.torchWithCuda;
+      };
     })
   ];
 }
