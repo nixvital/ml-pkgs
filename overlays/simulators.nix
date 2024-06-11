@@ -2,7 +2,6 @@ final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
       # OpenAI Gym Series. An interface to a lot of simulation environments.
-      gym-notices = python-final.callPackage ../pkgs/gym-notices {};
       gym = python-final.callPackage ../pkgs/gym {};
       gym3 = python-final.callPackage ../pkgs/gym3 {};
 
