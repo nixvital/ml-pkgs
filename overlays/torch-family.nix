@@ -89,6 +89,10 @@ final: prev:
       clip = python-prev.clip.override {
         torch = python-final.torchWithCuda;
       };
+
+      rerun-sdk = python-prev.rerun-sdk.override {
+        torch = python-final.torchWithCuda;        
+      };
     })
   ];
 }
