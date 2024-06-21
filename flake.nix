@@ -114,6 +114,7 @@
 
           # ----- Math -----
           numpy-quaternion
+          chumpy
 
           # ----- Misc -----
           numerapi
