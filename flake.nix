@@ -119,6 +119,7 @@
 
           # ----- Math -----
           numpy-quaternion
+          pulp
 
           # ----- Misc -----
           numerapi
