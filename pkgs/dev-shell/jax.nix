@@ -11,6 +11,7 @@ mkShell rec {
       jax
       equinox
       mujoco-mjx
+      flax
     ]))
   ];
 }

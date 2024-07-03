@@ -24,6 +24,10 @@ final: prev: {
       mujoco-mjx = python-final.callPackage ../bleeding/mujoco-mjx {
         jaxlib = python-final.jaxlib;
       };
+
+      flax = python-prev.flax.override {
+        jaxlib = python-final.jaxlib;
+      };
     })
   ];
 }
