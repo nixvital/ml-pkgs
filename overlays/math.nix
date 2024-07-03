@@ -5,6 +5,9 @@ final: prev: {
     (python-final: python-prev: {
       numpy-quaternion = python-final.callPackage ../pkgs/numpy-quaternion {};
       chumpy = python-final.callPackage ../pkgs/chumpy {};
+      pulp = python-prev.pulp.override {
+        cbc = final.cbc2;
+      };
     })
   ];
 }
