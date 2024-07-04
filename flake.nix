@@ -140,6 +140,8 @@
         inherit (pkgs)
           mujoco
           cbc2
+          cgl
+          osi
           aria-csv-parser
           cpp-sort
           fast-float

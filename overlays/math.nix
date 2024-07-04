@@ -1,5 +1,7 @@
 final: prev: {
   cbc2 = final.callPackage ../bleeding/cbc {};
+  cgl = final.callPackage ../bleeding/cgl {};
+  osi = final.callPackage ../bleeding/osi {};
   
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
