@@ -135,6 +135,7 @@
         inherit (pkgs)
           mujoco
           cbc2
+          or-tools
           aria-csv-parser
           cpp-sort
           scnlib
