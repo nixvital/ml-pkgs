@@ -128,6 +128,9 @@
           nfoursid
           darts
 
+          # ----- Tools -----
+          aimrocks
+
           # ----- Symbolic -----
           pyjulia
           pysr;

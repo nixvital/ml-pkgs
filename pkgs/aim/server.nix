@@ -18,7 +18,6 @@ python3Packages.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = with python3Packages; [
-    'aimrecords==0.0.7',
     'aimrocks==0.5.*',
     'cachetools>=4.0.0',
     'click>=7.0',
