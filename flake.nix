@@ -117,6 +117,9 @@
           chumpy
           pulp
 
+          # ----- Tools -----
+          ddddocr
+
           # ----- Misc -----
           numerapi
 
