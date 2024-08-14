@@ -128,9 +128,6 @@
           nfoursid
           darts
 
-          # ----- Tools -----
-          aimrocks
-
           # ----- Symbolic -----
           pyjulia
           pysr;
@@ -148,7 +145,8 @@
           quickcpplib
           status-code
           eve
-          aider;
+          aider
+          aim-app;
       };
 
       apps = {
