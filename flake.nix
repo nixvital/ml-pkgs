@@ -69,6 +69,7 @@
         default = pkgs.callPackage ./pkgs/dev-shell {};
         jax = pkgs.callPackage ./pkgs/dev-shell/jax.nix {};
         quicktest = pkgs.callPackage ./pkgs/dev-shell/quicktest.nix {};
+        ddddocr = pkgs.callPackage ./pkgs/dev-shell/ddddocr.nix {};
       };
       # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
       #   python3 = pkgs.python38;
@@ -119,7 +120,6 @@
 
           # ----- Tools -----
           ddddocr
-
           # ----- Misc -----
           numerapi
 
