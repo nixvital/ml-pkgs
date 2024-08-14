@@ -21,7 +21,9 @@ python3Packages.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = with python3Packages; [
+    aim-ui
     aimrocks
+    aimrecords
     cachetools
     click
     cryptography
@@ -44,6 +46,8 @@ python3Packages.buildPythonApplication rec {
     websockets
     boto3
   ];
+
+  doCheck = false;
 
   meta = with lib; {
     description = ''

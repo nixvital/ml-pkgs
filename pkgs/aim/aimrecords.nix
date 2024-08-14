@@ -7,7 +7,6 @@
 , base58
 
 # build-system
-, cython
 , setuptools
 , pytest
 }:

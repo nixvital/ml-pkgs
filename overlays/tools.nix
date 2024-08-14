@@ -7,6 +7,7 @@ final: prev: {
 
       aimrocks = python-final.callPackage ../pkgs/aim/aimrocks.nix {};
       aimrecords = python-final.callPackage ../pkgs/aim/aimrecords.nix {};
+      aim-ui = python-final.callPackage ../pkgs/aim/ui.nix {};
     })
   ];
 
