@@ -121,6 +121,12 @@
           numpy-quaternion
           pulp
 
+          # ----- Tools -----
+          cos-python-sdk-v5
+          swankit
+          swanboard
+          swanlab
+          
           # ----- Misc -----
           numerapi
 
