@@ -8,6 +8,7 @@ final: prev: {
       grep-ast = python-final.callPackage ../pkgs/grep-ast {};
 
       # SwanLab series
+      cos-python-sdk-v5 = python-final.callPackage ../pkgs/cos-python-sdk-v5 {};
       swankit = python-final.callPackage ../pkgs/swanlab/swankit.nix {};
     })
   ];

@@ -120,6 +120,7 @@
 
           # ----- Tools -----
           ddddocr
+          cos-python-sdk-v5
           swankit
           
           # ----- Misc -----
