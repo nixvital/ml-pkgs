@@ -14,6 +14,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-cOmOczsu/kCTac/GXSSHbZJ8DpmeOZy2+UH/98WLgMM=";
   };
 
+  patches = [
+    ./0001-Fix-Popen-call.patch
+  ];
+
   nativeBuildInputs = [ python3Packages.cython ];
 
   buildInputs = with python3Packages; [
