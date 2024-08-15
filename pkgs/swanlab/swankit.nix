@@ -2,9 +2,11 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
+, pytestCheckHook
 , hatchling
 , hatch-fancy-pypi-readme
 , hatch-requirements-txt
+, nanoid
 }:
 
 buildPythonPackage rec {
@@ -27,8 +29,14 @@ buildPythonPackage rec {
     hatch-requirements-txt
   ];
 
-  pythonImportsCheck = [
-    "swankit"
+  pythonImportsCheck = [ "swankit" ];
+
+  nativeCheckInputs = [
+    pytestCheckHook
+    nanoid
+  ];
+  disabledTests = [
+    "test_default"  # requires home directory
   ];
 
   meta = with lib; {
