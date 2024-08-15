@@ -43,14 +43,14 @@ buildPythonPackage rec {
     hash = "sha256-thYUgAOakqK9YHqZDeRl9uFFxb2yptC+9nCv7Q3yBvk=";
   };
 
-  build-system = [
+  nativeBuildInputs = [
     hatchling
     hatch-fancy-pypi-readme
     hatch-requirements-txt
     pythonRelaxDepsHook
   ];
 
-  dependencies = [
+  propagatedBuildInputs = [
     swankit
     # TODO(breakds): Make swanboard ui work.
     swanboard
@@ -73,6 +73,8 @@ buildPythonPackage rec {
   pythonRelaxDeps = [ "swanboard" ];
 
   pythonImportsCheck = [ "swanlab" ];
+
+  doCheck = false;
 
   # TODO(breakds): Enable tests.
   #

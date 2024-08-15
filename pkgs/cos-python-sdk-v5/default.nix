@@ -24,11 +24,11 @@ buildPythonPackage rec {
     hash = "sha256-8T5moTK3T2Ssv7sJMBNbQw77g1LAkCN7P0Cj+8gIZ1Q=";
   };
 
-  build-system = [
+  nativeBuildInputs = [
     setuptools
   ];
 
-  dependencies = [
+  propagatedBuildInputs = [
     xmltodict
     six
     crcmod

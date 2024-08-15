@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-+wtGn51C8pw8hJFNB9PYfX8xDQAq5DxB7UHuZLU0spY=";
   };
 
-  build-system = [
+  nativeBuildInputs = [
     hatchling
     hatch-fancy-pypi-readme
     hatch-requirements-txt

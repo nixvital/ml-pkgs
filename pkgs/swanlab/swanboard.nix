@@ -32,14 +32,14 @@ buildPythonPackage rec {
     hash = "sha256-HkaJ8gAC5sGRsnG9gX0RzcNC0WHeJ1oHzv6oK7l1Tho=";
   };
 
-  build-system = [
+  nativeBuildInputs = [
     hatchling
     hatch-fancy-pypi-readme
     hatch-requirements-txt
     setuptools
   ];
 
-  dependencies = [
+  propagatedBuildInputs = [
     swankit
     fastapi
     uvicorn
