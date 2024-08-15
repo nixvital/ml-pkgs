@@ -2,13 +2,13 @@
 , buildPythonPackage
 , pythonOlder
 , fetchFromGitHub
-, pythonRelaxDepsHook
 , pytestCheckHook
 , hatchling
 , hatch-fancy-pypi-readme
 , hatch-requirements-txt
+, pythonRelaxDepsHook
 , swankit
-# , swanboard
+, swanboard
 , cos-python-sdk-v5
 , urllib3
 , requests
@@ -23,6 +23,10 @@
 , pillow
 , matplotlib
 , numpy
+
+# [test]
+, python-dotenv  
+  
 }:
 
 buildPythonPackage rec {
@@ -48,7 +52,8 @@ buildPythonPackage rec {
 
   dependencies = [
     swankit
-    # swanboard
+    # TODO(breakds): Make swanboard ui work.
+    swanboard
     cos-python-sdk-v5
     urllib3
     requests
@@ -65,23 +70,20 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonRemoveDeps = [
-    "swanboard"
-  ];
+  pythonRelaxDeps = [ "swanboard" ];
 
   pythonImportsCheck = [ "swanlab" ];
 
+  # TODO(breakds): Enable tests.
+  #
   # nativeCheckInputs = [
   #   pytestCheckHook
-  #   nanoid
-  # ];
-  # disabledTests = [
-  #   "test_default"  # requires home directory
+  #   python-dotenv
   # ];
 
   meta = with lib; {
-    description = "Swanlab包工具箱 (toolkit)";
-    homepage = "https://github.com/SwanHubX/SwanLab-Toolkit";
+    description = "SwanLab: your ML experiment notebook.";
+    homepage = "https://swanlab.cn/";
     license = licenses.asl20;
     maintainers = with maintainers; [ breakds ];
   };
