@@ -122,6 +122,8 @@
           ddddocr
           cos-python-sdk-v5
           swankit
+          swanboard
+          swanlab
           
           # ----- Misc -----
           numerapi
