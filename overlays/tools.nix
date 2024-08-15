@@ -6,6 +6,9 @@ final: prev: {
       # Dependencies for `aider`
       tree-sitter-languages = python-final.callPackage ../pkgs/tree-sitter-language/bin.nix {};
       grep-ast = python-final.callPackage ../pkgs/grep-ast {};
+
+      # SwanLab series
+      swankit = python-final.callPackage ../pkgs/swanlab/swankit.nix {};
     })
   ];
 

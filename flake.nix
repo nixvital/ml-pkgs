@@ -120,6 +120,8 @@
 
           # ----- Tools -----
           ddddocr
+          swankit
+          
           # ----- Misc -----
           numerapi
 
