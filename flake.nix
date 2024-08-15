@@ -148,8 +148,7 @@
           quickcpplib
           status-code
           eve
-          aider
-          aim-app;
+          aider;
       };
 
       apps = {
