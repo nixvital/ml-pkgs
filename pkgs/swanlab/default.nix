@@ -31,16 +31,21 @@
 
 buildPythonPackage rec {
   pname = "swanlab";
-  version = "0.3.16";
+  version = "0.3.17";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
+
+  postPatch = ''
+    substituteInPlace swanlab/package.json \
+      --replace "development" "${version}"
+  '';
 
   src = fetchFromGitHub {
     owner = "SwanHubX";
     repo = "SwanLab";
     rev = "v${version}";
-    hash = "sha256-thYUgAOakqK9YHqZDeRl9uFFxb2yptC+9nCv7Q3yBvk=";
+    hash = "sha256-BXhQnk7gLSp/EvSo96mmtkcz/p2NOrPzpr7W5IS/0v8=";
   };
 
   nativeBuildInputs = [
