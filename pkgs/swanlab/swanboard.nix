@@ -18,6 +18,9 @@
 , numpy
 }:
 
+# TODO(breakds): Build the UI. It seemed pretty straight forward but
+# for some reason I will run into this "dead spiral" of fetchYarnDeps
+# always complain about a changed yarn.lock (and hash).
 buildPythonPackage rec {
   pname = "swanboard";
   version = "0.1.3-beta.5";
