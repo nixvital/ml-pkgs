@@ -153,7 +153,7 @@
           quickcpplib
           status-code
           eve
-          aider;
+          aider-chat;
       };
 
       apps = {
