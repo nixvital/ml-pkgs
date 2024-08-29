@@ -10,7 +10,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchFromGitHub {
     owner = "paul-gauthier";
-    repo = pname;
+    repo = "aider";
     rev = "v${version}";
     hash = "sha256-ysNhfhFGSDhEQLQLP26Lv6qmZehmwtQTSlAqJVPD5O8=";
   };
