@@ -29,7 +29,8 @@ Please note that some of the packages in this flake may have dependencies on pro
 
 ## Using templates
 
-Alternatively, you may want to automatically generate `flake.nix` for your project using templates. This is also the recommended way to start using `ml-pkgs`. Please refer to [nixvital/flake-templste](https://github.com/nixvital/flake-templates) for details.
+Alternatively, you may want to automatically generate `flake.nix` for your project using templates. This is also the recommended way to start using `ml-pkgs`. Please refer to [nixvital/flake-template](https://github.com/nixvital/flake-templates) for details.
 
-----
+---
+
 This README.md file was partly generated with the help of ChatGPT, an OpenAI language model.
