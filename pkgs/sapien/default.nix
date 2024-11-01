@@ -1,9 +1,19 @@
 { lib
-, fetchurl
+, fetchFromGitHub
+# , cudaPackages_11
+# , cudaPackages
+, cudatoolkit
+, autoAddDriverRunpath
 , buildPythonPackage
+, python3Packages
 , pythonRelaxDepsHook
 , python
 , stdenv
+, gcc12Stdenv
+, stdenvAdapters
+, physx5
+, physx5-gpu
+, cmake
 , autoPatchelfHook
 , numpy
 , requests
@@ -12,33 +22,28 @@
 , pyperclip
 , vulkan-headers
 , vulkan-loader
+, zlib
+, eigen
+, openimagedenoise
+, cudaSupport ? true
 }:
-
-let wheels = {
-      "x86_64-linux-python-3.8" = {
-        url = https://files.pythonhosted.org/packages/96/67/7b41e20984e8d7279fd182824a8765f6fed6b70c298b2d4513b7b0737766/sapien-2.2.1-cp38-cp38-manylinux2014_x86_64.whl;
-        sha256 = "00hlfnyxxgss0aksaxhwvsd69wxqwg9i68v39w0kwq6pqjy5lslk";
-      };
-      "x86_64-linux-python-3.9" = {
-        url = https://files.pythonhosted.org/packages/39/06/2b9e8477f87cca6df3f0cee7738934e2ee815818c952f526fd8eaf8c1085/sapien-2.2.1-cp39-cp39-manylinux2014_x86_64.whl;
-        sha256 = "0pp7ids7gc90q9g5ywj98lji57rzxsdrw72c55r8nwgal0nsi97j";
-      };
-      "x86_64-linux-python-3.10" = {
-        url = https://files.pythonhosted.org/packages/b9/8a/39dbc5128acf3939403fd8984c01f340c7bda3d6814fb069164290ab697a/sapien-2.2.1-cp310-cp310-manylinux2014_x86_64.whl;
-        sha256 = "0p24fxqb719yjwkd0rfgnbpilnjdg2m6j20kznwwg3zdhczk11gb";
-      };
-      "x86_64-linux-python-3.11" = {
-        url = https://files.pythonhosted.org/packages/18/e9/de53f5def0fefa55854c017349c42fe5c5322eda0a3e33636794fe21a4d3/sapien-2.2.1-cp311-cp311-manylinux2014_x86_64.whl;
-        sha256 = "1mpw78xvbqddwy874vgpbkb34kq8nr3iyywaxv5syjggk5166n7w";
-      };
-    };
-
-in buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "sapien";
-  version = "2.2.1";
-  format = "wheel";
+  version = "dev";
 
-  src = fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
+  src = fetchFromGitHub {
+    owner = "howird";
+    repo = "SAPIEN";
+    rev =  "c877626fdefda29b2c33bea64f17830246508f05";
+    sha256 = "sha256-8S4GasO+acLYKOQ2l/Ef3B4mecjJwGWaS1zGCR0pTmQ=";
+    fetchSubmodules = true;
+  };
+
+  stdenv = gcc12Stdenv;
+
+  build-system = with python3Packages; [
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     numpy
@@ -50,20 +55,60 @@ in buildPythonPackage rec {
 
   pythonRemoveDeps = [ "opencv-python" ];
 
+  dontUseCmakeConfigure = true;
+
+  nativeBuildInputs = [
+    cmake
+    autoPatchelfHook
+    pythonRelaxDepsHook
+    autoAddDriverRunpath
+  ];
+
+  patches = [
+    ./remove_includes.patch
+  ];
+
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail '$ENV{CUDA_PATH}/include' '"${cudatoolkit}/include"' \
+      --replace-fail 'set(CUDA_TOOLKIT_ROOT_DIR $ENV{CUDA_PATH})' 'set(CUDA_TOOLKIT_ROOT_DIR "${cudatoolkit}")' \
+      --replace-fail '$ENV{CUDA_PATH}/lib64' '"${cudatoolkit}/lib"'
+
+    substituteInPlace setup.py \
+      --replace-fail 'os.environ.get("CUDA_PATH")' '"${cudatoolkit}"'
+
+    sed -i 's|\''${SAPIEN_PHYSX5_DIR}|'"${physx5}"'|g' cmake/physx5.cmake
+
+    substituteInPlace python/py_package/physx/__init__.py \
+      --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' '${physx5-gpu}/lib'
+  '';
+
+  preBuild = ''
+    export CUDA_PATH=${cudatoolkit}
+  '';
+
   buildInputs = [
     stdenv.cc.cc.lib
     vulkan-headers
     vulkan-loader
+    openimagedenoise
+    # cudaPackages.cuda_nvcc
+    cudatoolkit
+    physx5
+    physx5-gpu
+    zlib.static
+    eigen
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    pythonRelaxDepsHook
+  cmakeFlags = [
+    "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit}"
+    "-DSAPIEN_CUDA=ON"
+    "-DSAPIEN_PHYSX5_DIR=${physx5}"
   ];
 
-  # This is important, otherwise it will report ELF load command
-  # address/offset not page-aligned.
-  dontStrip = true;
+  # # This is important, otherwise it will report ELF load command
+  # # address/offset not page-aligned.
+  # dontStrip = true;
 
   meta = with lib; {
     homepage = "https://github.com/haosulab/SAPIEN";

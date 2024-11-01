@@ -1,4 +1,7 @@
 final: prev: {
+  physx5-gpu = final.callPackage ../pkgs/physx5-gpu {};
+  physx5 = final.callPackage ../pkgs/physx5 {};
+
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
       # OpenAI Gym Series. An interface to a lot of simulation environments.
@@ -38,7 +41,7 @@ final: prev: {
 
       # SAPIEN from Hao Su's Lab
       sapien = python-final.callPackage ../pkgs/sapien {};
-
+      maniskill = python-final.callPackage ../pkgs/maniskill {};
       # nixpkgs has a problematic glfw on 23.11 at this moment.
       glfw = python-final.callPackage ../bleeding/glfw {};
 
@@ -53,6 +56,9 @@ final: prev: {
       # Robocasa/Robosuite
       robosuite = python-final.callPackage ../research-community/robosuite {};
       robocasa = python-final.callPackage ../research-community/robocasa {};
+
+      # IsaacGym
+      isaacgym = python-final.callPackage ../pkgs/isaacgym {};
     })
   ];
 

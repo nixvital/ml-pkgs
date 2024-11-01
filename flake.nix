@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
+    # local-sapien = {
+    #   url = "path:/home/howird/robo/SAPIEN";
+    #   flake = false;
+    # };
+
     utils.url = "github:numtide/flake-utils";
   };
 
@@ -70,10 +75,8 @@
         jax = pkgs.callPackage ./pkgs/dev-shell/jax.nix {};
         quicktest = pkgs.callPackage ./pkgs/dev-shell/quicktest.nix {};
         ddddocr = pkgs.callPackage ./pkgs/dev-shell/ddddocr.nix {};
+        maniskill = pkgs.callPackage ./pkgs/dev-shell/maniskill.nix {};
       };
-      # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
-      #   python3 = pkgs.python38;
-      # };
 
       packages = {
         inherit (pkgs.python3Packages)
@@ -103,6 +106,7 @@
           dm-control
           python-fcl
           sapien
+          maniskill
           glfw
           gputil
           aws-requests-auth
@@ -112,6 +116,7 @@
           procthor
           robosuite
           robocasa
+          isaacgym
 
           # ----- Math -----
           numpy-quaternion
@@ -153,6 +158,8 @@
           quickcpplib
           status-code
           eve
+          physx5
+          physx5-gpu
           aider-chat;
       };
 

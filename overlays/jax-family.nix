@@ -1,7 +1,7 @@
 final: prev: {
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
-      jaxlib = python-prev.jaxlib.override {
+      jaxlib = python-final.callPackage ../bleeding/jaxlib {
         inherit (final.config) cudaSupport;
       };
         
