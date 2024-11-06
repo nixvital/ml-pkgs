@@ -3,12 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-
-    # local-sapien = {
-    #   url = "path:/home/howird/robo/SAPIEN";
-    #   flake = false;
-    # };
-
     utils.url = "github:numtide/flake-utils";
   };
 
@@ -160,7 +154,7 @@
           eve
           physx5
           physx5-gpu
-          aider-chat;
+          sapien-vulkan-2;
       };
 
       apps = {

@@ -1,16 +1,14 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 850ffd8a..9362d573 100644
+index 850ffd8a..089026bc 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -52,11 +52,6 @@ endmacro()
- 
+@@ -53,9 +53,7 @@ endmacro()
  list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
  
--include(physx5)
+ include(physx5)
 -include(zlib)
--include(eigen)
+ include(eigen)
 -include(vulkan)
--
+ 
  if (${SAPIEN_DEBUG_VIEWER})
      add_definitions(_DEBUG_VIEWER)
- endif ()

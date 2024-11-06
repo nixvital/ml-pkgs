@@ -22,11 +22,20 @@
 , pyperclip
 , vulkan-headers
 , vulkan-loader
-, zlib
 , eigen
 , openimagedenoise
 , cudaSupport ? true
 }:
+let
+  pybind-smart-holder = python3Packages.pybind11.overrideAttrs {
+    src = fetchFromGitHub {
+      owner = "pybind";
+      repo = "pybind11";
+      rev = "smart_holder";
+      hash = "";
+    };
+  };
+in
 buildPythonPackage rec {
   pname = "sapien";
   version = "dev";
@@ -59,6 +68,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [
     cmake
+    pybind-smart-holder
     autoPatchelfHook
     pythonRelaxDepsHook
     autoAddDriverRunpath
@@ -77,8 +87,6 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
       --replace-fail 'os.environ.get("CUDA_PATH")' '"${cudatoolkit}"'
 
-    sed -i 's|\''${SAPIEN_PHYSX5_DIR}|'"${physx5}"'|g' cmake/physx5.cmake
-
     substituteInPlace python/py_package/physx/__init__.py \
       --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' '${physx5-gpu}/lib'
   '';
@@ -92,11 +100,9 @@ buildPythonPackage rec {
     vulkan-headers
     vulkan-loader
     openimagedenoise
-    # cudaPackages.cuda_nvcc
     cudatoolkit
     physx5
     physx5-gpu
-    zlib.static
     eigen
   ];
 

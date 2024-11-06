@@ -1,6 +1,7 @@
 final: prev: {
   physx5-gpu = final.callPackage ../pkgs/physx5-gpu {};
   physx5 = final.callPackage ../pkgs/physx5 {};
+  sapien-vulkan-2 = final.callPackage ../pkgs/sapien-vulkan-2 {};
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (python-final: python-prev: {
