@@ -13,7 +13,8 @@
       torch-family = import ./overlays/torch-family.nix;
       jax-family = import ./overlays/jax-family.nix;
       data-utils = import ./overlays/data-utils.nix;
-      simulators = import ./overlays/simulators.nix;
+      simulators = import ./overlays/haosu.nix;
+      haosu = import ./overlays/simulators.nix;
       math = import ./overlays/math.nix;
       misc = import ./overlays/misc.nix;
       apis = import ./overlays/apis.nix;
@@ -28,6 +29,7 @@
         self.overlays.jax-family
         self.overlays.data-utils
         self.overlays.simulators
+        self.overlays.haosu
         self.overlays.math
         self.overlays.misc
         self.overlays.apis

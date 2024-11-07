@@ -8,8 +8,8 @@
 , vulkan-headers
 , vulkan-loader
 , vulkan-validation-layers
-, glm
-, assimp
+, glm-sapien
+, assimp-sapien
 , spdlog
 , fmt
 , glfw
@@ -19,7 +19,7 @@
 , spirv-tools
 , spirv-headers
 , imath
-, openexr_3
+, openexr-sapien
 , openvr
 , openimagedenoise
 , xorg
@@ -29,31 +29,6 @@
 , cudaSupport ? true
 }:
 let
-  openexr = openexr_3.overrideAttrs {
-    postFixup = ''
-      substituteInPlace $dev/include/OpenEXR/*.h \
-        --replace-warn '#include <Imath' '#include <Imath/Imath' \
-        --replace-warn '#include "Imath' '#include "Imath/Imath' \
-        --replace-warn '#include <half.h' '#include <Imath/half.h'
-    '';
-    doCheck = false;
-  };
-  assimp-sapien = assimp.overrideAttrs {
-    src = fetchFromGitHub {
-      owner = "fbxiang";
-      repo = "assimp";
-      rev = "0ea31aa6734336dc1e62c6d9bde3e49b6d71b811";
-      sha256 = "sha256-IqF46UQNGQ/EZJ/D0SsOqp+Tyn5oSNtunNx0lxaTRGE=";
-    };
-  };
-  glm-sapien = glm.overrideAttrs {
-    src = fetchFromGitHub {
-      owner = "g-truc";
-      repo = "glm";
-      rev = "0.9.9.8";
-      hash = "sha256-F//+3L5Ozrw6s7t4LrcUmO7sN30ZSESdrPAYX57zgr8=";
-    };
-  };
   imgui-src = fetchFromGitHub {
     owner = "ocornut";
     repo = "imgui";
@@ -132,8 +107,8 @@ stdenv.mkDerivation rec {
     spirv-cross
     spirv-headers
 
-    openexr
-    openexr.dev
+    openexr-sapien
+    openexr-sapien.dev
     openvr
     # TODO: make sure we need this
     openimagedenoise

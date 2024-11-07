@@ -8,7 +8,6 @@
 , python3Packages
 , pythonRelaxDepsHook
 , python
-, patchelf
 , stdenv
 , pkg-config
 , gcc12Stdenv
@@ -17,8 +16,8 @@
 , physx5
 , physx5-gpu
 , cmake
-, glm
-, assimp
+, glm-sapien
+, assimp-sapien
 , spdlog
 , autoPatchelfHook
 , numpy
@@ -26,40 +25,13 @@
 , opencv4
 , transforms3d
 , pyperclip
+, pybind-smart-holder
 , vulkan-headers
 , vulkan-loader
 , eigen
 , openimagedenoise
 , cudaSupport ? true
 }:
-let
-  pybind-smart-holder = python3Packages.pybind11.overrideAttrs {
-    src = fetchFromGitHub {
-      owner = "pybind";
-      repo = "pybind11";
-      rev = "3b35ce475fa359abc31d979972f650c601d6158b";
-      hash = "sha256-zgWTcgO0BvCOjFrNPrLTi0JXedhW2Oai1qwf5DA7e6A=";
-    };
-    postPatch = "";
-  };
-  glm-sapien = glm.overrideAttrs {
-    src = fetchFromGitHub {
-      owner = "g-truc";
-      repo = "glm";
-      rev = "0.9.9.8";
-      hash = "sha256-F//+3L5Ozrw6s7t4LrcUmO7sN30ZSESdrPAYX57zgr8=";
-    };
-  };
-  assimp-sapien = assimp.overrideAttrs {
-    src = fetchFromGitHub {
-      owner = "fbxiang";
-      repo = "assimp";
-      rev = "0ea31aa6734336dc1e62c6d9bde3e49b6d71b811";
-      sha256 = "sha256-IqF46UQNGQ/EZJ/D0SsOqp+Tyn5oSNtunNx0lxaTRGE=";
-    };
-  };
-
-in
 buildPythonPackage rec {
   pname = "sapien";
   version = "dev";
@@ -99,8 +71,6 @@ buildPythonPackage rec {
     autoPatchelfHook
     pythonRelaxDepsHook
     autoAddDriverRunpath
-
-    patchelf
   ];
 
   patches = [
@@ -157,13 +127,6 @@ buildPythonPackage rec {
   ];
 
   doCheck = false;
-  # does not work since setup.py sets the cmake flags
-  # cmakeFlags = [
-  #   "-DCUDA_TOOLKIT_ROOT_DIR=${cudatoolkit}"
-  #   "-DSAPIEN_CUDA=ON"
-  #   # "-DSAPIEN_PHYSX5_DIR=${physx5}"
-  #   "-Dphysx_SOURCE_DIR=${physx5}"
-  # ];
 
   meta = with lib; {
     homepage = "https://github.com/haosulab/SAPIEN";
