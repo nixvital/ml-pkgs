@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, lib }:
+{ stdenv, fetchzip, lib, libgcc }:
 
 stdenv.mkDerivation rec {
   pname = "physx5-gpu";

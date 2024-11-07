@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace app/main.cpp src/core/context.cpp src/core/physical_device.cpp src/core/instance.cpp src/renderer/gui.cpp \
       --replace-fail '#include <GLFW/glfw3.h>' '#include <${vulkan-headers}/include/vulkan/vulkan.h>
-      #include <GLFW/glfw3.h>'
+    #include <GLFW/glfw3.h>'
 
     substituteInPlace src/core/device.cpp src/core/instance.cpp src/renderer/vr.cpp \
       --replace-fail '#include <openvr.h>' '#include <openvr/openvr.h>'
@@ -135,7 +135,10 @@ stdenv.mkDerivation rec {
     openexr
     openexr.dev
     openvr
+    # TODO: make sure we need this
     openimagedenoise
+    zlib
+
     xorg.libX11
     xorg.libXcursor
     xorg.libXrandr
