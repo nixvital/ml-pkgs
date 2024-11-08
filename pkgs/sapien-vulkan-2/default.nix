@@ -66,9 +66,9 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-    ./remove_includes.patch
+    ./cmake.patch
     ./imgui_cmake.patch
-    ./logger_fixes.patch
+    ./logger.patch
   ];
 
   postPatch = ''

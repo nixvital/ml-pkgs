@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index ea7be280..ab77feb2 100644
+index ea7be280..9406a276 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -111,7 +111,7 @@ if args.get_version:
@@ -11,7 +11,7 @@ index ea7be280..ab77feb2 100644
      os.makedirs(build_dir, exist_ok=True)
      os.makedirs(install_dir, exist_ok=True)
  
-@@ -229,14 +229,14 @@ class CMakeBuild(build_ext):
+@@ -229,7 +229,7 @@ class CMakeBuild(build_ext):
          )
  
      def build_pybind(self, ext):
@@ -19,18 +19,7 @@ index ea7be280..ab77feb2 100644
 +        sapien_install_dir = os.environ["out"]
  
          os.makedirs(self.build_temp, exist_ok=True)
--        original_full_path = self.get_ext_fullpath(ext.name)
--        extdir = os.path.abspath(os.path.dirname(original_full_path))
--        extdir = os.path.join(extdir, self.distribution.get_name())
-+        # original_full_path = self.get_ext_fullpath(ext.name)
-+        # extdir = os.path.abspath(os.path.dirname(original_full_path))
-+        # extdir = os.path.join(extdir, self.distribution.get_name())
-         cmake_args = [
--            f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$<1:{extdir}>",
-+            # f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$<1:{extdir}>",
-             f"-DPYTHON_EXECUTABLE={sys.executable}",
-             f"-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded",
-         ]
+         original_full_path = self.get_ext_fullpath(ext.name)
 @@ -247,7 +247,8 @@ class CMakeBuild(build_ext):
          build_args = ["--config", cfg]
          cmake_args += ["-DCMAKE_BUILD_TYPE=" + cfg]

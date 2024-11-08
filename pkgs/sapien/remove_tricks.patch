@@ -1,0 +1,34 @@
+diff --git a/python/py_package/__init__.py b/python/py_package/__init__.py
+index 00b9449a..8dd50c4b 100644
+--- a/python/py_package/__init__.py
++++ b/python/py_package/__init__.py
+@@ -6,7 +6,6 @@ import platform
+ from .version import __version__
+ 
+ os.environ["SAPIEN_PACKAGE_PATH"] = os.path.dirname(__file__)
+-from . import _oidn_tricks
+ 
+ from . import pysapien
+ 
+@@ -18,8 +17,6 @@ from .pysapien import math, simsense
+ from . import physx
+ from . import render
+ 
+-from . import _vulkan_tricks
+-
+ from .wrapper.scene import Scene, SceneConfig, Widget
+ from .wrapper.engine import Engine
+ from .wrapper.renderer import SapienRenderer
+diff --git a/python/py_package/__init__.pyi b/python/py_package/__init__.pyi
+index b2296087..4a642ce6 100644
+--- a/python/py_package/__init__.pyi
++++ b/python/py_package/__init__.pyi
+@@ -21,8 +21,6 @@ from sapien.wrapper.engine import Engine
+ from sapien.wrapper.renderer import SapienRenderer
+ from sapien.wrapper.scene import Scene
+ from sapien.wrapper.scene import Widget
+-from . import _oidn_tricks
+-from . import _vulkan_tricks
+ from . import asset
+ from . import internal_renderer
+ from . import physx

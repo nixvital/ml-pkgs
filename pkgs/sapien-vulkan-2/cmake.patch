@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index c7431fe..fc7095c 100644
+index c7431fe..ea66188 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,5 +1,5 @@
@@ -108,7 +108,13 @@ index c7431fe..fc7095c 100644
          EXPORT svulkan2Targets
          LIBRARY DESTINATION lib
          ARCHIVE DESTINATION lib
-@@ -111,9 +127,6 @@ install(EXPORT svulkan2Targets
+@@ -106,14 +122,11 @@ else ()
+ endif ()
+ 
+ install(EXPORT svulkan2Targets
+-    FILE svulkan2.cmake
++    FILE svulkan2Config.cmake
+     NAMESPACE svulkan2::
      DESTINATION lib/cmake/svulkan2
  )
  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/svulkan2 DESTINATION "include")

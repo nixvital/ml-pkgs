@@ -112,7 +112,6 @@
           procthor
           robosuite
           robocasa
-          isaacgym
 
           # ----- Math -----
           numpy-quaternion

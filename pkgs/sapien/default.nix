@@ -37,7 +37,7 @@ buildPythonPackage rec {
   version = "dev";
 
   src = fetchFromGitHub {
-    owner = "howird";
+    owner = "haosulab";
     repo = "SAPIEN";
     rev =  "c877626fdefda29b2c33bea64f17830246508f05";
     sha256 = "sha256-8S4GasO+acLYKOQ2l/Ef3B4mecjJwGWaS1zGCR0pTmQ=";
@@ -50,14 +50,6 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [
-    numpy
-    requests
-    opencv4
-    transforms3d
-    pyperclip
-  ];
-
   pythonRemoveDeps = [ "opencv-python" ];
 
   dontUseCmakeConfigure = true;
@@ -67,52 +59,17 @@ buildPythonPackage rec {
     cudatoolkit
     pkg-config
 
-    pybind-smart-holder
     autoPatchelfHook
     pythonRelaxDepsHook
     autoAddDriverRunpath
   ];
-
-  patches = [
-    ./remove_includes.patch
-    ./logger_fixes.patch
-    ./setup.patch
-  ];
-
-  postPatch = ''
-    rm -rf 3rd_party/sapien-vulkan-2
-
-    substituteInPlace CMakeLists.txt \
-      --replace-fail '$ENV{CUDA_PATH}/include' '"${cudatoolkit}/include"' \
-      --replace-fail 'set(CUDA_TOOLKIT_ROOT_DIR $ENV{CUDA_PATH})' \
-                     'set(CUDA_TOOLKIT_ROOT_DIR "${cudatoolkit}")' \
-      --replace-fail 'NIX_PATH_TO_SVULKAN2' '${sapien-vulkan-2}' \
-      --replace-fail 'libPhysX' '${physx5}/bin/linux.clang/release/libPhysX' \
-      --replace-fail 'NIX_PATH_TO_PHYSX5' '${physx5}'
-
-    substituteInPlace setup.py \
-      --replace-fail 'os.environ.get("CUDA_PATH")' '"${cudatoolkit}"' \
-      --replace-fail 'version = generate_version()' 'version = "3.0.0"'
-
-    # skip pinnochio build TODO: build it
-    substituteInPlace setup.py \
-      --replace-fail 'self.build_pinocchio(ext)' 'pass'
-
-    # substituteInPlace python/py_package/__init__.pyi --replace-fail '3.0.0.dev20240521+6b6d61d2' '3.0.0'
-
-    substituteInPlace python/py_package/physx/__init__.py \
-      --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' '"${physx5-gpu}/lib"'
-  '';
-
-  preBuild = ''
-    export CUDA_PATH=${cudatoolkit}
-  '';
 
   buildInputs = [
     stdenv.cc.cc.lib
     vulkan-headers
     vulkan-loader
 
+    pybind-smart-holder
     sapien-vulkan-2
     glm-sapien
     assimp-sapien.dev
@@ -126,12 +83,56 @@ buildPythonPackage rec {
     eigen
   ];
 
+  propagatedBuildInputs = [
+    numpy
+    requests
+    opencv4
+    transforms3d
+    pyperclip
+
+    sapien-vulkan-2
+    vulkan-headers
+    vulkan-loader
+  ];
+
+  patches = [
+    ./cmake.patch
+    ./py_cmake.patch
+    ./logger.patch
+    ./setup.patch
+    ./remove_pinocchio.patch # TODO: build pinnochio
+    ./remove_tricks.patch
+  ];
+
+  postPatch = ''
+    rm -rf 3rd_party/sapien-vulkan-2
+
+    substituteInPlace CMakeLists.txt \
+      --replace-fail '$ENV{CUDA_PATH}/include' '"${cudatoolkit}/include"' \
+      --replace-fail 'set(CUDA_TOOLKIT_ROOT_DIR $ENV{CUDA_PATH})' 'set(CUDA_TOOLKIT_ROOT_DIR "${cudatoolkit}")' \
+      --replace-fail 'libPhysX' '${physx5}/bin/linux.clang/release/libPhysX' \
+      --replace-fail 'NIX_PATH_TO_PHYSX5' '${physx5}'
+
+    substituteInPlace setup.py \
+      --replace-fail 'os.environ.get("CUDA_PATH")' '"${cudatoolkit}"' \
+      --replace-fail 'version = generate_version()' 'version = "3.0.0"'
+
+    # substituteInPlace python/py_package/__init__.pyi --replace-fail '3.0.0.dev20240521+6b6d61d2' '3.0.0'
+
+    substituteInPlace python/py_package/physx/__init__.py \
+      --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' '"${physx5-gpu}/lib"'
+  '';
+
+  preBuild = ''
+    export CUDA_PATH=${cudatoolkit}
+  '';
+
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/haosulab/SAPIEN";
     description = "A SimulAted Part-based Interactive ENvironment";
-    # license = licenses.mit;
+    license = licenses.mit;
     maintainers = with maintainers; [ breakds ];
     platforms = with platforms; linux;
   };

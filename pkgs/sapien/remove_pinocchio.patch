@@ -1,0 +1,135 @@
+diff --git a/python/py_package/__init__.py b/python/py_package/__init__.py
+index 5dc4ceb7..00b9449a 100644
+--- a/python/py_package/__init__.py
++++ b/python/py_package/__init__.py
+@@ -25,7 +25,6 @@ from .wrapper.engine import Engine
+ from .wrapper.renderer import SapienRenderer
+ from .wrapper.actor_builder import ActorBuilder
+ from .wrapper.articulation_builder import ArticulationBuilder
+-from .wrapper.pinocchio_model import PinocchioModel
+ 
+ import pkg_resources
+ 
+diff --git a/python/py_package/__init__.pyi b/python/py_package/__init__.pyi
+index f44994a8..b2296087 100644
+--- a/python/py_package/__init__.pyi
++++ b/python/py_package/__init__.pyi
+@@ -15,7 +15,6 @@ from sapien.pysapien.physx import PhysxSceneConfig as SceneConfig
+ from sapien.pysapien import profile
+ from sapien.pysapien import set_log_level
+ from sapien.pysapien import simsense
+-from sapien.pysapien_pinocchio import PinocchioModel
+ from sapien.wrapper.actor_builder import ActorBuilder
+ from sapien.wrapper.articulation_builder import ArticulationBuilder
+ from sapien.wrapper.engine import Engine
+@@ -28,11 +27,10 @@ from . import asset
+ from . import internal_renderer
+ from . import physx
+ from . import pysapien
+-from . import pysapien_pinocchio
+ from . import render
+ from . import utils
+ from . import version
+ from . import wrapper
+-__all__ = ['ActorBuilder', 'ArticulationBuilder', 'Component', 'CudaArray', 'Device', 'Engine', 'Entity', 'Path', 'PinocchioModel', 'Pose', 'SapienRenderer', 'Scene', 'SceneConfig', 'System', 'Widget', 'asset', 'internal_renderer', 'math', 'os', 'physx', 'pkg_resources', 'platform', 'profile', 'pysapien', 'pysapien_pinocchio', 'render', 'set_log_level', 'simsense', 'utils', 'version', 'warn', 'wrapper']
++__all__ = ['ActorBuilder', 'ArticulationBuilder', 'Component', 'CudaArray', 'Device', 'Engine', 'Entity', 'Path', 'Pose', 'SapienRenderer', 'Scene', 'SceneConfig', 'System', 'Widget', 'asset', 'internal_renderer', 'math', 'os', 'physx', 'pkg_resources', 'platform', 'profile', 'pysapien', 'render', 'set_log_level', 'simsense', 'utils', 'version', 'warn', 'wrapper']
+ __version__: str = '3.0.0.dev20240521+6b6d61d2'
+ __warningregistry__: dict = {'version': 0}
+diff --git a/python/py_package/pysapien/physx.pyi b/python/py_package/pysapien/physx.pyi
+index b26873ba..5ef1caac 100644
+--- a/python/py_package/pysapien/physx.pyi
++++ b/python/py_package/pysapien/physx.pyi
+@@ -2,7 +2,6 @@ from __future__ import annotations
+ import numpy
+ import pybind11_stubgen.typing_ext
+ import sapien.pysapien
+-import sapien.pysapien_pinocchio
+ import typing
+ __all__ = ['PhysxArticulation', 'PhysxArticulationJoint', 'PhysxArticulationLinkComponent', 'PhysxBaseComponent', 'PhysxBodyConfig', 'PhysxCollisionShape', 'PhysxCollisionShapeBox', 'PhysxCollisionShapeCapsule', 'PhysxCollisionShapeConvexMesh', 'PhysxCollisionShapeCylinder', 'PhysxCollisionShapePlane', 'PhysxCollisionShapeSphere', 'PhysxCollisionShapeTriangleMesh', 'PhysxContact', 'PhysxContactPoint', 'PhysxCpuSystem', 'PhysxDistanceJointComponent', 'PhysxDriveComponent', 'PhysxEngine', 'PhysxGearComponent', 'PhysxGpuContactBodyImpulseQuery', 'PhysxGpuContactPairImpulseQuery', 'PhysxGpuSystem', 'PhysxJointComponent', 'PhysxMaterial', 'PhysxRayHit', 'PhysxRigidBaseComponent', 'PhysxRigidBodyComponent', 'PhysxRigidDynamicComponent', 'PhysxRigidStaticComponent', 'PhysxSDFConfig', 'PhysxSceneConfig', 'PhysxShapeConfig', 'PhysxSystem', 'get_body_config', 'get_default_material', 'get_scene_config', 'get_sdf_config', 'get_shape_config', 'is_gpu_enabled', 'set_body_config', 'set_default_material', 'set_gpu_memory_config', 'set_scene_config', 'set_sdf_config', 'set_shape_config', 'version']
+ M = typing.TypeVar("M", bound=int)
+@@ -19,9 +18,6 @@ class PhysxArticulation:
+     sleep_threshold: float
+     solver_position_iterations: int
+     solver_velocity_iterations: int
+-    @staticmethod
+-    def create_pinocchio_model(articulation: PhysxArticulation, gravity = [0, 0, -9.81]) -> sapien.pysapien_pinocchio.PinocchioModel:
+-        ...
+     def clone_links(self) -> list[PhysxArticulationLinkComponent]:
+         ...
+     def compute_passive_force(self, gravity: bool = True, coriolis_and_centrifugal: bool = True) -> numpy.ndarray[tuple[M, typing.Literal[1]], numpy.dtype[numpy.float32]]:
+diff --git a/python/py_package/utils/viewer/viewer.py b/python/py_package/utils/viewer/viewer.py
+index 4089ce6b..d54a062d 100644
+--- a/python/py_package/utils/viewer/viewer.py
++++ b/python/py_package/utils/viewer/viewer.py
+@@ -22,7 +22,6 @@ from .plugin import Plugin
+ from .render_window import RenderOptionsWindow
+ from .scene_window import SceneWindow
+ from .setting_window import SettingWindow
+-from .transform_window import TransformWindow
+ 
+ # from .keyframe_window import KeyframeWindow
+ 
+@@ -37,7 +36,6 @@ class Viewer:
+             PathWindow(),
+             ContactWindow(),
+             SettingWindow(),
+-            TransformWindow(),
+             RenderOptionsWindow(),
+             ControlWindow(),
+             SceneWindow(),
+diff --git a/setup.py b/setup.py
+index 9406a276..c1b9cf7a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -192,42 +192,6 @@ class CMakeBuild(build_ext):
+         for ext in self.extensions:
+             self.build_extension(ext)
+ 
+-    def build_pinocchio(self, ext):
+-        sapien_install_dir = os.path.join(self.sapien_build_dir, "_sapien_install")
+-        build_dir = os.path.join(self.sapien_build_dir, "_pinocchio_build")
+-        os.makedirs(build_dir, exist_ok=True)
+-        original_full_path = self.get_ext_fullpath(ext.name)
+-        extdir = os.path.abspath(os.path.dirname(original_full_path))
+-        extdir = os.path.join(extdir, self.distribution.get_name())
+-        cmake_args = [
+-            f"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$<1:{extdir}>",
+-            f"-DPYTHON_EXECUTABLE={sys.executable}",
+-            f"-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded",
+-        ]
+-
+-        deps_dir = os.path.join(self.sapien_build_dir, "_sapien_deps")
+-        cmake_args += [f"-DFETCHCONTENT_BASE_DIR={deps_dir}"]
+-
+-        if args.debug:
+-            cfg = "Debug"
+-        else:
+-            cfg = "Release"
+-        build_args = ["--config", cfg]
+-        cmake_args += ["-DCMAKE_BUILD_TYPE=" + cfg]
+-        cmake_args += [
+-            "-Dsapien_DIR=" + os.path.join(sapien_install_dir, "lib/cmake/sapien")
+-        ]
+-        env = os.environ.copy()
+-        subprocess.check_call(
+-            ["cmake", os.path.join(ext.sourcedir, "pinocchio")] + cmake_args,
+-            cwd=build_dir,
+-            env=env,
+-        )
+-        subprocess.check_call(
+-            ["cmake", "--build", ".", "--target", "pysapien_pinocchio"] + build_args,
+-            cwd=build_dir,
+-        )
+-
+     def build_pybind(self, ext):
+         sapien_install_dir = os.environ["out"]
+ 
+@@ -326,8 +290,6 @@ class CMakeBuild(build_ext):
+             f.write('__version__="{}"'.format(version))
+ 
+     def build_extension(self, ext):
+-        if platform.system() == "Linux":
+-            self.build_pinocchio(ext)
+         self.build_pybind(ext)
+         self.copy_assets(ext)
+ 

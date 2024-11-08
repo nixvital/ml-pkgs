@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 850ffd8a..b9cd0ae3 100644
+index 850ffd8a..247aa1bb 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -52,10 +52,31 @@ endmacro()
+@@ -52,10 +52,33 @@ endmacro()
  
  list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
  
@@ -13,6 +13,8 @@ index 850ffd8a..b9cd0ae3 100644
 +find_package(glm REQUIRED)
 +find_package(assimp REQUIRED)
 +find_package(spdlog REQUIRED)
++find_package(VulkanHeaders REQUIRED)
++find_package(svulkan2 REQUIRED)
 +find_package(Eigen3 REQUIRED)
 +find_package(OpenImageDenoise REQUIRED)
 +
@@ -38,7 +40,7 @@ index 850ffd8a..b9cd0ae3 100644
  
  if (${SAPIEN_DEBUG_VIEWER})
      add_definitions(_DEBUG_VIEWER)
-@@ -79,8 +100,6 @@ else()
+@@ -79,8 +102,6 @@ else()
      set(SVULKAN2_CUDA_INTEROP OFF CACHE BOOL "" FORCE)
  endif()
  
@@ -47,7 +49,7 @@ index 850ffd8a..b9cd0ae3 100644
  if (${SAPIEN_CUDA})
      add_subdirectory("3rd_party/simsense")
      set_target_properties(simsense PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
-@@ -95,13 +114,12 @@ if (${SAPIEN_CUDA})
+@@ -95,13 +116,11 @@ if (${SAPIEN_CUDA})
  
      if (MSVC)
          target_link_libraries(svulkan2 PRIVATE "$ENV{CUDA_PATH}/lib/x64/cudart_static.lib")
@@ -58,12 +60,11 @@ index 850ffd8a..b9cd0ae3 100644
  endif ()
  
 -target_link_libraries(sapien PUBLIC eigen svulkan2)
-+target_link_libraries(sapien PUBLIC Eigen3::Eigen NIX_PATH_TO_SVULKAN2/lib/libsvulkan2.so)
-+target_include_directories(sapien PUBLIC NIX_PATH_TO_SVULKAN2/include)
++target_link_libraries(sapien PUBLIC Eigen3::Eigen svulkan2::svulkan2)
  target_link_libraries(sapien PRIVATE physx5 spdlog::spdlog ${CMAKE_DL_LIBS} assimp::assimp)
  
  if (UNIX)
-@@ -109,7 +127,7 @@ if (UNIX)
+@@ -109,7 +128,7 @@ if (UNIX)
  endif ()
  
  if (${SAPIEN_CUDA})
@@ -72,7 +73,7 @@ index 850ffd8a..b9cd0ae3 100644
      target_include_directories(sapien PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/dlpack/include>)
  endif()
  
-@@ -131,31 +149,27 @@ target_include_directories(sapien INTERFACE
+@@ -131,31 +150,27 @@ target_include_directories(sapien INTERFACE
  )
  
  if (${SAPIEN_CUDA})
@@ -109,38 +110,16 @@ index 850ffd8a..b9cd0ae3 100644
  
  if (${SAPIEN_CUDA})
      install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/simsense/include/simsense" DESTINATION "include")
-@@ -179,10 +193,10 @@ install(
+@@ -179,10 +194,10 @@ install(
  )
  
  if (SAPIEN_BUILD_PYTHON)
 -    include(pybind11)
-+    find_package(pybind11)
++    find_package(pybind11 REQUIRED)
      file(GLOB_RECURSE PYBIND_SRC "python/pybind/*.cpp")
      pybind11_add_module(pysapien ${PYBIND_SRC} NO_EXTRAS)
 -    target_link_libraries(pysapien PRIVATE sapien eigen physx5 Vulkan::Headers glm)
-+    target_link_libraries(pysapien PRIVATE sapien Eigen3::Eigen physx5 Vulkan::Headers glm::glm)
++    target_link_libraries(pysapien PRIVATE sapien Eigen3::Eigen physx5 Vulkan::Headers glm::glm svulkan2::svulkan2)
      if (TARGET simsense)
          target_link_libraries(pysapien PRIVATE simsense)
      endif()
-diff --git a/python/CMakeLists.txt b/python/CMakeLists.txt
-index 832b1e19..2cfda83b 100644
---- a/python/CMakeLists.txt
-+++ b/python/CMakeLists.txt
-@@ -26,14 +26,14 @@ macro(FetchContent_MakeAvailableExclude)
- endmacro()
- 
- list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake")
--include(eigen)
--include(pybind11)
-+find_package(Eigen3 REQUIRED)
-+find_package(pybind11 REQUIRED)
- 
- find_package(sapien REQUIRED)
- 
- file(GLOB_RECURSE PYBIND_SRC "pybind/*.cpp")
- pybind11_add_module(pysapien ${PYBIND_SRC})
--target_link_libraries(pysapien PRIVATE sapien::sapien eigen)
-+target_link_libraries(pysapien PRIVATE sapien::sapien Eigen3::Eigen)
- target_compile_definitions(pysapien PRIVATE PYBIND11_USE_SMART_HOLDER_AS_DEFAULT)
- 
- if (MSVC)

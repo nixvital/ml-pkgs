@@ -10,12 +10,10 @@
   binutils,
   buildBazelPackage,
   buildPythonPackage,
-  cctools,
   curl,
   cython,
   fetchFromGitHub,
   git,
-  IOKit,
   jsoncpp,
   nsync,
   openssl,
@@ -229,7 +227,7 @@ let
       wheel
       build
       which
-    ] ++ lib.optionals effectiveStdenv.isDarwin [ cctools ];
+    ];
 
     buildInputs =
       [
@@ -247,9 +245,8 @@ let
         six
         snappy
         zlib
-      ]
-      ++ lib.optionals effectiveStdenv.isDarwin [ IOKit ]
-      ++ lib.optionals (!effectiveStdenv.isDarwin) [ nsync ];
+        nsync
+      ];
 
     # We don't want to be quite so picky regarding bazel version
     postPatch = ''
@@ -374,7 +371,7 @@ let
       sha256 =
         (
           if cudaSupport then
-            { x86_64-linux = "sha256-IjsUIfCLcZiAdwNAmM1ul0dxT6XAHpQCDNFnjIPp1gc="; }
+            { x86_64-linux = "sha256-zu+nS+YkmPg2haxUGqOsU+MEH3l0urSzM87N3wkQZSA="; }
           else
             {
               x86_64-linux = "sha256-R5Bm+0GYN1zJ1aEUBW76907MxYKAIawHHJoIb1RdsKE=";
@@ -392,17 +389,6 @@ let
           "nsync" # fails to build on darwin
         ]
       );
-
-      # Note: we cannot do most of this patching at `patch` phase as the deps
-      # are not available yet. Framework search paths aren't added by bintools
-      # hook. See https://github.com/NixOS/nixpkgs/pull/41914.
-      preBuild = lib.optionalString effectiveStdenv.isDarwin ''
-        export NIX_LDFLAGS+=" -F${IOKit}/Library/Frameworks"
-        substituteInPlace ../output/external/rules_cc/cc/private/toolchain/osx_cc_wrapper.sh.tpl \
-          --replace "/usr/bin/install_name_tool" "${cctools}/bin/install_name_tool"
-        substituteInPlace ../output/external/rules_cc/cc/private/toolchain/unix_cc_configure.bzl \
-          --replace "/usr/bin/libtool" "${cctools}/bin/libtool"
-      '';
     };
 
     inherit meta;

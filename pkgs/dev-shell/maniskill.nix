@@ -8,10 +8,7 @@ mkShell rec {
   packages = [
     (python3.withPackages (p: with p; [
       torchWithCuda
-      # pytorchviz
-      # LIV-robotics
       sapien
-      # maniskill
     ]))
   ];
 }
