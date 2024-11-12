@@ -23,6 +23,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
+  patches = [
+    ./cmake_install.patch
+  ];
+
+  # postPatch = ''
+  #   substituteInPlace CMakeModules/ompl.pc.in \
+  #     --replace-fail "libdir=" "libdir=@CMAKE_INSTALL_FULL_LIBDIR@ #" \
+  #     --replace-fail "includedir=" "includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@ #"
+  # '';
+
   propagatedBuildInputs = [
     eigen
     boost
