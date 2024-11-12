@@ -1,9 +1,8 @@
 { lib
 , fetchFromGitHub
-# , cudaPackages_11
-# , cudaPackages
 , cudatoolkit
 , autoAddDriverRunpath
+# , autoAddOpenGLRunpathHook
 , buildPythonPackage
 , python3Packages
 , pythonRelaxDepsHook
@@ -12,24 +11,24 @@
 , pkg-config
 , gcc12Stdenv
 , stdenvAdapters
+, cmake
+, autoPatchelfHook
 , sapien-vulkan-2
 , physx5
 , physx5-gpu
-, cmake
 , glm-sapien
 , assimp-sapien
 , spdlog
-, autoPatchelfHook
+, openimagedenoise
+, vulkan-headers
+, vulkan-loader
+, pybind-smart-holder
 , numpy
 , requests
 , opencv4
 , transforms3d
 , pyperclip
-, pybind-smart-holder
-, vulkan-headers
-, vulkan-loader
 , eigen
-, openimagedenoise
 , cudaSupport ? true
 }:
 buildPythonPackage rec {
@@ -60,8 +59,10 @@ buildPythonPackage rec {
     pkg-config
 
     autoPatchelfHook
-    pythonRelaxDepsHook
     autoAddDriverRunpath
+    # autoAddOpenGLRunpathHook
+
+    pythonRelaxDepsHook
   ];
 
   buildInputs = [
@@ -116,8 +117,6 @@ buildPythonPackage rec {
     substituteInPlace setup.py \
       --replace-fail 'os.environ.get("CUDA_PATH")' '"${cudatoolkit}"' \
       --replace-fail 'version = generate_version()' 'version = "3.0.0"'
-
-    # substituteInPlace python/py_package/__init__.pyi --replace-fail '3.0.0.dev20240521+6b6d61d2' '3.0.0'
 
     substituteInPlace python/py_package/physx/__init__.py \
       --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' '"${physx5-gpu}/lib"'

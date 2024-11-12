@@ -1,5 +1,5 @@
 { lib
-, fetchurl
+, fetchFromGitHub
 , buildPythonPackage
 , pythonRelaxDepsHook
 , python
@@ -22,8 +22,8 @@
 # , mplib
 # , fast-kinematics
 , ipython
-# , pytorch-kineamtics
-# , tyro
+, pytorch-kineamtics
+, tyro
 , huggingface-hub
 }:
 
@@ -32,9 +32,11 @@ buildPythonPackage rec {
   pname = "maniskill";
   version = "3.0.0b9";
 
-  src = assert python.isPy3; fetchurl {
-    url = https://files.pythonhosted.org/packages/b0/8b/a5280e381c1adaf16f6f02463d432cef19e44e30d4704a0c858d1a35e181/mani_skill-3.0.0b9-py3-none-any.whl; 
-    sha256 = "dc258ffbdcaf239261aa5f071951d9c082c506be62dde2ca6256cdfd2d0b45de";
+  src = fetchFromGitHub {
+    owner = "haosulab";
+    repo = pname;
+    rev = "41a5cede87379cf311cfb6dad3f10626bdee66c7";
+    hash = "sha256-nQS09Iuvel5gj1L6Z9qy6JqVMLUeEDTzJ0EYpoZmqcw=";
   };
 
   propagatedBuildInputs = [
@@ -55,8 +57,8 @@ buildPythonPackage rec {
     # mplib
     # fast-kinematics
     ipython
-    # pytorch-kineamtics
-    # tyro
+    pytorch-kineamtics
+    tyro
     huggingface-hub
   ];
 

@@ -3,6 +3,23 @@ final: prev: {
     (python-final: python-prev: {
       sapien = python-final.callPackage ../pkgs/sapien {};
       maniskill = python-final.callPackage ../pkgs/maniskill {};
+
+      pytorch-seed = python-final.callPackage ../pkgs/pytorch-seed {};
+      pytorch-kineamtics = python-final.callPackage ../pkgs/pytorch-kineamtics {};
+      arm-pytorch-utilities = python-final.callPackage ../pkgs/arm-pytorch-utilities {};
+      fast-kinematics = python-final.callPackage ../pkgs/fast-kinematics {};
+
+      tyro = python-final.callPackage ../pkgs/tyro {};
+      docstring-parser = python-prev.docstring-parser.overrideAttrs rec {
+        version = "0.16";
+        src = final.fetchFromGitHub {
+          owner = "rr-";
+          repo = "docstring_parser";
+          rev = "${version}";
+          hash = "sha256-xwV+mgCOC/MyCqGELkJVqQ3p2g2yw/Ieomc7k0HMXms=";
+        };
+      };
+
       pybind-smart-holder = python-final.pybind11.overrideAttrs {
         src = final.fetchFromGitHub {
           owner = "pybind";
@@ -43,4 +60,5 @@ final: prev: {
     '';
     doCheck = false;
   };
+  ompl = final.callPackage ../pkgs/ompl {};
 }

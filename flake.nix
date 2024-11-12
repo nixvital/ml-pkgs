@@ -101,8 +101,6 @@
           mujoco-menagerie
           dm-control
           python-fcl
-          sapien
-          maniskill
           glfw
           gputil
           aws-requests-auth
@@ -112,6 +110,14 @@
           procthor
           robosuite
           robocasa
+
+          sapien
+          maniskill
+          pytorch-seed
+          pytorch-kineamtics
+          arm-pytorch-utilities
+          fast-kinematics
+          tyro
 
           # ----- Math -----
           numpy-quaternion
@@ -155,7 +161,8 @@
           eve
           physx5
           physx5-gpu
-          sapien-vulkan-2;
+          sapien-vulkan-2
+          ompl;
       };
 
       apps = {
