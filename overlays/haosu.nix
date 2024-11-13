@@ -4,10 +4,18 @@ final: prev: {
       sapien = python-final.callPackage ../pkgs/sapien {};
       maniskill = python-final.callPackage ../pkgs/maniskill {};
 
-      pytorch-seed = python-final.callPackage ../pkgs/pytorch-seed {};
-      pytorch-kineamtics = python-final.callPackage ../pkgs/pytorch-kineamtics {};
-      arm-pytorch-utilities = python-final.callPackage ../pkgs/arm-pytorch-utilities {};
+      pytorch-seed = python-final.callPackage ../pkgs/pytorch-seed {
+        torch = python-final.torchWithCuda;
+      };
+      pytorch-kineamtics = python-final.callPackage ../pkgs/pytorch-kineamtics {
+        torch = python-final.torchWithCuda;
+      };
+      arm-pytorch-utilities = python-final.callPackage ../pkgs/arm-pytorch-utilities {
+        torch = python-final.torchWithCuda;
+      };
       fast-kinematics = python-final.callPackage ../pkgs/fast-kinematics {};
+      toppra = python-final.callPackage ../pkgs/toppra {};
+      mplib = python-final.callPackage ../pkgs/mplib {};
 
       tyro = python-final.callPackage ../pkgs/tyro {};
       docstring-parser = python-prev.docstring-parser.overrideAttrs rec {

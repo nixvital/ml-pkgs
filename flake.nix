@@ -118,6 +118,8 @@
           arm-pytorch-utilities
           fast-kinematics
           tyro
+          toppra
+          mplib
 
           # ----- Math -----
           numpy-quaternion

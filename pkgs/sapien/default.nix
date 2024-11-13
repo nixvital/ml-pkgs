@@ -33,7 +33,7 @@
 }:
 buildPythonPackage rec {
   pname = "sapien";
-  version = "dev";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "haosulab";

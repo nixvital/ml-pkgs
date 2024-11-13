@@ -1,0 +1,52 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 03e241d..609da60 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -46,16 +46,23 @@ set_target_properties(mp PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+ # pybind11_mkdoc
+ file(GLOB_RECURSE MPLIB_MKDOC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/include/mplib/*.h")
+ list(FILTER MPLIB_MKDOC_HEADER EXCLUDE REGEX "types.h|macros")
+-add_custom_target(
+-  pybind11_mkdoc ALL
+-  COMMAND bash "${CMAKE_CURRENT_SOURCE_DIR}/dev/mkdoc.sh"
+-               "-I$<JOIN:$<TARGET_PROPERTY:mp,INCLUDE_DIRECTORIES>,;-I>"
+-  BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/pybind/docstring/*.h"
+-  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/dev/mkdoc.sh" "${MPLIB_MKDOC_HEADER}"
+-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+-  COMMAND_EXPAND_LISTS
+-  VERBATIM
+-)
++
++# Check if the files in "${CMAKE_CURRENT_SOURCE_DIR}/pybind/docstring/*.h" already exist
++file(GLOB EXISTING_DOCSTRING_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/pybind/docstring/*.h")
++
++# Only create the pybind11_mkdoc target if the docstring files do not already exist
++if(NOT EXISTING_DOCSTRING_HEADERS)
++  add_custom_target(
++    pybind11_mkdoc ALL
++    COMMAND bash "${CMAKE_CURRENT_SOURCE_DIR}/dev/mkdoc.sh"
++                 "-I$<JOIN:$<TARGET_PROPERTY:mp,INCLUDE_DIRECTORIES>,;-I>"
++    BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/pybind/docstring/*.h"
++    DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/dev/mkdoc.sh" "${MPLIB_MKDOC_HEADER}"
++    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
++    COMMAND_EXPAND_LISTS
++    VERBATIM
++  )
++endif()
+ 
+ # Pybind11
+ add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/third_party/pybind11")
+@@ -63,7 +70,12 @@ file(GLOB_RECURSE PYBIND_SRC "${CMAKE_CURRENT_SOURCE_DIR}/pybind/*.cpp")
+ pybind11_add_module(pymp ${PYBIND_SRC})
+ target_link_libraries(pymp PRIVATE mp)
+ target_include_directories(pymp PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/pybind")
+-add_dependencies(pymp pybind11_mkdoc)
++
++# Add dependency only if pybind11_mkdoc target exists
++if(TARGET pybind11_mkdoc)
++  add_dependencies(pymp pybind11_mkdoc)
++endif()
++
+ 
+ # compile test_articulated_model and run the test
+ add_executable(test_articulated_model "${CMAKE_CURRENT_SOURCE_DIR}/tests/test_articulated_model.cpp")
