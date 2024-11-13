@@ -5,6 +5,7 @@
 , fetchFromGitHub
 , cmake
 , pkg-config
+, pybind11
 , python3Packages
 , eigen
 , boost
@@ -36,14 +37,29 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     cmake
     pkg-config
+    pybind11
   ];
+
+  buildInputs = [
+    pybind11
+  ];
+
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail "add_subdirectory" "find_package(pybind11 REQUIRED) # add_subdirectory" \
+      --replace-fail "add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)" ""
+  '';
+
+  preBuild = ''
+    cd ..
+  '';
 
   propagatedBuildInputs = [
     eigen
     boost
     urdfdom
     numpy
-    torch.lib # figure out what each one of these are for
+    # torch.lib # figure out what each one of these are for
     torch.dev
     console-bridge
     tinyxml-2

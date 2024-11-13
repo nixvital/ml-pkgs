@@ -13,7 +13,9 @@ final: prev: {
       arm-pytorch-utilities = python-final.callPackage ../pkgs/arm-pytorch-utilities {
         torch = python-final.torchWithCuda;
       };
-      fast-kinematics = python-final.callPackage ../pkgs/fast-kinematics {};
+      fast-kinematics = python-final.callPackage ../pkgs/fast-kinematics {
+        torch = python-final.torchWithCuda;
+      };
       toppra = python-final.callPackage ../pkgs/toppra {};
       mplib = python-final.callPackage ../pkgs/mplib {};
 
