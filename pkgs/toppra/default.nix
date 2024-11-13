@@ -38,6 +38,8 @@ buildPythonPackage rec {
     matplotlib
   ];
 
+  pythonImportsCheck = [ "toppra" ];
+
   meta = with lib; {
     description = "robotic motion planning library";
     homepage = "https://hungpham2511.github.io/toppra/index.html";

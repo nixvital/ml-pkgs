@@ -19,10 +19,10 @@
 , trimesh
 , imageio
 , imageio-ffmpeg
-# , mplib
+, mplib
 # , fast-kinematics
 , ipython
-, pytorch-kineamtics
+, pytorch-kinematics
 , tyro
 , huggingface-hub
 }:
@@ -54,17 +54,18 @@ buildPythonPackage rec {
     trimesh
     imageio
     imageio-ffmpeg
-    # mplib
+    mplib
     # fast-kinematics
     ipython
-    pytorch-kineamtics
+    pytorch-kinematics
     tyro
     huggingface-hub
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  pythonImportsCheck = [ "mani_skill" ];
+  
+  # check requires pip and network
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/haosulab/ManiSkill";

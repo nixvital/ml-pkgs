@@ -22,7 +22,7 @@ buildPythonPackage rec {
     owner = "UM-ARM-Lab";
     repo = pname;
     rev = "v${version}";
-    hash = "";
+    hash = "sha256-/8USbxJh4nu9H8iM4BNnTxbKbmIYr7Y4thY7l6PVQX4=";
   };
 
   buildInputs = [
@@ -39,6 +39,8 @@ buildPythonPackage rec {
     pytorch-seed
     arm-pytorch-utilities
   ];
+
+  pythonImportsCheck = [ "pytorch_kinematics" ];
 
   meta = with lib; {
     description = "Robot kinematics implemented in pytorch";

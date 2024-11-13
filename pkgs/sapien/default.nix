@@ -19,6 +19,7 @@
 , glm-sapien
 , assimp-sapien
 , spdlog
+, pinocchio
 , openimagedenoise
 , vulkan-headers
 , vulkan-loader
@@ -75,6 +76,7 @@ buildPythonPackage rec {
     glm-sapien
     assimp-sapien.dev
     spdlog.dev
+    pinocchio
 
     openimagedenoise
     cudatoolkit
@@ -99,9 +101,9 @@ buildPythonPackage rec {
   patches = [
     ./cmake.patch
     ./py_cmake.patch
+    ./pinocchio_cmake.patch
     ./logger.patch
     ./setup.patch
-    ./remove_pinocchio.patch # TODO: build pinnochio
     ./remove_tricks.patch
   ];
 
@@ -125,6 +127,8 @@ buildPythonPackage rec {
   preBuild = ''
     export CUDA_PATH=${cudatoolkit}
   '';
+
+  pythonImportsCheck = [ "sapien" ];
 
   doCheck = false;
 

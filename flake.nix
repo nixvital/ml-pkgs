@@ -114,7 +114,7 @@
           sapien
           maniskill
           pytorch-seed
-          pytorch-kineamtics
+          pytorch-kinematics
           arm-pytorch-utilities
           fast-kinematics
           tyro

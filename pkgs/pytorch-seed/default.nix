@@ -28,6 +28,8 @@ buildPythonPackage rec {
     torch
   ];
 
+  pythonImportsCheck = [ "pytorch_seed" ];
+
   meta = with lib; {
     description = "RNG seeding and context management for pytorch";
     homepage = "https://github.com/UM-ARM-Lab/pytorch_seed";

@@ -7,7 +7,7 @@ final: prev: {
       pytorch-seed = python-final.callPackage ../pkgs/pytorch-seed {
         torch = python-final.torchWithCuda;
       };
-      pytorch-kineamtics = python-final.callPackage ../pkgs/pytorch-kineamtics {
+      pytorch-kinematics = python-final.callPackage ../pkgs/pytorch-kinematics {
         torch = python-final.torchWithCuda;
       };
       arm-pytorch-utilities = python-final.callPackage ../pkgs/arm-pytorch-utilities {

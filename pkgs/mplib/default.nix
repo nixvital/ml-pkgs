@@ -47,9 +47,7 @@ in buildPythonPackage rec {
     transforms3d
   ];
 
-  pythonImportsCheck = [
-    "mplib"
-  ];
+  pythonImportsCheck = [ "mplib" ];
 
   meta = with lib; {
     description = "a Lightweight Motion Planning Package";

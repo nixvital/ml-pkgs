@@ -19,7 +19,7 @@ buildPythonPackage rec {
     owner = "UM-ARM-Lab";
     repo = pname;
     rev = "6312d5094f71a646041fa2994663a19f052ee857";
-    hash = "";
+    hash = "sha256-CTe/cFc2KKG56IeLDDZiDt6GgBGe/vA/usqilvigC80=";
   };
 
   buildInputs = [
@@ -33,6 +33,8 @@ buildPythonPackage rec {
     pytorch-seed
     scipy
   ];
+
+  pythonImportsCheck = [ "arm_pytorch_utilities" ];
 
   meta = with lib; {
     description = "University of Michigan ARM Lab PyTorch utilities";

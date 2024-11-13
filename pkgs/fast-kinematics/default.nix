@@ -1,70 +1,49 @@
 { lib
 , stdenv
-, gcc12Stdenv
+, python
 , buildPythonPackage
-, fetchFromGitHub
-, cmake
-, pkg-config
-, pybind11
-, python3Packages
-, eigen
-, boost
-, urdfdom
-, numpy
+, fetchurl
+, autoPatchelfHook
 , torch
-, console-bridge
-, tinyxml-2
-, cudatoolkit
+, numpy
 }:
-
-buildPythonPackage rec {
-  pname = "fast_kinematics";
+let 
+  wheels = {
+    "x86_64-linux-python-3.9" = {
+      url = https://files.pythonhosted.org/packages/57/01/fe14947878e7cc05ed8beebbbf9e92955eb4d462e7a5be6540505835ef35/fast_kinematics-0.2.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+      sha256 = "c01274f03fda3660c45816a86a5db820ec3d2ebc19abfac66a49451701a308f4";
+    };
+    "x86_64-linux-python-3.10" = {
+      url = https://files.pythonhosted.org/packages/49/c7/c11523db2e63fd50f87276128bf26f758ffae8fcc997cdbc437029409047/fast_kinematics-0.2.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+      sha256 = "908f7ec94dfd947028170c0a37b326b3dde1b8c0a14417646e874f3e81b2cd71";
+    };
+    "x86_64-linux-python-3.11" = {
+      url = https://files.pythonhosted.org/packages/5a/6e/9f9d89f2c135d33b3c2568962415e9210b7f7e74a9d7646c638cbb5121e6/fast_kinematics-0.2.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+      sha256 = "d2e24e736944aa7723f7445c8630d421eb61a6fcd2c23822e9bf4c6bc2d5bf69";
+    };
+    "x86_64-linux-python-3.12" = {
+      url = https://files.pythonhosted.org/packages/1b/03/6d52d961d47d0a3847967e477abfd41f4ac4b4b6001a0172359a4981491b/fast_kinematics-0.2.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl;
+      sha256 = "0500a63494e69d1e51d9770f4fa429e1d50dbbe27e5c448f8daca32bc4e03bb6";
+    };
+  };
+in buildPythonPackage rec {
+  pname = "fast-kinematics";
   version = "0.2.2";
 
-  src = fetchFromGitHub {
-    owner = "Lexseal";
-    repo = pname;
-    rev = "2a174121369bc9c570b05d0ccb0e926cbecdc1ce";
-    sha256 = "sha256-WA97O2C8PHGghLJe03AQ4PtS2+WFKj5WPA6oaIWv4RU=";
-  };
+  src = fetchurl wheels."${stdenv.system}-python-${python.pythonVersion}";
 
-  stdenv = gcc12Stdenv;
-
-  build-system = with python3Packages; [
-    setuptools
-  ];
+  format = "wheel";
 
   nativeBuildInputs = [
-    cmake
-    pkg-config
-    pybind11
+    autoPatchelfHook
   ];
-
-  buildInputs = [
-    pybind11
-  ];
-
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace-fail "add_subdirectory" "find_package(pybind11 REQUIRED) # add_subdirectory" \
-      --replace-fail "add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)" ""
-  '';
-
-  preBuild = ''
-    cd ..
-  '';
 
   propagatedBuildInputs = [
-    eigen
-    boost
-    urdfdom
     numpy
-    # torch.lib # figure out what each one of these are for
-    torch.dev
-    console-bridge
-    tinyxml-2
-    cudatoolkit
+    torch
   ];
+
+  pythonImportsCheck = [ "fast_kinematics" ];
 
   meta = with lib; {
     homepage = "https://github.com/Lexseal/fast_kinematics";
