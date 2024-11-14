@@ -2,7 +2,6 @@
 , fetchFromGitHub
 , cudatoolkit
 , autoAddDriverRunpath
-# , autoAddOpenGLRunpathHook
 , buildPythonPackage
 , python3Packages
 , pythonRelaxDepsHook
@@ -50,8 +49,6 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRemoveDeps = [ "opencv-python" ];
-
   dontUseCmakeConfigure = true;
 
   nativeBuildInputs = [
@@ -61,9 +58,6 @@ buildPythonPackage rec {
 
     autoPatchelfHook
     autoAddDriverRunpath
-    # autoAddOpenGLRunpathHook
-
-    pythonRelaxDepsHook
   ];
 
   buildInputs = [
@@ -92,10 +86,6 @@ buildPythonPackage rec {
     opencv4
     transforms3d
     pyperclip
-
-    sapien-vulkan-2
-    vulkan-headers
-    vulkan-loader
   ];
 
   patches = [
@@ -121,7 +111,9 @@ buildPythonPackage rec {
       --replace-fail 'version = generate_version()' 'version = "3.0.0"'
 
     substituteInPlace python/py_package/physx/__init__.py \
-      --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' '"${physx5-gpu}/lib"'
+      --replace-fail 'parent = Path.home() / ".sapien" / "physx" / physx_version' \
+        'parent = Path("${physx5-gpu}/lib")' \
+      --replace-fail '"libcuda.so"' '"/run/opengl-driver/lib/libcuda.so"'
   '';
 
   preBuild = ''

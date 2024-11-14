@@ -25,12 +25,14 @@
 , pytorch-kinematics
 , tyro
 , huggingface-hub
+, pynvml
+, psutil
+, stable-baselines3
 }:
-
 
 buildPythonPackage rec {
   pname = "maniskill";
-  version = "3.0.0b9";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "haosulab";
@@ -60,6 +62,9 @@ buildPythonPackage rec {
     pytorch-kinematics
     tyro
     huggingface-hub
+    pynvml
+    psutil
+    stable-baselines3
   ];
 
   pythonImportsCheck = [ "mani_skill" ];

@@ -120,6 +120,7 @@
           tyro
           toppra
           mplib
+          stable-baselines3
 
           # ----- Math -----
           numpy-quaternion

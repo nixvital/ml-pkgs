@@ -18,6 +18,7 @@ final: prev: {
       };
       toppra = python-final.callPackage ../pkgs/toppra {};
       mplib = python-final.callPackage ../pkgs/mplib {};
+      stable-baselines3 = python-final.callPackage ../pkgs/stable-baselines3 {};
 
       tyro = python-final.callPackage ../pkgs/tyro {};
       docstring-parser = python-prev.docstring-parser.overrideAttrs rec {

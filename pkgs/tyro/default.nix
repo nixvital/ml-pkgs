@@ -33,8 +33,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "RNG seeding and context management for pytorch";
-    homepage = "CLI interfaces & config objects, from types";
+    description = "tool for generating CLI interfaces in Python";
+    homepage = "https://brentyi.github.io/tyro";
     license = licenses.mit;
     maintainers = with maintainers; [ breakds ];
   };

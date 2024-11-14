@@ -1,5 +1,11 @@
-{ stdenv, fetchzip, lib, libgcc }:
-
+{ lib
+, gcc12Stdenv
+, fetchzip
+, autoPatchelfHook
+}:
+let
+  stdenv = gcc12Stdenv;
+in
 stdenv.mkDerivation rec {
   pname = "physx5-gpu";
   version = "105.1-physx-5.3.1.patch0";
@@ -8,6 +14,9 @@ stdenv.mkDerivation rec {
     url = "https://github.com/sapien-sim/physx-precompiled/releases/download/${version}/linux-so.zip";
     sha256 = "sha256-oGHm1N9MNfHpeWCOyMNR/gNo3fqlpo7EeDsHaVWva5g=";
   };
+
+  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [ stdenv.cc.cc.lib ];
 
   installPhase = ''
     mkdir -p $out/lib
