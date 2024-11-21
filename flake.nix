@@ -72,6 +72,7 @@
         quicktest = pkgs.callPackage ./pkgs/dev-shell/quicktest.nix {};
         ddddocr = pkgs.callPackage ./pkgs/dev-shell/ddddocr.nix {};
         maniskill = pkgs.callPackage ./pkgs/dev-shell/maniskill.nix {};
+        habitat = pkgs.callPackage ./pkgs/dev-shell/habitat.nix {};
       };
 
       packages = {
@@ -121,6 +122,10 @@
           toppra
           mplib
           stable-baselines3
+
+          magnum-bindings
+          habitat-sim
+          habitat-lab
 
           # ----- Math -----
           numpy-quaternion

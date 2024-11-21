@@ -1,0 +1,25 @@
+From c1b21cfa4ef543393af5d605387169366d35907e Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Tue, 12 Mar 2024 19:26:46 +0000
+Subject: [PATCH] habitat: unbreak signature mismatch
+
+---
+ Detour/Include/DetourNavMeshQuery.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Detour/Include/DetourNavMeshQuery.h b/Detour/Include/DetourNavMeshQuery.h
+index d4ad890..68c3032 100644
+--- a/Detour/Include/DetourNavMeshQuery.h
++++ b/Detour/Include/DetourNavMeshQuery.h
+@@ -387,7 +387,7 @@ public:
+ 	/// @returns The status flags for the query.
+ 	dtStatus moveAlongSurface(dtPolyRef startRef, const float* startPos, const float* endPos,
+ 							  const dtQueryFilter* filter,
+-							  float* resultPos, dtPolyRef* visited, int* visitedCount, const int maxVisitedSize, bool allowSliding) const;
++							  float* resultPos, dtPolyRef* visited, int* visitedCount, const int maxVisitedSize, bool allowSliding=true) const;
+ 	
+ 	/// Casts a 'walkability' ray along the surface of the navigation mesh from 
+ 	/// the start position toward the end position.
+-- 
+2.43.1
+

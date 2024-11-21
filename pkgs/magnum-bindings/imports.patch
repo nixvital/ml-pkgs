@@ -1,0 +1,36 @@
+diff --git a/src/python/magnum/__init__.py b/src/python/magnum/__init__.py
+index 9eb1135..8980182 100644
+--- a/src/python/magnum/__init__.py
++++ b/src/python/magnum/__init__.py
+@@ -28,6 +28,7 @@
+ # Important -- performs various platform-specific setup like adding DLL paths
+ # on Windows
+ import corrade
++import importlib
+ 
+ from _magnum import *
+ 
+@@ -40,12 +41,21 @@ sys.modules['magnum.math'] = math
+ # In case Magnum is built statically, the whole core project is put into
+ # _magnum. Then we need to do the same as above but for all modules.
+ for i in ['gl', 'materialtools', 'meshtools', 'platform', 'primitives', 'scenegraph', 'scenetools', 'shaders', 'text', 'trade']:
+-    if i in globals(): sys.modules['magnum.' + i] = globals()[i]
++    if i in globals():
++        sys.modules['magnum.' + i] = globals()[i]
++    else:
++        globals()[i] = importlib.import_module(f'.{i}', package='magnum')
+ 
+ # Platform has subpackages
+ if 'platform' in globals():
+     for i in ['glfw', 'sdl2', 'cgl', 'glx', 'wgl', 'egl']:
+-        if hasattr(platform, i): sys.modules['magnum.platform.' + i] = getattr(platform, i)
++        if hasattr(platform, i):
++            sys.modules['magnum.platform.' + i] = getattr(platform, i)
++        else:
++            try:
++                setattr(platform, i, importlib.import_module(f'.platform.{i}', package='magnum'))
++            except ModuleNotFoundError:
++                pass
+ 
+ # Scenegraph has subpackages
+ if 'scenegraph' in globals():

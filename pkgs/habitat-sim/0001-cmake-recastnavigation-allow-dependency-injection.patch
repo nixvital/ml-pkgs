@@ -1,0 +1,56 @@
+From 41f70282a01db30ccc0ea1d3edafa20e00ee5f90 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Tue, 12 Mar 2024 16:43:04 +0000
+Subject: [PATCH] cmake: recastnavigation: allow dependency injection
+
+---
+ src/cmake/dependencies.cmake | 20 ++++++++++++++------
+ src/esp/nav/CMakeLists.txt   |  2 +-
+ 2 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/src/cmake/dependencies.cmake b/src/cmake/dependencies.cmake
+index a6b316f..54d4d71 100644
+--- a/src/cmake/dependencies.cmake
++++ b/src/cmake/dependencies.cmake
+@@ -107,13 +107,21 @@ set(RECASTNAVIGATION_TESTS OFF CACHE BOOL "RECASTNAVIGATION_TESTS" FORCE)
+ set(RECASTNAVIGATION_EXAMPLES OFF CACHE BOOL "RECASTNAVIGATION_EXAMPLES" FORCE)
+ # Temp BUILD_SHARED_LIBS override for Recast, has to be reset back after to avoid affecting Bullet (which needs shared) and potentially other submodules
+ set(_PREV_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
+-set(BUILD_SHARED_LIBS OFF)
+ include(GNUInstallDirs)
+-add_subdirectory("${DEPS_DIR}/recastnavigation/Recast")
+-add_subdirectory("${DEPS_DIR}/recastnavigation/Detour")
+-set(BUILD_SHARED_LIBS ${_PREV_BUILD_SHARED_LIBS})
+-# Needed so that Detour doesn't hide the implementation of the method on dtQueryFilter
+-target_compile_definitions(Detour PUBLIC DT_VIRTUAL_QUERYFILTER)
++
++find_package(recastnavigation COMPONENTS Detour Recast)
++
++if (NOT TARGET RecastNavigation::Detour)
++  set(BUILD_SHARED_LIBS OFF)
++  add_subdirectory("${DEPS_DIR}/recastnavigation/Recast")
++  add_subdirectory("${DEPS_DIR}/recastnavigation/Detour")
++  add_library(RecastNavigation::Detour ALIAS Detour)
++  add_library(RecastNavigation::Recast ALIAS Recast)
++  # Needed so that Detour doesn't hide the implementation of the method on dtQueryFilter
++  target_compile_definitions(Detour PUBLIC DT_VIRTUAL_QUERYFILTER)
++  set(BUILD_SHARED_LIBS ${_PREV_BUILD_SHARED_LIBS})
++endif()
++
+ 
+ if(BUILD_PYTHON_BINDINGS)
+   # Before calling find_package(PythonInterp) search for python executable not
+diff --git a/src/esp/nav/CMakeLists.txt b/src/esp/nav/CMakeLists.txt
+index b594a76..f9c6f09 100644
+--- a/src/esp/nav/CMakeLists.txt
++++ b/src/esp/nav/CMakeLists.txt
+@@ -15,5 +15,5 @@ target_include_directories(
+ target_link_libraries(
+   nav
+   PUBLIC core agent scene
+-  PRIVATE Detour Recast
++  PRIVATE RecastNavigation::Detour RecastNavigation::Recast
+ )
+-- 
+2.43.1
+
