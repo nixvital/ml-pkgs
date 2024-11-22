@@ -1,0 +1,125 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 850ffd8a..247aa1bb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -52,10 +52,33 @@ endmacro()
+ 
+ list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+ 
+-include(physx5)
+-include(zlib)
+-include(eigen)
+-include(vulkan)
++find_package(glm REQUIRED)
++find_package(assimp REQUIRED)
++find_package(spdlog REQUIRED)
++find_package(VulkanHeaders REQUIRED)
++find_package(svulkan2 REQUIRED)
++find_package(Eigen3 REQUIRED)
++find_package(OpenImageDenoise REQUIRED)
++
++find_package(PkgConfig REQUIRED)
++
++pkg_check_modules(CUDART REQUIRED cudart)
++include_directories(${CUDART_INCLUDE_DIRS})
++link_directories(${CUDART_LIBRARY_DIRS})
++
++set(PHYSX_VERSION 105.1-physx-5.3.1.patch0)
++add_library(physx5 INTERFACE)
++target_link_directories(physx5 INTERFACE NIX_PATH_TO_PHYSX5/bin/linux.clang/release>)
++target_link_libraries(physx5 INTERFACE
++-Wl,--start-group
++libPhysXCharacterKinematic_static_64.a libPhysXCommon_static_64.a
++libPhysXCooking_static_64.a libPhysXExtensions_static_64.a
++libPhysXFoundation_static_64.a libPhysXPvdSDK_static_64.a
++libPhysX_static_64.a libPhysXVehicle_static_64.a
++-Wl,--end-group)
++target_include_directories(physx5 SYSTEM INTERFACE NIX_PATH_TO_PHYSX5/include>)
++target_compile_definitions(physx5 INTERFACE PX_PHYSX_STATIC_LIB)
++target_compile_definitions(physx5 INTERFACE PHYSX_VERSION="${PHYSX_VERSION}")
+ 
+ if (${SAPIEN_DEBUG_VIEWER})
+     add_definitions(_DEBUG_VIEWER)
+@@ -79,8 +102,6 @@ else()
+     set(SVULKAN2_CUDA_INTEROP OFF CACHE BOOL "" FORCE)
+ endif()
+ 
+-add_subdirectory("3rd_party/sapien-vulkan-2" EXCLUDE_FROM_ALL)
+-
+ if (${SAPIEN_CUDA})
+     add_subdirectory("3rd_party/simsense")
+     set_target_properties(simsense PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
+@@ -95,13 +116,11 @@ if (${SAPIEN_CUDA})
+ 
+     if (MSVC)
+         target_link_libraries(svulkan2 PRIVATE "$ENV{CUDA_PATH}/lib/x64/cudart_static.lib")
+-    else()
+-        target_link_libraries(sapien PRIVATE "$ENV{CUDA_PATH}/lib64/libcudart_static.a")
+     endif()
+     target_include_directories(sapien PRIVATE "3rd_party/dlpack/include" "$ENV{CUDA_PATH}/include")
+ endif ()
+ 
+-target_link_libraries(sapien PUBLIC eigen svulkan2)
++target_link_libraries(sapien PUBLIC Eigen3::Eigen svulkan2::svulkan2)
+ target_link_libraries(sapien PRIVATE physx5 spdlog::spdlog ${CMAKE_DL_LIBS} assimp::assimp)
+ 
+ if (UNIX)
+@@ -109,7 +128,7 @@ if (UNIX)
+ endif ()
+ 
+ if (${SAPIEN_CUDA})
+-    target_compile_definitions(sapien PUBLIC SAPIEN_CUDA SAPIEN_CUDA)
++    target_compile_definitions(sapien PUBLIC SAPIEN_CUDA SAPIEN_CUDA SVULKAN2_CUDA_INTEROP)
+     target_include_directories(sapien PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/dlpack/include>)
+ endif()
+ 
+@@ -131,31 +150,27 @@ target_include_directories(sapien INTERFACE
+ )
+ 
+ if (${SAPIEN_CUDA})
+-    add_dependencies(sapien OpenImageDenoise_device_cuda)
+-    ExternalProject_Get_property(OpenImageDenoise_device_cuda binary_dir)
++    add_dependencies(sapien OpenImageDenoise)
++    # ExternalProject_Get_property(OpenImageDenoise_device_cuda binary_dir)
+ 
+     message(---- ${binary_dir}/../preinstall/lib)
+     install(DIRECTORY ${binary_dir}/../preinstall/lib DESTINATION "." OPTIONAL)
+     install(DIRECTORY ${binary_dir}/../preinstall/lib64 DESTINATION "." OPTIONAL)
+ 
+     install(
+-        TARGETS sapien svulkan2 simsense physx5 OpenImageDenoise OpenImageDenoise_core OpenImageDenoise_common glm Vulkan-Headers
++        TARGETS sapien simsense physx5
+         EXPORT sapienTargets
+     )
+ else()
+     install(
+-        TARGETS sapien svulkan2 glm Vulkan-Headers
++        TARGETS sapien
+         EXPORT sapienTargets
+     )
+ endif()
+ 
+ install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/sapien" DESTINATION "include")
+-install(DIRECTORY "${physx5_SOURCE_DIR}/include" DESTINATION "include/physx")
++install(DIRECTORY "NIX_PATH_TO_PHYSX5/include" DESTINATION "include/physx")
+ install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/dlpack/include/dlpack" DESTINATION "include")
+-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/sapien-vulkan-2/include/svulkan2" DESTINATION "include")
+-install(DIRECTORY "${glm_SOURCE_DIR}/glm" DESTINATION "include")
+-install(DIRECTORY "${vulkan_SOURCE_DIR}/include/vulkan" DESTINATION "include")
+-install(DIRECTORY "${vulkan_SOURCE_DIR}/include/vk_video" DESTINATION "include")
+ 
+ if (${SAPIEN_CUDA})
+     install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/3rd_party/simsense/include/simsense" DESTINATION "include")
+@@ -179,10 +194,10 @@ install(
+ )
+ 
+ if (SAPIEN_BUILD_PYTHON)
+-    include(pybind11)
++    find_package(pybind11 REQUIRED)
+     file(GLOB_RECURSE PYBIND_SRC "python/pybind/*.cpp")
+     pybind11_add_module(pysapien ${PYBIND_SRC} NO_EXTRAS)
+-    target_link_libraries(pysapien PRIVATE sapien eigen physx5 Vulkan::Headers glm)
++    target_link_libraries(pysapien PRIVATE sapien Eigen3::Eigen physx5 Vulkan::Headers glm::glm svulkan2::svulkan2)
+     if (TARGET simsense)
+         target_link_libraries(pysapien PRIVATE simsense)
+     endif()

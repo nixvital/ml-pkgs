@@ -1,0 +1,31 @@
+From 059379b82bedd17eeeac2653ffa38cba25798fd8 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Tue, 12 Mar 2024 16:21:35 +0000
+Subject: [PATCH] CMake: fix: write correct install paths in the .pc
+
+The concatenation was resulting in paths like
+libdir=${exec_prefix}//nix/store/...-recastnavigation-1.6.0/lib
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9a4c8ab..e664d1b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -31,9 +31,9 @@ install(FILES "${RecastNavigation_BINARY_DIR}/version.h" DESTINATION
+ # Needed for recastnavigation.pc.in
+ set(prefix ${CMAKE_INSTALL_PREFIX})
+ set(exec_prefix "\${prefix}")
+-set(libdir "\${exec_prefix}/${CMAKE_INSTALL_LIBDIR}")
+-set(bindir "\${exec_prefix}/${CMAKE_INSTALL_BINDIR}")
+-set(includedir "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
++set(libdir "${CMAKE_INSTALL_FULL_LIBDIR}")
++set(bindir "${CMAKE_INSTALL_FULL_BINDIR}")
++set(includedir "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
+ set(PACKAGE_VERSION "${LIB_VERSION}")
+ if(RECASTNAVIGATION_DT_POLYREF64)
+     set(PKG_CONFIG_CFLAGS "${PKG_CONFIG_CFLAGS} -DDT_POLYREF64")
+-- 
+2.43.1
+

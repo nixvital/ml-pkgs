@@ -1,0 +1,24 @@
+diff --git a/pinocchio/CMakeLists.txt b/pinocchio/CMakeLists.txt
+index 379f380e..1b8aba1e 100644
+--- a/pinocchio/CMakeLists.txt
++++ b/pinocchio/CMakeLists.txt
+@@ -15,11 +15,13 @@ else ()
+ endif ()
+ 
+ list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+-include(pybind11)
+-include(zlib)
+-include(eigen)
+-include(pinocchio)
+-
++find_package(pybind11 REQUIRED)
++find_package(pinocchio REQUIRED)
+ find_package(sapien REQUIRED)
++find_package(Eigen3 REQUIRED)
++find_package(VulkanHeaders REQUIRED)
++find_package(svulkan2 REQUIRED)
++find_package(glm REQUIRED)
++
+ pybind11_add_module(pysapien_pinocchio "pinocchio_model.cpp" NO_EXTRAS)
+-target_link_libraries(pysapien_pinocchio PRIVATE sapien::sapien eigen pinocchio)
++target_link_libraries(pysapien_pinocchio PRIVATE sapien::sapien Eigen3::Eigen Vulkan::Headers pinocchio::pinocchio svulkan2::svulkan2 glm::glm)

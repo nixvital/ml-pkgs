@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-
     utils.url = "github:numtide/flake-utils";
   };
 
@@ -14,7 +13,8 @@
       torch-family = import ./overlays/torch-family.nix;
       jax-family = import ./overlays/jax-family.nix;
       data-utils = import ./overlays/data-utils.nix;
-      simulators = import ./overlays/simulators.nix;
+      simulators = import ./overlays/haosu.nix;
+      haosu = import ./overlays/simulators.nix;
       math = import ./overlays/math.nix;
       misc = import ./overlays/misc.nix;
       apis = import ./overlays/apis.nix;
@@ -29,6 +29,7 @@
         self.overlays.jax-family
         self.overlays.data-utils
         self.overlays.simulators
+        self.overlays.haosu
         self.overlays.math
         self.overlays.misc
         self.overlays.apis
@@ -70,10 +71,9 @@
         jax = pkgs.callPackage ./pkgs/dev-shell/jax.nix {};
         quicktest = pkgs.callPackage ./pkgs/dev-shell/quicktest.nix {};
         ddddocr = pkgs.callPackage ./pkgs/dev-shell/ddddocr.nix {};
+        maniskill = pkgs.callPackage ./pkgs/dev-shell/maniskill.nix {};
+        habitat = pkgs.callPackage ./pkgs/dev-shell/habitat.nix {};
       };
-      # devShells.py38 = pkgs.callPackage ./pkgs/dev-shell {
-      #   python3 = pkgs.python38;
-      # };
 
       packages = {
         inherit (pkgs.python3Packages)
@@ -102,7 +102,6 @@
           mujoco-menagerie
           dm-control
           python-fcl
-          sapien
           glfw
           gputil
           aws-requests-auth
@@ -112,6 +111,21 @@
           procthor
           robosuite
           robocasa
+
+          sapien
+          maniskill
+          pytorch-seed
+          pytorch-kinematics
+          arm-pytorch-utilities
+          fast-kinematics
+          tyro
+          toppra
+          mplib
+          stable-baselines3
+
+          magnum-bindings
+          habitat-sim
+          habitat-lab
 
           # ----- Math -----
           numpy-quaternion
@@ -153,7 +167,10 @@
           quickcpplib
           status-code
           eve
-          aider-chat;
+          physx5
+          physx5-gpu
+          sapien-vulkan-2
+          ompl;
       };
 
       apps = {

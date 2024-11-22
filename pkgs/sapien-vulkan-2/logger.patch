@@ -1,0 +1,87 @@
+diff --git a/src/common/logger.h b/src/common/logger.h
+index de00253..a6bfe04 100644
+--- a/src/common/logger.h
++++ b/src/common/logger.h
+@@ -3,6 +3,7 @@
+ #include <exception>
+ #include <spdlog/spdlog.h>
+ #include <string_view>
++#include <fmt/format.h> // Include fmt for runtime formatting
+ 
+ namespace svulkan2 {
+ namespace logger {
+@@ -11,28 +12,28 @@ std::shared_ptr<spdlog::logger> getLogger();
+ 
+ template <typename... Args>
+ inline void debug(spdlog::string_view_t fmt, const Args &...args) {
+-  getLogger()->debug(fmt, args...);
++  getLogger()->debug(fmt::runtime(fmt), args...);
+ };
+ 
+ template <typename... Args>
+ inline void info(spdlog::string_view_t fmt, const Args &...args) {
+-  getLogger()->info(fmt, args...);
++  getLogger()->info(fmt::runtime(fmt), args...);
+ };
+ 
+ template <typename... Args>
+ inline void warn(spdlog::string_view_t fmt, const Args &...args) {
+-  getLogger()->warn(fmt, args...);
++  getLogger()->warn(fmt::runtime(fmt), args...);
+ };
+ 
+ template <typename... Args>
+ inline void error(spdlog::string_view_t fmt, const Args &...args) {
+-  getLogger()->error(fmt, args...);
++  getLogger()->error(fmt::runtime(fmt), args...);
+ };
+ 
+ template <typename... Args>
+ inline void critical(spdlog::string_view_t fmt, const Args &...args) {
+-  getLogger()->critical(fmt, args...);
++  getLogger()->critical(fmt::runtime(fmt), args...);
+ };
+ 
+-} // namespace log
++} // namespace logger
+ } // namespace svulkan2
+diff --git a/src/renderer/vr.cpp b/src/renderer/vr.cpp
+index 33090c7..61a8f7f 100644
+--- a/src/renderer/vr.cpp
++++ b/src/renderer/vr.cpp
+@@ -47,7 +47,7 @@ void VRDisplay::initDevices() {
+     logger::info("using action manifest {}", gActionManifestPath);
+     auto res = vr::VRInput()->SetActionManifestPath(gActionManifestPath.c_str());
+     if (res != vr::EVRInputError::VRInputError_None) {
+-      logger::error("failed to read action manifest {}", res);
++      logger::error("failed to read action manifest");
+     }
+   }
+ 
+@@ -168,7 +168,7 @@ std::vector<std::array<float, 8>> VRDisplay::getSkeletalDataLeft() {
+   vr::InputSkeletalActionData_t data{};
+   auto res = vr::VRInput()->GetSkeletalActionData(mLeftHandHandle, &data, sizeof(data));
+   if (res != vr::EVRInputError::VRInputError_None) {
+-    logger::error("failed to get skeletal data {}", res);
++    logger::error("failed to get skeletal data");
+   }
+   if (data.bActive) {
+     uint32_t boneCount{};
+@@ -201,7 +201,7 @@ std::vector<std::array<float, 8>> VRDisplay::getSkeletalDataRight() {
+   vr::InputSkeletalActionData_t data{};
+   auto res = vr::VRInput()->GetSkeletalActionData(mRightHandHandle, &data, sizeof(data));
+   if (res != vr::EVRInputError::VRInputError_None) {
+-    logger::error("failed to get skeletal data {}", res);
++    logger::error("failed to get skeletal data");
+   }
+   if (data.bActive) {
+     uint32_t boneCount{};
+@@ -270,7 +270,7 @@ void VRDisplay::updatePoses() {
+     actionSet.nPriority = 0;
+     auto res = vr::VRInput()->UpdateActionState(&actionSet, sizeof(actionSet), 1);
+     if (res != vr::EVRInputError::VRInputError_None) {
+-      logger::error("failed to update action state {}", res);
++      logger::error("failed to update action state");
+     }
+   }
+ 

@@ -36,9 +36,6 @@ final: prev: {
       mujoco-menagerie = python-final.callPackage ../pkgs/mujoco-menagerie {};
       python-fcl = python-final.callPackage ../pkgs/python-fcl {};
 
-      # SAPIEN from Hao Su's Lab
-      sapien = python-final.callPackage ../pkgs/sapien {};
-
       # nixpkgs has a problematic glfw on 23.11 at this moment.
       glfw = python-final.callPackage ../bleeding/glfw {};
 
@@ -53,9 +50,19 @@ final: prev: {
       # Robocasa/Robosuite
       robosuite = python-final.callPackage ../research-community/robosuite {};
       robocasa = python-final.callPackage ../research-community/robocasa {};
+
+      habitat-sim = python-final.callPackage ../pkgs/habitat-sim {};
+      habitat-lab = python-final.callPackage ../pkgs/habitat-lab {};
+      magnum-bindings = python-final.callPackage ../pkgs/magnum-bindings {};
     })
   ];
 
   # mujoco depends on sdflib now, which in turn depends on cereal >= 1.3.1
   cereal = final.cereal_1_3_2;
+  magnum = final.callPackage ../pkgs/magnum {};
+  magnum-integration = final.callPackage ../pkgs/magnum-integration {};
+  magnum-plugins = final.callPackage ../pkgs/magnum-plugins {};
+  corrade = final.callPackage ../pkgs/corrade {};
+  basis-universal = final.callPackage ../pkgs/basis-universal {};
+  recastnavigation = final.callPackage ../pkgs/recastnavigation {};
 }
