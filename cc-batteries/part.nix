@@ -12,8 +12,7 @@
 
   perSystem = {pkgs, lib, ...}: {
     packages = {
-      inherit (pkgs) aria-csv-parser cpp-sort scnlib unordered-dense vectorclass
-        eve;
+      inherit (pkgs) aria-csv-parser cpp-sort scnlib unordered-dense vectorclass eve;
     };
   };
 }
