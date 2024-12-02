@@ -16,9 +16,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       jaxlib-bin
       jax
 
-      # # ----- Data Utils -----
-      # # awswrangler  # currently broken
-
       # # ----- Simulators -----
       gym
       gym3
