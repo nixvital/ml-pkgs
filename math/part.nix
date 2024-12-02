@@ -6,13 +6,14 @@
       (py-final: py-prev: {
         numpy = py-prev.numpy_2;
         numpy-quaternion = py-final.callPackage ./numpy-quaternion {};
+        chumpy = py-final.callPackage ./chumpy {};
       })
     ];
   };
 
   perSystem = {pkgs, lib, ...}: {
     packages = {
-      inherit (pkgs.python3Packages) numpy-quaternion;
+      inherit (pkgs.python3Packages) numpy-quaternion chumpy;
     };
   };
 }
