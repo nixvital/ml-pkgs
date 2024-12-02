@@ -33,12 +33,14 @@
         };
         overlays = [
           self.overlays.cc-batteries
+          self.overlays.math
         ];
       };
     };
 
     imports = [
       ./cc-batteries/part.nix
+      ./math/part.nix
     ];
   };
 }
