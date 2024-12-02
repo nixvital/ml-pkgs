@@ -39,9 +39,6 @@ final: prev: {
       # SAPIEN from Hao Su's Lab
       sapien = python-final.callPackage ../pkgs/sapien {};
 
-      # nixpkgs has a problematic glfw on 23.11 at this moment.
-      glfw = python-final.callPackage ../bleeding/glfw {};
-
       # Procedually generated room layouts
       gputil = python-final.callPackage ../pkgs/allenai/gputil {};
       aws-requests-auth = python-final.callPackage ../pkgs/allenai/aws-requests-auth {};
