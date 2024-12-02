@@ -6,7 +6,6 @@ final: prev: {
       # Dependencies for `aider`
       tree-sitter-languages = python-final.callPackage ../bleeding/tree-sitter-language {};
       grep-ast = python-final.callPackage ../pkgs/grep-ast {};
-      pypager = python-final.callPackage ../bleeding/pypager {};
       
       # SwanLab series
       cos-python-sdk-v5 = python-final.callPackage ../pkgs/cos-python-sdk-v5 {};
