@@ -1,14 +1,16 @@
+# Watch https://www.youtube.com/watch?v=WZGNCPBMInI
+
 { lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "eve";
-  version = "2023.09.21";
+  version = "2024.11.28";
 
   src = fetchFromGitHub {
     owner = "jfalcou";
     repo = "eve";
-    rev = "049af38256308ca8b166724c769b575637f6545a";
-    hash = "sha256-pkw9yunZBMSJenloN8eiW0t2QL/0I+hoO9joQzDmigw=";
+    rev = "d56b7d66d2c7772be0b59d8ad6567680916c6ce4";
+    hash = "sha256-qp9TCaXvvZVrrgdU1I2SRASOVXLjmGLZqKMZ/Ls1ti8=";
   };
 
   nativeBuildInputs = [ cmake ];
