@@ -21,6 +21,9 @@
     ];
 
     perSystem = { system, config, pkgs, ... }: {
+      formatter = pkgs.nixfmt-rfc-style;
+      
+      # Override pkgs so that all parts can use this as their `pkgs`.
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
@@ -32,7 +35,6 @@
           self.overlays.cc-batteries
         ];
       };
-      formatter = pkgs.nixfmt-rfc-style;
     };
 
     imports = [
