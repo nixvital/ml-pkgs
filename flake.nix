@@ -15,14 +15,28 @@
     # debug = true;
 
     systems = [
-      "x86_64-linux" "aarch64-linux" "aarch64-darwin"
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
     ];
 
-    perSystem = { config, pkgs, ... }: {
+    perSystem = { system, config, pkgs, ... }: {
+      _module.args.pkgs = import inputs.nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          cudaSupport = true;
+          cudaForwardCompat = true;
+        };
+        overlays = [
+          self.overlays.cc-batteries
+        ];
+      };
       formatter = pkgs.nixfmt-rfc-style;
     };
 
     imports = [
+      ./cc-batteries/part.nix
     ];
   };
 }
