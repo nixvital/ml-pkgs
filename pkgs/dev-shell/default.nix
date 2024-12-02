@@ -35,9 +35,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # # ----- Math -----
       numpy-quaternion
 
-      # # ----- Misc -----
-      numerapi
-
       # # ----- Symbolic -----
       pyjulia
       pysr
