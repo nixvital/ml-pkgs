@@ -2,7 +2,7 @@
 , fetchFromGitHub
 , buildPythonPackage
 , graphviz
-, pytorch
+, torch
 }:
 
 buildPythonPackage rec {
@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     graphviz
-    pytorch
+    torch
   ];
 
   checkInputs = [];
