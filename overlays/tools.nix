@@ -10,6 +10,4 @@ final: prev: {
       swanlab = python-final.callPackage ../pkgs/swanlab {};
     })
   ];
-
-  aider-chat = final.callPackage ../bleeding/aider-chat {};
 }
