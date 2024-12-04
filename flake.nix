@@ -35,6 +35,7 @@
           self.overlays.cc-batteries
           self.overlays.math
           self.overlays.torch-family
+          self.overlays.tools
         ];
       };
     };
@@ -43,6 +44,7 @@
       ./cc-batteries/part.nix
       ./math/part.nix
       ./torch-family/part.nix
+      ./tools/part.nix
     ];
   };
 }
