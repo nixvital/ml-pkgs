@@ -7,11 +7,12 @@
 , hatch-fancy-pypi-readme
 , hatch-requirements-txt
 , nanoid
+, pyyaml
 }:
 
 buildPythonPackage rec {
   pname = "swankit";
-  version = "0.1.1b1";
+  version = "0.1.2-beta.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -20,7 +21,7 @@ buildPythonPackage rec {
     owner = "SwanHubX";
     repo = "SwanLab-Toolkit";
     rev = "v${version}";
-    hash = "sha256-+wtGn51C8pw8hJFNB9PYfX8xDQAq5DxB7UHuZLU0spY=";
+    hash = "sha256-qLwCcd3+YKpRAWEKCS0ELHrgjpeHohQGB1MkS+55k5Q=";
   };
 
   build-system = [
@@ -34,6 +35,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytestCheckHook
     nanoid
+    pyyaml
   ];
   disabledTests = [
     "test_default"  # requires home directory

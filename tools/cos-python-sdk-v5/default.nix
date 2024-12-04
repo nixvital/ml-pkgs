@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "cos-python-sdk-v5";
-  version = "1.9.31";
+  version = "1.9.33";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
     owner = "tencentyun";
     repo = pname;
     rev = "V${version}";
-    hash = "sha256-8T5moTK3T2Ssv7sJMBNbQw77g1LAkCN7P0Cj+8gIZ1Q=";
+    hash = "sha256-AHNvMC5l4/kagmjxVzaZKIRw62WLQdeN9qfBTTcfpyQ=";
   };
 
   build-system = [

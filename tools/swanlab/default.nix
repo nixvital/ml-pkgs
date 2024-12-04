@@ -31,7 +31,7 @@
 
 buildPythonPackage rec {
   pname = "swanlab";
-  version = "0.3.17";
+  version = "0.3.27";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     owner = "SwanHubX";
     repo = "SwanLab";
     rev = "v${version}";
-    hash = "sha256-BXhQnk7gLSp/EvSo96mmtkcz/p2NOrPzpr7W5IS/0v8=";
+    hash = "sha256-ge/ARF3RhVn9YKk4RtpBX/WtgwuKVbVQ/M9jqTUpGy8=";
   };
 
   build-system = [
@@ -75,7 +75,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonRelaxDeps = [ "swanboard" ];
+  pythonRelaxDeps = [ "swanboard" "swankit" ];
 
   pythonImportsCheck = [ "swanlab" ];
 
