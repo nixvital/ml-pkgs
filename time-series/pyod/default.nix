@@ -12,14 +12,14 @@
 
 buildPythonPackage rec {
   pname = "pyod";
-  version = "1.1.3";
+  version = "2.0.2";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "yzhao062";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-KDtJ+V+ROMzhsk++i58ReVm+r+6FdHkmWH0vSmCoqrg=";
+    hash = "sha256-thEuXyL/ncDeeXTDxPbOoxeY5pI1IqvwFrvZpg8Yqdg=";
   };
 
   buildInputs = [

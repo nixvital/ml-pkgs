@@ -37,6 +37,7 @@
           self.overlays.torch-family
           self.overlays.tools
           self.overlays.julia-family
+          self.overlays.time-series
         ];
       };
     };
@@ -47,6 +48,7 @@
       ./torch-family/part.nix
       ./tools/part.nix
       ./julia-family/part.nix
+      ./time-series/part.nix
     ];
   };
 }

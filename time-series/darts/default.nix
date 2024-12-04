@@ -27,14 +27,14 @@
 
 buildPythonPackage rec {
   pname = "darts";
-  version = "0.29.0";
+  version = "0.31.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "unit8co";
     repo = pname;
     rev = version;
-    hash = "sha256-JMrT1NBTn68on4RU0RbAmSVJOooOXR7ieASM9sQ8ttA=";
+    hash = "sha256-piSYRJIFr3RQTt/idfTRrqx/dD794He4d2F9flBJv7Q=";
   };
 
   nativeBuildInputs = [
