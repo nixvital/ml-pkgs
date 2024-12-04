@@ -22,8 +22,9 @@
       packages = [
         (pkgs.python3.withPackages (p: with p; [
           gym3
-          mujoco-menagerie
+          mujoco
           mujoco-mjx
+          mujoco-menagerie
         ]))
       ];
     };
