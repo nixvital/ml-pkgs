@@ -36,6 +36,7 @@
           self.overlays.math
           self.overlays.torch-family
           self.overlays.tools
+          self.overlays.julia-family
         ];
       };
     };
@@ -45,6 +46,7 @@
       ./math/part.nix
       ./torch-family/part.nix
       ./tools/part.nix
+      ./julia-family/part.nix
     ];
   };
 }

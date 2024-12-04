@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "julia";
-  version = "0.6.1";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "JuliaPy";
     repo = "pyjulia";
     rev = "v${version}";
-    hash = "sha256-yb/nYn0fRPcQF5JNzoRJa4udBFi7wkiRpd0iIjxz1Uc=";
+    hash = "sha256-gxr89VuKOW2A2spyEPNSPgCMsgx8jfynC3wiGHXwKY8=";
   };
 
   nativeBuildInputs = [
