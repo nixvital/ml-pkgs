@@ -3,7 +3,6 @@ final: prev: {
     (python-final: python-prev: {
       # OpenAI Gym Series. An interface to a lot of simulation environments.
       gym = python-final.callPackage ../pkgs/gym {};
-      gym3 = python-final.callPackage ../pkgs/gym3 {};
 
       # Physics and rendering engines.
       panda3d = python-final.callPackage ../pkgs/panda3d {};
@@ -23,9 +22,6 @@ final: prev: {
       atari-py-with-rom = python-final.callPackage ../pkgs/atari-py-with-rom {};
       ale-py-with-roms = python-final.callPackage ../pkgs/ale-py-with-roms {};
 
-      # Procedually generated games, with gym3 interface.
-      procgen = python-final.callPackage ../pkgs/procgen {};
-
       # Driving simulators. Based on Panda3d.
       highway-env = python-final.callPackage ../pkgs/highway-env {};
       metadrive-simulator = python-final.callPackage ../pkgs/metadrive-simulator {};
@@ -33,7 +29,6 @@ final: prev: {
       # Supporting libraries
       robot-descriptions = python-final.callPackage ../pkgs/robot-descriptions {};
 
-      mujoco-menagerie = python-final.callPackage ../pkgs/mujoco-menagerie {};
       python-fcl = python-final.callPackage ../pkgs/python-fcl {};
 
       # SAPIEN from Hao Su's Lab

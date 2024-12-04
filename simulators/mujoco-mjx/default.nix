@@ -29,7 +29,7 @@
 
 buildPythonPackage rec {
   pname = "mujoco-mjx";
-  version = "3.1.5";
+  version = "3.2.5";
   format = "pyproject";
 
   disabled = pythonOlder "3.9";

@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
   };
@@ -11,7 +11,7 @@
   outputs = { self, flake-parts, ... }@inputs: flake-parts.lib.mkFlake { inherit inputs; } {
     # Uncomment the following line to enable debug, e.g. in nix repl.
     # See https://flake.parts/debug
-    
+
     # debug = true;
 
     systems = [
@@ -22,7 +22,7 @@
 
     perSystem = { system, config, pkgs, ... }: {
       formatter = pkgs.nixfmt-rfc-style;
-      
+
       # Override pkgs so that all parts can use this as their `pkgs`.
       _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
@@ -38,6 +38,7 @@
           self.overlays.tools
           self.overlays.julia-family
           self.overlays.time-series
+          self.overlays.simulators
         ];
       };
     };
@@ -49,6 +50,7 @@
       ./tools/part.nix
       ./julia-family/part.nix
       ./time-series/part.nix
+      ./simulators/part.nix
     ];
   };
 }
