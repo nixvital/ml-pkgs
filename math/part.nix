@@ -14,7 +14,7 @@
 
   perSystem = {pkgs, lib, ...}: {
     packages = {
-      inherit (pkgs.python3Packages) numpy-quaternion chumpy;
+      inherit (pkgs.python3Packages) chumpy;
     };
   };
 }
