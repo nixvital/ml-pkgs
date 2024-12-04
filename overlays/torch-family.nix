@@ -27,10 +27,6 @@ final: prev:
         '';
       });
 
-      LIV-robotics = python-final.callPackage ../pkgs/LIV-robotics {
-        pytorch = python-final.torchWithCuda;
-      };
-
       torchmetrics = python-prev.torchmetrics.override {
         torch = python-final.torchWithCuda;
       };

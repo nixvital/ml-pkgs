@@ -10,7 +10,6 @@ let ml-pkgs-dev = python3.withPackages (pyPkgs: with pyPkgs; [
       # ----- Torch Family -----
       torchWithCuda
       pytorchviz
-      LIV-robotics
 
       # # ----- Jax Family -----
       jaxlib-bin
