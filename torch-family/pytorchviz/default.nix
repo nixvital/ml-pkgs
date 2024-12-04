@@ -2,6 +2,7 @@
 , fetchFromGitHub
 , buildPythonPackage
 , graphviz
+, distutils
 , torch
 }:
 
@@ -18,6 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     graphviz
+    distutils
     torch
   ];
 
