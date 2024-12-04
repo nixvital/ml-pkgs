@@ -1,25 +1,27 @@
 # Credit to https://github.com/foolnotion/nur-pkg/blob/master/pkgs/scnlib/default.nix
 
-{ lib, stdenv, fetchFromGitHub, cmake
+{ lib, stdenv, fetchFromGitHub, cmake, fast-float
 , enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "scnlib";
-  version = "1.1.2";
+  version = "4.0.1";
 
   src = fetchFromGitHub {
     owner = "eliaskosunen";
     repo = "scnlib";
-    rev = "83b65b0f7d552fc09908487116cb73cadc453959";
-    sha256 = "sha256-SCi70Ag5mPbOzfORa9wI2h93ufHen0376UYoy+psNF8=";
+    rev = "v${version}";
+    hash = "sha256-qEZAWhtvhKMkh7fk1yD17ErWGCpztEs0seV4AkBOy1I=";
   };
 
   nativeBuildInputs = [ cmake ];
+  buildInputs = [ fast-float ];
 
   cmakeFlags = [
     "-DSCN_TESTS=OFF"
     "-DSCN_BENCHMARKS=OFF"
     "-DSCN_EXAMPLES=OFF"
+    "-DSCN_USE_EXTERNAL_FAST_FLOAT=ON"
     "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
   ];
 

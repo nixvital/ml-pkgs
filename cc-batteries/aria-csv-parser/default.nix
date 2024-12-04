@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "aria-csv";
-  version = "2022.09.05";
+  version = "2024.10.27";
 
   src = fetchFromGitHub {
     owner = "AriaFallah";
     repo = "csv-parser";
-    rev = "4965c9f320d157c15bc1f5a6243de116a4caf101";
-    sha256 = "sha256-kvtpXCuZ/WPsjf8i/d/hUxm/g0t9U4s7PX2uo694SVU=";
+    rev = "43961a918f150088dd0c288b0c9c551e0be795f8";
+    hash = "sha256-X8YbSNU9i1pNEKzwm+hjQJdIhPX6o06MIDKHBwQorAE=";
   };
 
   nativeBuildInputs = [ cmake ];
