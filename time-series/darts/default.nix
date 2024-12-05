@@ -1,29 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, setuptools
-, holidays
-, joblib
-, matplotlib
-, nfoursid
-, numpy
-, pandas
-, pmdarima
-, pyod
-, requests
-, scikit-learn
-, scipy
-, shap
+{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook, setuptools
+, holidays, joblib, matplotlib, nfoursid, numpy, pandas, pmdarima, pyod
+, requests, scikit-learn, scipy, shap
 # , statsforecast
-, statsmodels
-, tbats
-, tqdm
-, typing-extensions
-, xarray
-, xgboost
-, pytorch-lightning
-}:
+, statsmodels, tbats, tqdm, typing-extensions, xarray, xgboost
+, pytorch-lightning }:
 
 buildPythonPackage rec {
   pname = "darts";
@@ -37,13 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-piSYRJIFr3RQTt/idfTRrqx/dD794He4d2F9flBJv7Q=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     holidays
@@ -68,18 +44,12 @@ buildPythonPackage rec {
     pytorch-lightning
   ];
 
-  pythonRelaxDeps = [
-    "pmdarima"
-  ];
+  pythonRelaxDeps = [ "pmdarima" ];
 
-  pythonRemoveDeps = [
-    "statsforecast"
-  ];
+  pythonRemoveDeps = [ "statsforecast" ];
 
-  pythonImportsCheck = [
-    "darts"
-  ];
-  
+  pythonImportsCheck = [ "darts" ];
+
   meta = with lib; {
     description = ''
       A python library for user-friendly forecasting and anomaly detection on time series

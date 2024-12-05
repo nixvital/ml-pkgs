@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, graphviz
-, distutils
-, torch
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, graphviz, distutils, torch }:
 
 buildPythonPackage rec {
   pname = "pytorchviz";
@@ -17,18 +11,15 @@ buildPythonPackage rec {
     sha256 = "sha256-oNKvheam/qpgPMsG32XN78VuOQcQNDskqqvpnAnjuWs=";
   };
 
-  propagatedBuildInputs = [
-    graphviz
-    distutils
-    torch
-  ];
+  propagatedBuildInputs = [ graphviz distutils torch ];
 
-  checkInputs = [];
+  checkInputs = [ ];
 
   pythonImportsCheck = [ "torchviz" ];
 
   meta = with lib; {
-    description = "A small package to create visualizations of PyTorch execution graphs";
+    description =
+      "A small package to create visualizations of PyTorch execution graphs";
     homepage = "https://github.com/szagoruyko/pytorchviz";
     license = licenses.mit;
     maintainers = with maintainers; [ breakds ];

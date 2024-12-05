@@ -1,31 +1,8 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, absl-py
-, etils
-, jax
-, jaxlib
-, scipy
-, trimesh
-, fsspec
-, importlib-resources  
-, typing-extensions
-, zipp
-, importlib-metadata
-, ml-dtypes
-, numpy
-, opt-einsum
-, exceptiongroup
-, iniconfig
-, packaging
-, pluggy
-, pyparsing
-, tomli
-, execnet
-, mujoco
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub, setuptools, absl-py
+, etils, jax, jaxlib, scipy, trimesh, fsspec, importlib-resources
+, typing-extensions, zipp, importlib-metadata, ml-dtypes, numpy, opt-einsum
+, exceptiongroup, iniconfig, packaging, pluggy, pyparsing, tomli, execnet
+, mujoco }:
 
 buildPythonPackage rec {
   pname = "mujoco-mjx";
@@ -45,9 +22,7 @@ buildPythonPackage rec {
   # It resides in the `mjx` subdirectory.
   sourceRoot = "${src.name}/mjx";
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     absl-py

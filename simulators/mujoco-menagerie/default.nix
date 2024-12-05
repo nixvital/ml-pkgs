@@ -1,31 +1,26 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, poetry-core
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, poetry-core }:
 
-let mujoco-menagerie-models = fetchFromGitHub {
-      owner = "deepmind";
-      repo = "mujoco_menagerie";
-      rev = "990936d7cb4c0eb9c5843b0963633ea2d0b42b91";  # 2022.12.16
-      hash = "sha256-zJTbe013Si9qt2ymWqWg067xm5JQ43vl/Iwv77E5nrk=";
-    };
+let
+  mujoco-menagerie-models = fetchFromGitHub {
+    owner = "deepmind";
+    repo = "mujoco_menagerie";
+    rev = "990936d7cb4c0eb9c5843b0963633ea2d0b42b91"; # 2022.12.16
+    hash = "sha256-zJTbe013Si9qt2ymWqWg067xm5JQ43vl/Iwv77E5nrk=";
+  };
 
 in buildPythonPackage rec {
   pname = "mujoco-menagerie";
   version = "1.0.0";
 
   src = ./.;
-  
+
   format = "pyproject";
 
-  buildInputs = [
-    poetry-core
-  ];
+  buildInputs = [ poetry-core ];
 
   postFixup = let
-    pkgPath = "$out/lib/python${python.pythonVersion}/site-packages/mujoco_menagerie";
+    pkgPath =
+      "$out/lib/python${python.pythonVersion}/site-packages/mujoco_menagerie";
   in ''
     ln -s ${mujoco-menagerie-models}/anybotics_anymal_b ${pkgPath}
     ln -s ${mujoco-menagerie-models}/anybotics_anymal_c ${pkgPath}
@@ -42,7 +37,7 @@ in buildPythonPackage rec {
       Wrapper of Deepmind's high-quality models for the MuJoCo physics engine.
     '';
     homepage = "https://github.com/eleurent/highway-env";
-    license = licenses.unfree;  # There are many of different licenses.
+    license = licenses.unfree; # There are many of different licenses.
     maintainers = with maintainers; [ breakds ];
   };
 }

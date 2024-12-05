@@ -1,13 +1,6 @@
 # NOTE: this library requires numpy >= 2.0
 
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, numpy
-, scipy
-, numba
-, hatchling
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, numpy, scipy, numba, hatchling }:
 
 buildPythonPackage rec {
   pname = "numpy-quaternion";
@@ -23,15 +16,9 @@ buildPythonPackage rec {
 
   build-system = [ hatchling ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    numba
-  ];
+  propagatedBuildInputs = [ numpy scipy numba ];
 
-  pythonImportsCheck = [
-    "quaternion"
-  ];
+  pythonImportsCheck = [ "quaternion" ];
 
   meta = with lib; {
     homepage = "https://github.com/moble/quaternion";

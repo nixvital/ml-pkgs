@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, setuptools
-, pip
-, numpy
-, scipy
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook, setuptools, pip
+, numpy, scipy, six }:
 
 buildPythonPackage rec {
   pname = "chumpy";
@@ -21,21 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-8nkT0FeEkug25kw6Ge87A6kSZmpvY3TcqjQGtlWGQlc=";
   };
 
-  buildInputs = [
-    setuptools
-    pip
-  ];
+  buildInputs = [ setuptools pip ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    six
-  ];
+  propagatedBuildInputs = [ numpy scipy six ];
 
-  pythonImportsCheck = [
-    "chumpy"
-  ];
-  
+  pythonImportsCheck = [ "chumpy" ];
+
   meta = with lib; {
     description = ''
       Autodifferentiation tool for Python

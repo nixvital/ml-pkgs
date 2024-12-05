@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, juliapkg
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, juliapkg }:
 
 let version = "0.9.23";
 
@@ -19,13 +14,9 @@ in buildPythonPackage {
     hash = "sha256-1JND3jjFbaCWgX6hK/EehG4Cl6G3sgKzXrcDRp0ETFM=";
   };
 
-  build-system = [
-    setuptools
-  ];
+  build-system = [ setuptools ];
 
-  dependencies = [
-    juliapkg
-  ];
+  dependencies = [ juliapkg ];
 
   meta = with lib; {
     description = "Python and Julia in harmony";

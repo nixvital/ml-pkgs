@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, joblib
-, matplotlib
-, numpy
-, numba
-, scipy
-, scikit-learn
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, joblib, matplotlib
+, numpy, numba, scipy, scikit-learn }:
 
 buildPythonPackage rec {
   pname = "pyod";
@@ -22,24 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-thEuXyL/ncDeeXTDxPbOoxeY5pI1IqvwFrvZpg8Yqdg=";
   };
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    joblib
-    matplotlib
-    numpy
-    numba
-    scipy
-    scikit-learn
-  ];
+  propagatedBuildInputs = [ joblib matplotlib numpy numba scipy scikit-learn ];
 
-  pythonImportsCheck = [
-    "pyod"
-    "pyod.models"
-    "pyod.models.ecod"
-  ];
+  pythonImportsCheck = [ "pyod" "pyod.models" "pyod.models.ecod" ];
 
   meta = with lib; {
     description = ''

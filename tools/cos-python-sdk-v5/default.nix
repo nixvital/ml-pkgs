@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools
-, xmltodict
-, six
-, crcmod
-, pycryptodome
-, requests
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools, xmltodict
+, six, crcmod, pycryptodome, requests }:
 
 buildPythonPackage rec {
   pname = "cos-python-sdk-v5";
@@ -24,17 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-AHNvMC5l4/kagmjxVzaZKIRw62WLQdeN9qfBTTcfpyQ=";
   };
 
-  build-system = [
-    setuptools
-  ];
+  build-system = [ setuptools ];
 
-  dependencies = [
-    xmltodict
-    six
-    crcmod
-    pycryptodome
-    requests
-  ];
+  dependencies = [ xmltodict six crcmod pycryptodome requests ];
 
   pythonImportsCheck = [ "qcloud_cos" ];
 

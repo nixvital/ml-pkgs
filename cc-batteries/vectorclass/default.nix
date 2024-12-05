@@ -23,21 +23,22 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    mkdir -p $out/lib/pkgconfig
-    echo "
-prefix=$out/include/vectorclass
-includedir=$out/include/vectorclass
+        mkdir -p $out/lib/pkgconfig
+        echo "
+    prefix=$out/include/vectorclass
+    includedir=$out/include/vectorclass
 
-Name: Vectorclass
-Description: C++ class library for using the Single Instruction Multiple Data (SIMD) instructions to improve performance on modern microprocessors with the x86 or x86/64 instruction set.
-Version: $version
-Cflags: -I$out/include/vectorclass" > $out/lib/pkgconfig/vectorclass.pc
+    Name: Vectorclass
+    Description: C++ class library for using the Single Instruction Multiple Data (SIMD) instructions to improve performance on modern microprocessors with the x86 or x86/64 instruction set.
+    Version: $version
+    Cflags: -I$out/include/vectorclass" > $out/lib/pkgconfig/vectorclass.pc
 
-    sed -i "s|VECTORCLASS_INCLUDE_DIR|$out/include|g" $out/share/vectorclass/vectorclassTargets.cmake
-    '';
+        sed -i "s|VECTORCLASS_INCLUDE_DIR|$out/include|g" $out/share/vectorclass/vectorclassTargets.cmake
+  '';
 
   meta = with lib; {
-    description = "C++ class library for using the Single Instruction Multiple Data (SIMD) instructions to improve performance on modern microprocessors with the x86 or x86/64 instruction set";
+    description =
+      "C++ class library for using the Single Instruction Multiple Data (SIMD) instructions to improve performance on modern microprocessors with the x86 or x86/64 instruction set";
     homepage = "https://github.com/vectorclass/version2";
     license = licenses.asl20;
     platforms = platforms.all;

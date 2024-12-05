@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, hatchling
-, hatch-fancy-pypi-readme
-, hatch-requirements-txt
-, swankit
-, fastapi
-, uvicorn
-, peewee
-, ujson
-, psutil
-, pyyaml
-, setuptools
-, nanoid
-, numpy
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
+, hatchling, hatch-fancy-pypi-readme, hatch-requirements-txt, swankit, fastapi
+, uvicorn, peewee, ujson, psutil, pyyaml, setuptools, nanoid, numpy }:
 
 # TODO(breakds): Build the UI. It seemed pretty straight forward but
 # for some reason I will run into this "dead spiral" of fetchYarnDeps
@@ -35,31 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-FdI5SKg7BIOTth4wcsevaXorwYvxuYcAeL3wKxXx+K0=";
   };
 
-  build-system = [
-    hatchling
-    hatch-fancy-pypi-readme
-    hatch-requirements-txt
-    setuptools
-  ];
+  build-system =
+    [ hatchling hatch-fancy-pypi-readme hatch-requirements-txt setuptools ];
 
-  dependencies = [
-    swankit
-    fastapi
-    uvicorn
-    peewee
-    ujson
-    psutil
-    pyyaml
-  ];
+  dependencies = [ swankit fastapi uvicorn peewee ujson psutil pyyaml ];
 
   pythonImportsCheck = [ "swanboard" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    nanoid
-    numpy
-  ];
-  
+  nativeCheckInputs = [ pytestCheckHook nanoid numpy ];
+
   disabledTests = [
     "test_get_package_version_installed"
     "test_get_package_version_not_installed"

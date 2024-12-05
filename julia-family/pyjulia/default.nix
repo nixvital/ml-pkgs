@@ -3,11 +3,7 @@
 # packages will be the responsibility of this package (instead of
 # nix), which kind of undesirable.
 
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, julia
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, julia }:
 
 buildPythonPackage rec {
   pname = "julia";
@@ -20,15 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-gxr89VuKOW2A2spyEPNSPgCMsgx8jfynC3wiGHXwKY8=";
   };
 
-  nativeBuildInputs = [
-    julia
-  ];
+  nativeBuildInputs = [ julia ];
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "julia"
-  ];
+  pythonImportsCheck = [ "julia" ];
 
   meta = with lib; {
     homepage = "https://github.com/JuliaPy/pyjulia";

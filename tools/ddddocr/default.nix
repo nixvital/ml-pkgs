@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pythonRelaxDepsHook
-, onnxruntime
-, pillow
-, numpy
-, opencv4
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pythonRelaxDepsHook
+, onnxruntime, pillow, numpy, opencv4 }:
 
 buildPythonPackage rec {
   pname = "ddddocr";
@@ -21,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-MUejMU6fMTIgB/eQJ7b7Ku9hOoPHL/mSRhKjFiRQ9l0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ setuptools pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    onnxruntime
-    pillow
-    numpy
-    opencv4
-  ];
+  propagatedBuildInputs = [ onnxruntime pillow numpy opencv4 ];
 
   pythonRemoveDeps = [ "opencv-python-headless" ];
 

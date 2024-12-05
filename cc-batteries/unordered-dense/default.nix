@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "A fast & densely stored hashmap and hashset based on robin-hood backward shift deletion";
+    description =
+      "A fast & densely stored hashmap and hashset based on robin-hood backward shift deletion";
     homepage = "https://github.com/martinus/unordered_dense";
     license = licenses.mit;
     platforms = platforms.all;

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, semver
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, semver }:
 
 let version = "0.1.15";
 
@@ -19,13 +14,9 @@ in buildPythonPackage {
     hash = "sha256-lorMN5cTbncuRSqGwWYt8glhIbgNfL0oeRHZ3+1F1s0=";
   };
 
-  build-system = [
-    hatchling
-  ];
+  build-system = [ hatchling ];
 
-  dependencies = [
-    semver
-  ];
+  dependencies = [ semver ];
 
   meta = with lib; {
     description = "Manage your Julia dependencies from Python";

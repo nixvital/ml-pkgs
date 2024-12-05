@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, cffi
-, imageio
-, imageio-ffmpeg
-, moderngl
-, glfw
-, glcontext
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, cffi, imageio, imageio-ffmpeg
+, moderngl, glfw, glcontext }:
 
 buildPythonPackage rec {
   pname = "gym3";
@@ -21,19 +12,10 @@ buildPythonPackage rec {
     sha256 = "sha256-i+A/fGlg221wtKG8zbt7ATDKXe1HtVqXLOWbYJ9hZR8=";
   };
 
-  patches = [
-    ./0001-Allow-newer-version-of-glfw-and-imageio-ffmpeg.patch
-  ];
+  patches = [ ./0001-Allow-newer-version-of-glfw-and-imageio-ffmpeg.patch ];
 
-  propagatedBuildInputs = [
-    numpy
-    cffi
-    imageio
-    imageio-ffmpeg
-    moderngl
-    glfw
-    glcontext
-  ];
+  propagatedBuildInputs =
+    [ numpy cffi imageio imageio-ffmpeg moderngl glfw glcontext ];
 
   # Tests fail on python 3 due to writes to the read-only home directory
   doCheck = false;

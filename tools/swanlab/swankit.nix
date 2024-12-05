@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, hatchling
-, hatch-fancy-pypi-readme
-, hatch-requirements-txt
-, nanoid
-, pyyaml
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
+, hatchling, hatch-fancy-pypi-readme, hatch-requirements-txt, nanoid, pyyaml }:
 
 buildPythonPackage rec {
   pname = "swankit";
@@ -24,21 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-qLwCcd3+YKpRAWEKCS0ELHrgjpeHohQGB1MkS+55k5Q=";
   };
 
-  build-system = [
-    hatchling
-    hatch-fancy-pypi-readme
-    hatch-requirements-txt
-  ];
+  build-system = [ hatchling hatch-fancy-pypi-readme hatch-requirements-txt ];
 
   pythonImportsCheck = [ "swankit" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    nanoid
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook nanoid pyyaml ];
   disabledTests = [
-    "test_default"  # requires home directory
+    "test_default" # requires home directory
   ];
 
   meta = with lib; {

@@ -1,32 +1,14 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, hatchling
-, hatch-fancy-pypi-readme
-, hatch-requirements-txt
-, pythonRelaxDepsHook
-, swankit
-, swanboard
-, cos-python-sdk-v5
-, urllib3
-, requests
-, click
-, pyyaml
-, psutil
-, pynvml
-, rich
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
+, hatchling, hatch-fancy-pypi-readme, hatch-requirements-txt
+, pythonRelaxDepsHook, swankit, swanboard, cos-python-sdk-v5, urllib3, requests
+, click, pyyaml, psutil, pynvml, rich
 
 # [media]
-, soundfile
-, pillow
-, matplotlib
-, numpy
+, soundfile, pillow, matplotlib, numpy
 
 # [test]
-, python-dotenv  
-  
+, python-dotenv
+
 }:
 
 buildPythonPackage rec {

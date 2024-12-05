@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, matplotlib
-, numpy
-, pandas
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, matplotlib, numpy
+, pandas }:
 
 buildPythonPackage rec {
   pname = "nfoursid";
@@ -19,22 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-tboQlUoeidvNUZpZjhnBvzQ0/Xb2vYBNccPDXA7Xeew=";
   };
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    pandas
-  ];
+  propagatedBuildInputs = [ matplotlib numpy pandas ];
 
-  pythonImportsCheck = [
-    "nfoursid"
-    "nfoursid.kalman"
-    "nfoursid.nfoursid"
-    "nfoursid.state_space"
-  ];
+  pythonImportsCheck =
+    [ "nfoursid" "nfoursid.kalman" "nfoursid.nfoursid" "nfoursid.state_space" ];
 
   meta = with lib; {
     description = ''
