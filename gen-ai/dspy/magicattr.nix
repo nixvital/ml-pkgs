@@ -1,11 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools }:
 
-let pname = "magicattr";
-    version = "2022.02.18";
+let
+  pname = "magicattr";
+  version = "2022.02.18";
 
 in buildPythonPackage {
   inherit pname version;

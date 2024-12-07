@@ -1,13 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pdm-backend
-, anyio
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pdm-backend, anyio
+, typing-extensions }:
 
-let pname = "asyncer";
-    version = "0.0.8";
+let
+  pname = "asyncer";
+  version = "0.0.8";
 
 in buildPythonPackage {
   inherit pname version;
@@ -22,10 +18,7 @@ in buildPythonPackage {
 
   build-system = [ pdm-backend ];
 
-  dependencies = [
-    anyio
-    typing-extensions
-  ];
+  dependencies = [ anyio typing-extensions ];
 
   pythonImportsCheck = [ "asyncer" ];
 

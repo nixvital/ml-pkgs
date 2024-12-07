@@ -1,29 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, backoff
-, joblib
-, openai
-, pandas
-, spacy
-, regex
-, ujson
-, tqdm
-, datasets
-, optuna
-, json-repair
-, litellm
-, diskcache
-, tenacity
-, anyio
-, pydantic
-, magicattr
-, asyncer
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, backoff, joblib, openai
+, pandas, spacy, regex, ujson, tqdm, datasets, optuna, json-repair, litellm
+, diskcache, tenacity, anyio, pydantic, magicattr, asyncer }:
 
-let pname = "dspy";
-    version = "2.5.41";
+let
+  pname = "dspy";
+  version = "2.5.41";
 
 in buildPythonPackage {
   inherit pname version;
