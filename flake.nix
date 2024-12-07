@@ -37,6 +37,7 @@
             self.overlays.julia-family
             self.overlays.time-series
             self.overlays.simulators
+            self.overlays.gen-ai
           ];
         };
       };
@@ -49,6 +50,7 @@
         ./julia-family/part.nix
         ./time-series/part.nix
         ./simulators/part.nix
+        ./gen-ai/part.nix
       ];
     };
 }
