@@ -14,6 +14,8 @@
     ];
 
     ollama = final.callPackage ./ollama {};
+    ollama-cuda = final.callPackage ./ollama { acceleration = "cuda"; };
+    ollama-rocm = final.callPackage ./ollama { acceleration = "rocm"; };
   };
 
   perSystem = { pkgs, lib, ... }: {
