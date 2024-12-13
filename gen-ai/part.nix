@@ -16,11 +16,12 @@
     ollama = final.callPackage ./ollama {};
     ollama-cuda = final.callPackage ./ollama { acceleration = "cuda"; };
     ollama-rocm = final.callPackage ./ollama { acceleration = "rocm"; };
+    open-webui = final.callPackage ./open-webui {};
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs) ollama;
+      inherit (pkgs) ollama open-webui;
       inherit (pkgs.python3Packages) asyncer dspy;
     };
 
@@ -30,6 +31,7 @@
       packages = with pkgs; [
         (python3.withPackages (p: with p; [ asyncer dspy ollama ]))
         ollama
+        open-webui
       ];
     };
   };
