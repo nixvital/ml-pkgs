@@ -131,6 +131,12 @@ python311.pkgs.buildPythonApplication rec {
     xhtml2pdf
     xlrd
     youtube-transcript-api
+    aiocache
+    aiofiles
+    ldap3
+    opensearch-py
+    pgvector
+    soundfile
   ];
 
   build-system = with python311.pkgs; [ hatchling ];
