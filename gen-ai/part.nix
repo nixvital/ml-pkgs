@@ -16,13 +16,15 @@
     ollama = final.callPackage ./ollama {};
     ollama-cuda = final.callPackage ./ollama { acceleration = "cuda"; };
     ollama-rocm = final.callPackage ./ollama { acceleration = "rocm"; };
-    open-webui = final.callPackage ./open-webui {};
+
+    # TODO(breakds): Fix opensearch-py
+    # open-webui = final.callPackage ./open-webui {};
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs) ollama open-webui;
-      inherit (pkgs.python3Packages) asyncer dspy;
+      inherit (pkgs.python3Packages) asyncer dspy opensearch-py;
     };
 
     devShells.gen-ai = pkgs.mkShell {
