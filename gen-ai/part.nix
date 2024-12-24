@@ -12,6 +12,10 @@
         ollama = py-final.callPackage ./ollama/python.nix {};
 
         textgrad = py-final.callPackage ./textgrad {};
+
+        airportsdata = py-final.callPackage ./airportsdata {};
+        outlines-core = py-final.callPackage ./outlines/outlines-core.nix {};
+        outlines = py-final.callPackage ./outlines {};
       })
     ];
 
@@ -26,14 +30,15 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs) ollama open-webui;
-      inherit (pkgs.python3Packages) asyncer dspy opensearch-py textgrad;
+      inherit (pkgs.python3Packages) asyncer dspy opensearch-py textgrad
+        airportsdata outlines-core outlines;
     };
 
     devShells.gen-ai = pkgs.mkShell {
       name = "gen-ai";
 
       packages = with pkgs; [
-        (python3.withPackages (p: with p; [ asyncer dspy ollama textgrad ]))
+        (python3.withPackages (p: with p; [ asyncer dspy ollama textgrad outlines ]))
         ollama
         open-webui
       ];
