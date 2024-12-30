@@ -13,6 +13,7 @@
 
         textgrad = py-final.callPackage ./textgrad {};
 
+        pyowm = py-final.callPackage ./pyowm {};
         airportsdata = py-final.callPackage ./airportsdata {};
         outlines-core = py-final.callPackage ./outlines/outlines-core.nix {};
         outlines = py-final.callPackage ./outlines {};
@@ -31,7 +32,7 @@
     packages = {
       inherit (pkgs) ollama open-webui;
       inherit (pkgs.python3Packages) asyncer dspy opensearch-py textgrad
-        airportsdata outlines-core outlines;
+        pyowm airportsdata outlines-core outlines;
     };
 
     devShells.gen-ai = pkgs.mkShell {
