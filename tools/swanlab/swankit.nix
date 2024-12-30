@@ -3,7 +3,7 @@
 
 buildPythonPackage rec {
   pname = "swankit";
-  version = "0.1.2-beta.1";
+  version = "0.1.2-beta.6";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -12,7 +12,7 @@ buildPythonPackage rec {
     owner = "SwanHubX";
     repo = "SwanLab-Toolkit";
     rev = "v${version}";
-    hash = "sha256-qLwCcd3+YKpRAWEKCS0ELHrgjpeHohQGB1MkS+55k5Q=";
+    hash = "sha256-uqmi1Zq4GCKVsUE8v7esxSDbfiRzwS5aBFTjnsROUlM=";
   };
 
   build-system = [ hatchling hatch-fancy-pypi-readme hatch-requirements-txt ];

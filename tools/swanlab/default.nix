@@ -13,7 +13,7 @@
 
 buildPythonPackage rec {
   pname = "swanlab";
-  version = "0.3.27";
+  version = "0.4.2";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     owner = "SwanHubX";
     repo = "SwanLab";
     rev = "v${version}";
-    hash = "sha256-ge/ARF3RhVn9YKk4RtpBX/WtgwuKVbVQ/M9jqTUpGy8=";
+    hash = "sha256-CIRR0nn44c+OPzyBdwC2meBQSjrf8qUHP5s0FYEXYXU=";
   };
 
   build-system = [

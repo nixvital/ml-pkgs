@@ -7,7 +7,7 @@
 # always complain about a changed yarn.lock (and hash).
 buildPythonPackage rec {
   pname = "swanboard";
-  version = "0.1.6";
+  version = "0.1.7-beta.1";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -16,7 +16,7 @@ buildPythonPackage rec {
     owner = "SwanHubX";
     repo = "SwanLab-Dashboard";
     rev = "v${version}";
-    hash = "sha256-FdI5SKg7BIOTth4wcsevaXorwYvxuYcAeL3wKxXx+K0=";
+    hash = "sha256-jBYlBJaEZPJ2tORfeSUnTpwyAjENh8QYTfVb6o2UNZg=";
   };
 
   build-system =
