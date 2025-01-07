@@ -7,13 +7,14 @@
     scnlib = final.callPackage ./scnlib { };
     unordered-dense = final.callPackage ./unordered-dense { };
     vectorclass = final.callPackage ./vectorclass { };
-    eve = final.callPackage ./eve/default.nix { };
+    eve = final.callPackage ./eve { };
+    libcoro = final.callPackage ./libcoro {};
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs)
-        aria-csv-parser cpp-sort scnlib unordered-dense vectorclass eve;
+        aria-csv-parser cpp-sort scnlib unordered-dense vectorclass eve libcoro;
     };
   };
 }
