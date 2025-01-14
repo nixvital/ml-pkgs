@@ -14,7 +14,7 @@
 
 buildPythonPackage rec {
   pname = "ollama";
-  version = "0.4.4";
+  version = "0.4.6";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
@@ -23,7 +23,7 @@ buildPythonPackage rec {
     owner = "ollama";
     repo = "ollama-python";
     rev = "refs/tags/v${version}";
-    hash = "sha256-GW/4adrU6/4cM96U6A8Btgv7Qt1jtSFJr9F8+zwTEpk=";
+    hash = "sha256-VELcw7b+G8aJrFMXX6rIYiR4ExSrDNezOigGznVnoNU=";
   };
 
   postPatch = ''
