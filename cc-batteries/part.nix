@@ -10,12 +10,14 @@
     eve = final.callPackage ./eve { };
     libcoro = final.callPackage ./libcoro {};
     corrade = final.callPackage ./corrade {};
+    magnum = final.callPackage ./magnum {};
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs)
-        aria-csv-parser cpp-sort scnlib unordered-dense vectorclass eve libcoro corrade;
+        aria-csv-parser cpp-sort scnlib unordered-dense vectorclass eve libcoro
+        corrade magnum;
     };
   };
 }
