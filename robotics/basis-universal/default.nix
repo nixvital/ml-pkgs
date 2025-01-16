@@ -5,8 +5,8 @@
   cmake,
 }:
 
-let version = "1.15";
-    rev = "1.15_final";
+let version = "1.16.3";
+    rev = "1.16.3";
 
 in stdenv.mkDerivation {
   pname = "basis-universal";
