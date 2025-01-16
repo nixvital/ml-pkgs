@@ -12,12 +12,13 @@
     ];
     physx5 = final.callPackage ./physx5/default.nix {};
     physx5-gpu = final.callPackage ./physx5/gpu.nix {};
+    basis-universal = final.callPackage ./basis-universal {};
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) gym3 mujoco-menagerie mujoco-mjx toppra;
-      inherit (pkgs) physx5 physx5-gpu;
+      inherit (pkgs) physx5 physx5-gpu basis-universal;
     };
 
     devShells.robotics = pkgs.mkShell {
