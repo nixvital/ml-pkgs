@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 {
-  flake.overlays.simulators = final: prev: {
+  flake.overlays.robotics = final: prev: {
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (py-final: py-prev: {
         gym3 = py-final.callPackage ./gym3 { };
@@ -19,8 +19,8 @@
       inherit (pkgs) physx5 physx5-gpu;
     };
 
-    devShells.simulators = pkgs.mkShell {
-      name = "simulators";
+    devShells.robotics = pkgs.mkShell {
+      name = "robotics";
 
       packages = with pkgs; [
         (python3.withPackages

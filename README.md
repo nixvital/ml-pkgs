@@ -20,7 +20,7 @@ The available overlays in this flake are:
 - torch-family: packages for the PyTorch machine learning framework and its ecosystem
 - jax-family: packages for the JAX machine learning framework and its ecosystem
 - data-utils: packages for data manipulation and storage
-- simulators: packages for simulators and environments for reinforcement learning
+- robotics: packages for simulators, environments for robotics and reinforcement learning
 - misc: miscellaneous packages for machine learning and data science
 
 There is also a special overlay for scientific computing / machine learning related c++ packages, called `cc-batteries`.
