@@ -12,7 +12,7 @@ in stdenv.mkDerivation {
   pname = "basis-universal";
   inherit version;
 
-  # Breaks magnum-plugins with every update, follow
+  # Note by @howird: Breaks magnum-plugins with every update, follow
   # https://github.com/mosra/archlinux/blob/36275b5aea5e1521735b5da7819aea9ce1300976/basis-universal-src/PKGBUILD
   src = fetchFromGitHub {
     owner = "BinomialLLC";
