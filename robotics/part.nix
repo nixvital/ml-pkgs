@@ -7,6 +7,7 @@
         gym3 = py-final.callPackage ./gym3 { };
         mujoco-menagerie = py-final.callPackage ./mujoco-menagerie { };
         mujoco-mjx = py-final.callPackage ./mujoco-mjx { };
+        toppra = py-final.callPackage ./toppra { };
       })
     ];
     physx5 = final.callPackage ./physx5/default.nix {};
@@ -15,7 +16,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) gym3 mujoco-menagerie mujoco-mjx;
+      inherit (pkgs.python3Packages) gym3 mujoco-menagerie mujoco-mjx toppra;
       inherit (pkgs) physx5 physx5-gpu;
     };
 
@@ -24,7 +25,7 @@
 
       packages = with pkgs; [
         (python3.withPackages
-          (p: with p; [ gym3 mujoco mujoco-mjx mujoco-menagerie ]))
+          (p: with p; [ gym3 mujoco mujoco-mjx mujoco-menagerie toppra ]))
         physx5
         physx5-gpu
       ];
