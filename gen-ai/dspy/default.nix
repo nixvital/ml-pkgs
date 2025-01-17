@@ -1,10 +1,10 @@
 { lib, buildPythonPackage, fetchFromGitHub, setuptools, backoff, joblib, openai
 , pandas, spacy, regex, ujson, tqdm, datasets, optuna, json-repair, litellm
-, diskcache, tenacity, anyio, pydantic, magicattr, asyncer }:
+, diskcache, tenacity, anyio, pydantic, magicattr, asyncer, cloudpickle, cachetools }:
 
 let
   pname = "dspy";
-  version = "2.5.41";
+  version = "2.6.0rc8";
 
 in buildPythonPackage {
   inherit pname version;
@@ -13,7 +13,7 @@ in buildPythonPackage {
     owner = "stanfordnlp";
     repo = "dspy";
     rev = version;
-    hash = "sha256-s6o22tNIgWRUbAkPtXPhEZMMzewXy1Vst/Eu5wsGIOU=";
+    hash = "sha256-dccfZG3sv5fdZAQJOVIJB043GDdzWdk/pJxGuk0dYI4=";
   };
 
   build-system = [ setuptools ];
@@ -37,6 +37,8 @@ in buildPythonPackage {
     pydantic
     magicattr
     asyncer
+    cloudpickle
+    cachetools
   ];
 
   # workaround the error: Permission denied: '/homeless-shelter' in check
