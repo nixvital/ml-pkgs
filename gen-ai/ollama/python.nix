@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  pillow,
-  pydantic,
-  poetry-core,
-  pytest-asyncio,
-  pytest-httpserver,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpx, pillow, pydantic, poetry-core
+, pytest-asyncio, pytest-httpserver, pytestCheckHook, pythonOlder, }:
 
 buildPythonPackage rec {
   pname = "ollama";
@@ -35,22 +24,18 @@ buildPythonPackage rec {
 
   build-system = [ poetry-core ];
 
-
   dependencies = [ httpx pydantic ];
 
-  nativeCheckInputs = [
-    pillow
-    pytest-asyncio
-    pytest-httpserver
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ pillow pytest-asyncio pytest-httpserver pytestCheckHook ];
 
   pythonImportsCheck = [ "ollama" ];
 
   meta = with lib; {
     description = "Ollama Python library";
     homepage = "https://github.com/ollama/ollama-python";
-    changelog = "https://github.com/ollama/ollama-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ollama/ollama-python/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -8,11 +8,11 @@
     unordered-dense = final.callPackage ./unordered-dense { };
     vectorclass = final.callPackage ./vectorclass { };
     eve = final.callPackage ./eve { };
-    libcoro = final.callPackage ./libcoro {};
-    corrade = final.callPackage ./corrade {};
-    magnum = final.callPackage ./magnum {};
-    magnum-plugins = final.callPackage ./magnum-plugins {};
-    magnum-integration = final.callPackage ./magnum-integration {};    
+    libcoro = final.callPackage ./libcoro { };
+    corrade = final.callPackage ./corrade { };
+    magnum = final.callPackage ./magnum { };
+    magnum-plugins = final.callPackage ./magnum-plugins { };
+    magnum-integration = final.callPackage ./magnum-integration { };
   };
 
   perSystem = { pkgs, lib, ... }: {

@@ -1,7 +1,8 @@
 { lib, stdenv, fetchFromGitHub, cmake, c-ares, openssl }:
 
-let pname = "libcoro";
-    version = "0.12.1";
+let
+  pname = "libcoro";
+  version = "0.12.1";
 
 in stdenv.mkDerivation {
   inherit pname version;

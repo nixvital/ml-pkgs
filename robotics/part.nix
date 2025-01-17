@@ -10,9 +10,9 @@
         toppra = py-final.callPackage ./toppra { };
       })
     ];
-    physx5 = final.callPackage ./physx5/default.nix {};
-    physx5-gpu = final.callPackage ./physx5/gpu.nix {};
-    basis-universal = final.callPackage ./basis-universal {};
+    physx5 = final.callPackage ./physx5/default.nix { };
+    physx5-gpu = final.callPackage ./physx5/gpu.nix { };
+    basis-universal = final.callPackage ./basis-universal { };
   };
 
   perSystem = { pkgs, lib, ... }: {

@@ -1,46 +1,19 @@
 # Based on upstream: https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/ol/ollama/package.nix
 
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  buildEnv,
-  linkFarm,
-  overrideCC,
-  makeWrapper,
-  stdenv,
-  addDriverRunpath,
-  nix-update-script,
+{ lib, buildGoModule, fetchFromGitHub, buildEnv, linkFarm, overrideCC
+, makeWrapper, stdenv, addDriverRunpath, nix-update-script,
 
-  cmake,
-  gcc12,
-  gitMinimal,
-  clblast,
-  libdrm,
-  rocmPackages,
-  cudaPackages,
-  darwin,
-  autoAddDriverRunpath,
-  versionCheckHook,
+cmake, gcc12, gitMinimal, clblast, libdrm, rocmPackages, cudaPackages, darwin
+, autoAddDriverRunpath, versionCheckHook,
 
-  # passthru
-  nixosTests,
-  testers,
-  ollama,
-  ollama-rocm,
-  ollama-cuda,
+# passthru
+nixosTests, testers, ollama, ollama-rocm, ollama-cuda,
 
-  config,
-  # one of `[ null false "rocm" "cuda" ]`
-  acceleration ? null,
-}:
+config,
+# one of `[ null false "rocm" "cuda" ]`
+acceleration ? null, }:
 
-assert builtins.elem acceleration [
-  null
-  false
-  "rocm"
-  "cuda"
-];
+assert builtins.elem acceleration [ null false "rocm" "cuda" ];
 
 let
   pname = "ollama";
@@ -57,12 +30,14 @@ let
 
   vendorHash = "sha256-1uk3Oi0n4Q39DVZe3PnZqqqmlwwoHmEolcRrib0uu4I=";
 
-  validateFallback = lib.warnIf (config.rocmSupport && config.cudaSupport) (lib.concatStrings [
-    "both `nixpkgs.config.rocmSupport` and `nixpkgs.config.cudaSupport` are enabled, "
-    "but they are mutually exclusive; falling back to cpu"
-  ]) (!(config.rocmSupport && config.cudaSupport));
-  shouldEnable =
-    mode: fallback: (acceleration == mode) || (fallback && acceleration == null && validateFallback);
+  validateFallback = lib.warnIf (config.rocmSupport && config.cudaSupport)
+    (lib.concatStrings [
+      "both `nixpkgs.config.rocmSupport` and `nixpkgs.config.cudaSupport` are enabled, "
+      "but they are mutually exclusive; falling back to cpu"
+    ]) (!(config.rocmSupport && config.cudaSupport));
+  shouldEnable = mode: fallback:
+    (acceleration == mode)
+    || (fallback && acceleration == null && validateFallback);
 
   rocmRequested = shouldEnable "rocm" config.rocmSupport;
   cudaRequested = shouldEnable "cuda" config.cudaSupport;
@@ -85,11 +60,8 @@ let
     paths = rocmLibs ++ [ rocmClang ];
   };
 
-  cudaLibs = [
-    cudaPackages.cuda_cudart
-    cudaPackages.libcublas
-    cudaPackages.cuda_cccl
-  ];
+  cudaLibs =
+    [ cudaPackages.cuda_cudart cudaPackages.libcublas cudaPackages.cuda_cccl ];
 
   # Extract the major version of CUDA. e.g. 11 12
   cudaMajorVersion = lib.versions.major cudaPackages.cuda_cudart.version;
@@ -100,7 +72,8 @@ let
     name = "cuda-merged-${cudaMajorVersion}";
     paths = map lib.getLib cudaLibs ++ [
       (lib.getOutput "static" cudaPackages.cuda_cudart)
-      (lib.getBin (cudaPackages.cuda_nvcc.__spliced.buildHost or cudaPackages.cuda_nvcc))
+      (lib.getBin
+        (cudaPackages.cuda_nvcc.__spliced.buildHost or cudaPackages.cuda_nvcc))
     ];
   };
 
@@ -113,63 +86,45 @@ let
     MetalPerformanceShaders
   ];
 
-  wrapperOptions =
-    [
-      # ollama embeds llama-cpp binaries which actually run the ai models
-      # these llama-cpp binaries are unaffected by the ollama binary's DT_RUNPATH
-      # LD_LIBRARY_PATH is temporarily required to use the gpu
-      # until these llama-cpp binaries can have their runpath patched
-      "--suffix LD_LIBRARY_PATH : '${addDriverRunpath.driverLink}/lib'"
-    ]
-    ++ lib.optionals enableRocm [
-      "--suffix LD_LIBRARY_PATH : '${rocmPath}/lib'"
-      "--set-default HIP_PATH '${rocmPath}'"
-    ]
-    ++ lib.optionals enableCuda [
-      "--suffix LD_LIBRARY_PATH : '${lib.makeLibraryPath (map lib.getLib cudaLibs)}'"
-    ];
+  wrapperOptions = [
+    # ollama embeds llama-cpp binaries which actually run the ai models
+    # these llama-cpp binaries are unaffected by the ollama binary's DT_RUNPATH
+    # LD_LIBRARY_PATH is temporarily required to use the gpu
+    # until these llama-cpp binaries can have their runpath patched
+    "--suffix LD_LIBRARY_PATH : '${addDriverRunpath.driverLink}/lib'"
+  ] ++ lib.optionals enableRocm [
+    "--suffix LD_LIBRARY_PATH : '${rocmPath}/lib'"
+    "--set-default HIP_PATH '${rocmPath}'"
+  ] ++ lib.optionals enableCuda [
+    "--suffix LD_LIBRARY_PATH : '${
+      lib.makeLibraryPath (map lib.getLib cudaLibs)
+    }'"
+  ];
   wrapperArgs = builtins.concatStringsSep " " wrapperOptions;
 
-  goBuild =
-    if enableCuda then buildGoModule.override { stdenv = overrideCC stdenv gcc12; } else buildGoModule;
+  goBuild = if enableCuda then
+    buildGoModule.override { stdenv = overrideCC stdenv gcc12; }
+  else
+    buildGoModule;
   inherit (lib) licenses platforms maintainers;
-in
-goBuild {
-  inherit
-    pname
-    version
-    src
-    vendorHash
-    ;
+in goBuild {
+  inherit pname version src vendorHash;
 
-  env =
-    lib.optionalAttrs enableRocm {
-      ROCM_PATH = rocmPath;
-      CLBlast_DIR = "${clblast}/lib/cmake/CLBlast";
-      HIP_PATH = rocmPath;
-    }
-    // lib.optionalAttrs enableCuda {
-      CUDA_PATH = cudaPath;
-    };
+  env = lib.optionalAttrs enableRocm {
+    ROCM_PATH = rocmPath;
+    CLBlast_DIR = "${clblast}/lib/cmake/CLBlast";
+    HIP_PATH = rocmPath;
+  } // lib.optionalAttrs enableCuda { CUDA_PATH = cudaPath; };
 
-  nativeBuildInputs =
-    [
-      cmake
-      gitMinimal
-    ]
-    ++ lib.optionals enableRocm [
-      rocmPackages.llvm.bintools
-      rocmLibs
-    ]
+  nativeBuildInputs = [ cmake gitMinimal ]
+    ++ lib.optionals enableRocm [ rocmPackages.llvm.bintools rocmLibs ]
     ++ lib.optionals enableCuda [ cudaPackages.cuda_nvcc ]
     ++ lib.optionals (enableRocm || enableCuda) [
       makeWrapper
       autoAddDriverRunpath
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin metalFrameworks;
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin metalFrameworks;
 
-  buildInputs =
-    lib.optionals enableRocm (rocmLibs ++ [ libdrm ])
+  buildInputs = lib.optionals enableRocm (rocmLibs ++ [ libdrm ])
     ++ lib.optionals enableCuda cudaLibs
     ++ lib.optionals stdenv.hostPlatform.isDarwin metalFrameworks;
 
@@ -181,27 +136,22 @@ goBuild {
       --replace-fail 0.0.0 '${version}'
   '';
 
-  overrideModAttrs = (
-    finalAttrs: prevAttrs: {
-      # don't run llama.cpp build in the module fetch phase
-      preBuild = "";
-    }
-  );
+  overrideModAttrs = (finalAttrs: prevAttrs: {
+    # don't run llama.cpp build in the module fetch phase
+    preBuild = "";
+  });
 
-  preBuild =
-    let
-      dist_cmd =
-        if cudaRequested then
-          "dist_cuda_v${cudaMajorVersion}"
-        else if rocmRequested then
-          "dist_rocm"
-        else
-          "dist";
-    in
+  preBuild = let
+    dist_cmd = if cudaRequested then
+      "dist_cuda_v${cudaMajorVersion}"
+    else if rocmRequested then
+      "dist_rocm"
+    else
+      "dist";
     # build llama.cpp libraries for ollama
-    ''
-      make ${dist_cmd} -j $NIX_BUILD_CORES
-    '';
+  in ''
+    make ${dist_cmd} -j $NIX_BUILD_CORES
+  '';
 
   postInstall = lib.optionalString stdenv.hostPlatform.isLinux ''
     # copy libggml_*.so and runners into lib
@@ -229,44 +179,40 @@ goBuild {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeInstallCheck = [
-    versionCheckHook
-  ];
+  nativeInstallCheck = [ versionCheckHook ];
   versionCheckProgramArg = [ "--version" ];
   doInstallCheck = true;
 
   passthru = {
-    tests =
-      {
-        inherit ollama;
-        version = testers.testVersion {
-          inherit version;
-          package = ollama;
-        };
-      }
-      // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-        inherit ollama-rocm ollama-cuda;
-        service = nixosTests.ollama;
-        service-cuda = nixosTests.ollama-cuda;
-        service-rocm = nixosTests.ollama-rocm;
+    tests = {
+      inherit ollama;
+      version = testers.testVersion {
+        inherit version;
+        package = ollama;
       };
-  } // lib.optionalAttrs (!enableRocm && !enableCuda) { updateScript = nix-update-script { }; };
+    } // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+      inherit ollama-rocm ollama-cuda;
+      service = nixosTests.ollama;
+      service-cuda = nixosTests.ollama-cuda;
+      service-rocm = nixosTests.ollama-rocm;
+    };
+  } // lib.optionalAttrs (!enableRocm && !enableCuda) {
+    updateScript = nix-update-script { };
+  };
 
   meta = {
-    description =
-      "Get up and running with large language models locally"
+    description = "Get up and running with large language models locally"
       + lib.optionalString rocmRequested ", using ROCm for AMD GPU acceleration"
-      + lib.optionalString cudaRequested ", using CUDA for NVIDIA GPU acceleration";
+      + lib.optionalString cudaRequested
+      ", using CUDA for NVIDIA GPU acceleration";
     homepage = "https://github.com/ollama/ollama";
     changelog = "https://github.com/ollama/ollama/releases/tag/v${version}";
     license = licenses.mit;
-    platforms = if (rocmRequested || cudaRequested) then platforms.linux else platforms.unix;
+    platforms = if (rocmRequested || cudaRequested) then
+      platforms.linux
+    else
+      platforms.unix;
     mainProgram = "ollama";
-    maintainers = with maintainers; [
-      abysssol
-      dit7ya
-      elohmeier
-      roydubnium
-    ];
+    maintainers = with maintainers; [ abysssol dit7ya elohmeier roydubnium ];
   };
 }

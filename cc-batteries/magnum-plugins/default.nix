@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  assimp,
-  basis-universal,
-  corrade,
-  magnum,
-  libGL,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, assimp, basis-universal, corrade, magnum
+, libGL, }:
 
 stdenv.mkDerivation rec {
   pname = "magnum-plugins";

@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, docstring-parser
-, typing-extensions
-, rich
-, shtab
-, typeguard
-, hatchling
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, docstring-parser
+, typing-extensions, rich, shtab, typeguard, hatchling }:
 
 buildPythonPackage rec {
   pname = "tyro";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-iFKgnKd4606S/hEMHD7ZaTnGF16gmvbaE62nifw4o7c=";
   };
 
-  build-system= [
-    hatchling
-  ];
+  build-system = [ hatchling ];
 
-  dependencies = [
-    docstring-parser
-    typing-extensions
-    rich
-    shtab
-    typeguard
-  ];
+  dependencies = [ docstring-parser typing-extensions rich shtab typeguard ];
 
   pythonImportsCheck = [ "tyro" ];
 

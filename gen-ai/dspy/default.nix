@@ -1,6 +1,7 @@
 { lib, buildPythonPackage, fetchFromGitHub, setuptools, backoff, joblib, openai
 , pandas, spacy, regex, ujson, tqdm, datasets, optuna, json-repair, litellm
-, diskcache, tenacity, anyio, pydantic, magicattr, asyncer, cloudpickle, cachetools }:
+, diskcache, tenacity, anyio, pydantic, magicattr, asyncer, cloudpickle
+, cachetools }:
 
 let
   pname = "dspy";

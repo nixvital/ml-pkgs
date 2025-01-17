@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  corrade,
-  libGL,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, corrade, libGL, xorg, }:
 
 stdenv.mkDerivation rec {
   pname = "magnum";
@@ -23,9 +15,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     corrade
     libGL # A shim that resolves into libglvnd on Linux
-  ] ++ lib.optionals stdenv.hostPlatform.isUnix [
-    xorg.libX11
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isUnix [ xorg.libX11 ];
 
   cmakeFlags = [
     (lib.cmakeBool "MAGNUM_WITH_ANYIMAGEIMPORTER" true)
@@ -35,7 +25,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Lightweight and modular C++11 graphics middleware for games and data visualization";
+    description =
+      "Lightweight and modular C++11 graphics middleware for games and data visualization";
     homepage = "https://github.com/mosra/magnum";
     license = licenses.mit;
     maintainers = with maintainers; [ SomeoneSerge ];

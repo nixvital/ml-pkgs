@@ -1,26 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  interegular,
-  cloudpickle,
-  datasets,
-  diskcache,
-  joblib,
-  jsonschema,
-  pyairports,
-  pycountry,
-  pydantic,
-  lark,
-  nest-asyncio,
-  numba,
-  scipy,
-  torch,
-  transformers,
-  airportsdata,
-  outlines-core,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, interegular
+, cloudpickle, datasets, diskcache, joblib, jsonschema, pyairports, pycountry
+, pydantic, lark, nest-asyncio, numba, scipy, torch, transformers, airportsdata
+, outlines-core, }:
 
 buildPythonPackage rec {
   pname = "outlines";
@@ -34,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-BBfsDZ3Q4wW7SCcpOu9WBzeHSBCHTukdlOf+CxUC3KE=";
   };
 
-  build-system = [
-    setuptools-scm
-  ];
+  build-system = [ setuptools-scm ];
 
   dependencies = [
     interegular

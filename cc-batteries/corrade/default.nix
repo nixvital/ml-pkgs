@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, }:
 
 stdenv.mkDerivation rec {
   pname = "corrade";
@@ -21,10 +16,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C++11 multiplatform utility library";
     homepage = "https://github.com/mosra/corrade";
-    license = with licenses; [
-      mit
-      unlicense
-    ];
+    license = with licenses; [ mit unlicense ];
     maintainers = with maintainers; [ SomeoneSerge ];
     mainProgram = "corrade";
     platforms = platforms.all;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-  python311,
-  nixosTests,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, python311, nixosTests, }:
 let
   pname = "open-webui";
   version = "0.4.8";
@@ -28,7 +22,8 @@ let
         --replace-fail "npm run pyodide:fetch && vite build" "vite build"
     '';
 
-    env.CYPRESS_INSTALL_BINARY = "0"; # disallow cypress from downloading binaries in sandbox
+    env.CYPRESS_INSTALL_BINARY =
+      "0"; # disallow cypress from downloading binaries in sandbox
     env.ONNXRUNTIME_NODE_INSTALL_CUDA = "skip";
 
     installPhase = ''
@@ -40,8 +35,7 @@ let
       runHook postInstall
     '';
   };
-in
-python311.pkgs.buildPythonApplication rec {
+in python311.pkgs.buildPythonApplication rec {
   inherit pname version src;
   pyproject = true;
 
@@ -55,11 +49,7 @@ python311.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  pythonRemoveDeps = [
-    "docker"
-    "pytest"
-    "pytest-docker"
-  ];
+  pythonRemoveDeps = [ "docker" "pytest" "pytest-docker" ];
 
   dependencies = with python311.pkgs; [
     aiohttp
@@ -145,14 +135,13 @@ python311.pkgs.buildPythonApplication rec {
 
   makeWrapperArgs = [ "--set FRONTEND_BUILD_DIR ${frontend}/share/open-webui" ];
 
-  passthru.tests = {
-    inherit (nixosTests) open-webui;
-  };
+  passthru.tests = { inherit (nixosTests) open-webui; };
 
   meta = {
     description = "Comprehensive suite for LLMs with a user-friendly WebUI";
     homepage = "https://github.com/open-webui/open-webui";
-    changelog = "https://github.com/open-webui/open-webui/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/open-webui/open-webui/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ shivaraj-bh ];
     mainProgram = "open-webui";

@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  bullet,
-  corrade,
-  eigen,
-  magnum,
-  libGL,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, bullet, corrade, eigen, magnum, libGL, }:
 
 stdenv.mkDerivation rec {
   pname = "magnum-integration";
@@ -22,13 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    (lib.getDev bullet)
-    corrade
-    eigen
-    magnum
-    libGL
-  ];
+  buildInputs = [ (lib.getDev bullet) corrade eigen magnum libGL ];
 
   cmakeFlags = [
     (lib.cmakeBool "MAGNUM_WITH_EIGEN" true)

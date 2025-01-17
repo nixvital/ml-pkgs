@@ -1,25 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools,
-  openai,
-  tenacity,
-  python-dotenv,
-  pandas,
-  platformdirs,
-  datasets,
-  diskcache,
-  graphviz,
-  gdown,
-  litellm,
-  pillow,
-  httpx,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools, openai
+, tenacity, python-dotenv, pandas, platformdirs, datasets, diskcache, graphviz
+, gdown, litellm, pillow, httpx, }:
 
-let pname = "textgrad";
-    version = "0.1.6";
+let
+  pname = "textgrad";
+  version = "0.1.6";
 
 in buildPythonPackage {
   inherit pname version;

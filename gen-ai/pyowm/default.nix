@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  geojson,
-  pysocks,
-  pythonOlder,
-  requests,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, geojson, pysocks, pythonOlder
+, requests, setuptools, pytestCheckHook, }:
 
 buildPythonPackage rec {
   pname = "pyowm";
@@ -31,12 +22,7 @@ buildPythonPackage rec {
 
   build-system = [ setuptools ];
 
-  dependencies = [
-    geojson
-    pysocks
-    requests
-    setuptools
-  ];
+  dependencies = [ geojson pysocks requests setuptools ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

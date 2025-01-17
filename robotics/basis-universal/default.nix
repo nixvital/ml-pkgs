@@ -1,12 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, }:
 
-let version = "1.16.4";
-    rev = "1.16.4";
+let
+  version = "1.16.4";
+  rev = "1.16.4";
 
 in stdenv.mkDerivation {
   pname = "basis-universal";

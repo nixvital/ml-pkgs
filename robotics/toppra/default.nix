@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python3Packages
-, setuptools
-, cython
-, numpy
-, scipy
-, matplotlib
-, pyyaml
-, oldest-supported-numpy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python3Packages, setuptools, cython
+, numpy, scipy, matplotlib, pyyaml, oldest-supported-numpy }:
 
 buildPythonPackage rec {
   pname = "toppra";
@@ -23,9 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-QakM8HizcPSdTMrMCnynGBkd9HF1H/r2+Xt4Y9RH9ck=";
   };
 
-  build-system = [
-    setuptools
-  ];
+  build-system = [ setuptools ];
 
   dependencies = [
     numpy
