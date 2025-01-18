@@ -17,6 +17,9 @@
         airportsdata = py-final.callPackage ./airportsdata { };
         outlines-core = py-final.callPackage ./outlines/outlines-core.nix { };
         outlines = py-final.callPackage ./outlines { };
+        e2b = py-final.callPackage ./e2b {};
+        e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
+        smolagents = py-final.callPackage ./smolagents {};
       })
     ];
 
@@ -33,7 +36,7 @@
       inherit (pkgs) ollama open-webui;
       inherit (pkgs.python3Packages)
         asyncer dspy opensearch-py textgrad pyowm airportsdata outlines-core
-        outlines;
+        outlines e2b e2b-code-interpreter smolagents;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -41,7 +44,7 @@
 
       packages = with pkgs; [
         (python3.withPackages
-          (p: with p; [ asyncer dspy ollama textgrad outlines ]))
+          (p: with p; [ asyncer dspy ollama textgrad outlines smolagents ]))
         ollama
         open-webui
       ];
