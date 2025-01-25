@@ -20,7 +20,7 @@
 }:
 
 let pname = "smolagents";
-    version = "1.4.1";
+    version = "1.5.0";
 
 in buildPythonPackage {
   inherit pname version;
@@ -30,7 +30,7 @@ in buildPythonPackage {
     owner = "huggingface";
     repo = "smolagents";
     rev = "v${version}";
-    hash = "sha256-MFlQ6UEUL6yspKbh/DJeNEsgMP8N0Bthvm1amGORuaI=";
+    hash = "sha256-E/vFRMSOCV6BtqImxmWB1h3PkDm1Ghs1iw29rSZuxyQ=";
   };
 
   build-system = [
