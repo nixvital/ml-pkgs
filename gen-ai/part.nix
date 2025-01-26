@@ -10,6 +10,8 @@
         dspy = py-final.callPackage ./dspy { };
 
         ollama = py-final.callPackage ./ollama/python.nix { };
+        openai = py-final.callPackage ./openai { };
+        litellm = py-final.callPackage ./litellm {};
 
         textgrad = py-final.callPackage ./textgrad { };
 
@@ -36,7 +38,7 @@
       inherit (pkgs) ollama open-webui;
       inherit (pkgs.python3Packages)
         asyncer dspy opensearch-py textgrad pyowm airportsdata outlines-core
-        outlines e2b e2b-code-interpreter smolagents;
+        litellm openai outlines e2b e2b-code-interpreter smolagents;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -44,7 +46,8 @@
 
       packages = with pkgs; [
         (python3.withPackages
-          (p: with p; [ asyncer dspy ollama textgrad outlines smolagents ]))
+          (p: with p; [ asyncer dspy ollama textgrad outlines smolagents
+                        litellm openai ]))
         ollama
         open-webui
       ];
