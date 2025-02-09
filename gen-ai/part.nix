@@ -31,11 +31,13 @@
 
     # TODO(breakds): Fix opensearch-py
     # open-webui = final.callPackage ./open-webui {};
+
+    goose-cli = final.callPackage ./goose-cli {};
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs) ollama open-webui;
+      inherit (pkgs) ollama open-webui goose-cli;
       inherit (pkgs.python3Packages)
         asyncer dspy opensearch-py textgrad pyowm airportsdata outlines-core
         litellm openai outlines e2b e2b-code-interpreter smolagents;
@@ -50,6 +52,7 @@
                         litellm openai ]))
         ollama
         open-webui
+        goose-cli
       ];
     };
   };
