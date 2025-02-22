@@ -29,19 +29,20 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "goose-cli";
-  version = "1.0.7";
+  version = "1.0.9";
 
   src = fetchFromGitHub {
     owner = "block";
     repo = "goose";
     rev = "v${version}";
-    hash = "sha256-/PCEszhRPxXSvvlNX8EVQTqLJwGF5N3ry+XuykiGV5U=";
+    hash = "sha256-f47QiN7CwhY6cErcWEZQnj85tuTAVcZWkVUFpZ2qECQ=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
 
   postPatch = ''
     # no Cargo.lock in src
+    rm Cargo.lock
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
