@@ -22,6 +22,14 @@
         e2b = py-final.callPackage ./e2b {};
         e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
         smolagents = py-final.callPackage ./smolagents {};
+
+        # vllm and friends, all ported from 25.05
+        compressed-tensors = py-final.callPackage ./compressed-tensors {};
+        depyf = py-final.callPackage ./depyf {};
+        mistral-common = py-final.callPackage ./mistral-common {};
+        partial-json-parser = py-final.callPackage ./partial-json-parser {};
+        xgrammar = py-final.callPackage ./xgrammar {};
+        vllm = py-final.callPackage ./vllm {};
       })
     ];
 
@@ -40,7 +48,7 @@
       inherit (pkgs) ollama open-webui goose-cli;
       inherit (pkgs.python3Packages)
         asyncer dspy opensearch-py textgrad pyowm airportsdata outlines-core
-        litellm openai outlines e2b e2b-code-interpreter smolagents;
+        litellm openai outlines e2b e2b-code-interpreter smolagents vllm;
     };
 
     devShells.gen-ai = pkgs.mkShell {
