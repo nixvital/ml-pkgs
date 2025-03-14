@@ -1,6 +1,6 @@
-From db156b7f3bb014c0455c9c3b6f6b3a9eaff7748b Mon Sep 17 00:00:00 2001
+From 5c9c6a9f7d99dbea665985aa9aaaf476afde0451 Mon Sep 17 00:00:00 2001
 From: Break Yang <breakds@gmail.com>
-Date: Tue, 14 Jan 2025 10:41:07 -0800
+Date: Fri, 14 Mar 2025 12:14:32 -0700
 Subject: [PATCH] Downgrade go
 
 ---
@@ -8,17 +8,17 @@ Subject: [PATCH] Downgrade go
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/go.mod b/go.mod
-index 66a4f77e..2d58b012 100644
+index cc578900..c061a6f6 100644
 --- a/go.mod
 +++ b/go.mod
 @@ -1,6 +1,6 @@
  module github.com/ollama/ollama
  
--go 1.23.4
-+go 1.23.3
+-go 1.24.0
++go 1.23.6
  
  require (
  	github.com/containerd/console v1.0.3
 -- 
-2.47.0
+2.47.2
 
