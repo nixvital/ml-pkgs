@@ -2,7 +2,7 @@
 
 {
   lib,
-  buildGo124Module,
+  buildGo123Module,
   fetchFromGitHub,
   fetchpatch,
   buildEnv,
@@ -48,7 +48,7 @@ let
   # don't forget to invalidate all hashes each update
   version = "0.6.0";
 
-  buildGoModule = buildGo124Module;
+  buildGoModule = buildGo123Module;
 
   src = fetchFromGitHub {
     owner = "ollama";
