@@ -10,7 +10,7 @@ NIX_TEMPLATE = r"""
 # nix run .#pyproj2nix {{ uri }}
 
 { lib
-, buildPythonpackage
+, buildPythonPackage
 , fetchFromGitHub
 {%- for arg in func_args %}
 , {{ arg -}}
@@ -71,6 +71,10 @@ NIX_PKG_NAME_MAPPING = {
     "IPython": "ipython",
     "opencv-python": "opencv4",
     "typing_extensions": "typing-extensions",
+    "hf_transfer": "hf-transfer",
+    "python-multipart": "multipart",
+    "huggingface_hub": "huggingface-hub",
+    "sentence_transformers": "sentence-transformers",
 }
 
 
