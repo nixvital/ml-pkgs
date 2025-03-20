@@ -6,6 +6,7 @@
       libraries = with final.python3Packages; [
         click
         jinja2
+        httpx
       ];
     } (builtins.readFile ./pyproj2nix/pyproj2nix.py);
   };
