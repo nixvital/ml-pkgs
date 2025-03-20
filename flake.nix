@@ -43,6 +43,7 @@
       };
 
       imports = [
+        ./internal/part.nix
         ./cc-batteries/part.nix
         ./math/part.nix
         ./torch-family/part.nix
