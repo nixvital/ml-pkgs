@@ -23,6 +23,7 @@ let
 
 in buildPythonPackage {
   inherit pname version;
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "{{ github_owner }}";
@@ -42,6 +43,16 @@ in buildPythonPackage {
     {{ dep -}}
     {% endfor %}
   ];
+
+  optional-dependencies = {
+    {%- for k, deps in optional_deps.items() %}
+    {{ k }} = [
+      {%- for dep in deps %}
+      {{ dep -}}
+      {% endfor %}
+    ];
+    {%- endfor %}
+  };
 
   pythonImportsCheck = [ "{{ pname }}" ];
 
@@ -136,6 +147,16 @@ def main(uri: str):
         nix_func_args.add(item)
 
     # ┌─────────────────────────────────────────┐
+    # │ Figure out the optional dependencies    │
+    # └─────────────────────────────────────────┘
+
+    optional_deps = {}
+    for k, deps in project.get("optional-dependencies", {}).items():
+        optional_deps[k] = list(set(map(to_nix_pkg_name, deps)))
+        for item in optional_deps[k]:
+            nix_func_args.add(item)
+
+    # ┌─────────────────────────────────────────┐
     # │ Identify the homepage                   │
     # └─────────────────────────────────────────┘
 
@@ -154,6 +175,7 @@ def main(uri: str):
         version=project.get("version", "<BLANK>"),
         description=project.get("description", ""),
         dependencies=dependencies,
+        optional_deps=optional_deps,
         build_system=build_system,
         func_args=list(nix_func_args),
         homepage=homepage,
