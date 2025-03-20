@@ -22,6 +22,9 @@
         e2b = py-final.callPackage ./e2b {};
         e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
         smolagents = py-final.callPackage ./smolagents {};
+
+        # sglang
+        sglang = py-final.callPackage ./sglang {};
       })
     ];
 
@@ -40,7 +43,7 @@
       inherit (pkgs) ollama open-webui goose-cli;
       inherit (pkgs.python3Packages)
         asyncer dspy opensearch-py textgrad pyowm airportsdata outlines-core
-        litellm openai outlines e2b e2b-code-interpreter smolagents;
+        litellm openai outlines e2b e2b-code-interpreter smolagents sglang;
     };
 
     devShells.gen-ai = pkgs.mkShell {
