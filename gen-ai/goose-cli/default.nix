@@ -9,8 +9,7 @@
   dbus,
   xorg,
   pkg-config,
-  # TODO(breakds): This setup hook is not present in 24.11. So we need to hack it.
-  # writableTmpDirAsHomeHook,
+  writableTmpDirAsHomeHook,
   nix-update-script,
   llvmPackages,
 }:
@@ -29,22 +28,17 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "goose-cli";
-  version = "1.0.10.post1";
+  version = "1.0.15";
 
   src = fetchFromGitHub {
     owner = "block";
     repo = "goose";
-    rev = "fe6cb72677971e33ca7bd8b3823df0658702363b";
-    hash = "sha256-nruXiZ8MXXuLfJRX4gpU9sFsfHWSaB2XrpVmT6FghWY=";
+    tag = "v${version}";
+    hash = "sha256-9uIpwJaRpYvsWW8ysFQWgogp/4hh5b72+5dNwYQKrM8=";
   };
 
-  cargoLock.lockFile = ./Cargo.lock;
-
-  postPatch = ''
-    # no Cargo.lock in src
-    rm Cargo.lock
-    ln -s ${./Cargo.lock} Cargo.lock
-  '';
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-5qMciAnX34fbiV5Oy/+V3o7S3NwubxyRRNFXWcQK+kE=";
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -58,11 +52,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${claude-tokenizer} tokenizer_files/Xenova--claude-tokenizer/tokenizer.json
   '';
 
-  precheck = ''
-    export HOME=$(mktemp -d)
-  '';
-
-  doCheck = false;
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -71,6 +61,9 @@ rustPlatform.buildRustPackage rec {
       # need dbus-daemon
       "--skip=config::base::tests::test_multiple_secrets"
       "--skip=config::base::tests::test_secret_management"
+      # Observer should be Some with both init project keys set
+      "--skip=tracing::langfuse_layer::tests::test_create_langfuse_observer"
+      "--skip=providers::gcpauth::tests::test_token_refresh_race_condition"
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # Lazy instance has previously been poisoned
@@ -78,14 +71,14 @@ rustPlatform.buildRustPackage rec {
       "--skip=jetbrains::tests::test_router_creation"
     ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Open-source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM";
     homepage = "https://github.com/block/goose";
     mainProgram = "goose";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nayeko ];
+    maintainers = with lib.maintainers; [ cloudripper ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }
