@@ -4,7 +4,7 @@
   flake.overlays.gen-ai = inputs.nixpkgs.lib.composeManyExtensions[
     # Patch with the customized hooks.
     inputs.self.overlays.internal-hooks
-    
+
     # The actual content start here.
     (final: prev: {
       pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
@@ -26,6 +26,9 @@
           outlines = py-final.callPackage ./outlines { };
           e2b = py-final.callPackage ./e2b {};
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
+
+          mcp = py-final.callPackage ./mcp {};
+          mcpadapt = py-final.callPackage ./mcpadapt {};
           smolagents = py-final.callPackage ./smolagents {};
         })
       ];
@@ -46,7 +49,8 @@
       inherit (pkgs) ollama open-webui goose-cli;
       inherit (pkgs.python3Packages)
         asyncer dspy opensearch-py textgrad pyowm airportsdata outlines-core
-        litellm openai outlines e2b e2b-code-interpreter smolagents;
+        litellm openai outlines e2b e2b-code-interpreter smolagents
+        mcp mcpadapt;
     };
 
     devShells.gen-ai = pkgs.mkShell {

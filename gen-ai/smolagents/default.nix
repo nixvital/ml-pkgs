@@ -1,81 +1,141 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonRelaxDepsHook
-, setuptools
-, transformers
-, requests
-, rich
-, pandas
-, jinja2
-, markdownify
-, gradio
-, duckduckgo-search
-, python-dotenv
-, e2b-code-interpreter
-, torchvision
-, torch
-, accelerate
-, openai
+# https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/python-modules/smolagents/default.nix
+
+{
+  lib,
+  stdenv,
+  accelerate,
+  buildPythonPackage,
+  docker,
+  duckduckgo-search,
+  fetchFromGitHub,
+  gradio,
+  huggingface-hub,
+  jinja2,
+  ipython,
+  litellm,
+  markdownify,
+  mcp,
+  mcpadapt,
+  openai,
+  pandas,
+  pillow,
+  pytest-datadir,
+  pytestCheckHook,
+  python-dotenv,
+  rank-bm25,
+  requests,
+  rich,
+  setuptools,
+  soundfile,
+  torch,
+  torchvision,
+  transformers,
+  websocket-client,
 }:
 
-let pname = "smolagents";
-    version = "1.5.0";
-
-in buildPythonPackage {
-  inherit pname version;
+buildPythonPackage rec {
+  pname = "smolagents";
+  version = "1.12.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "huggingface";
     repo = "smolagents";
-    rev = "v${version}";
-    hash = "sha256-E/vFRMSOCV6BtqImxmWB1h3PkDm1Ghs1iw29rSZuxyQ=";
+    tag = "v${version}";
+    hash = "sha256-OgivL7L6IOqIEDHO3JUrxluMZoq768DD3hhUpIh1fac=";
   };
 
-  build-system = [
-    setuptools
-  ];
+  build-system = [ setuptools ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
-
-  pythonRelaxDeps = [
-    "rich"
-    "markdownify"
-    "gradio"
-    "duckduckgo-search"
-    "e2b-code-interpreter"
-  ];
-  
   dependencies = [
-    transformers
-    requests
-    rich
-    pandas
+    duckduckgo-search
+    huggingface-hub
     jinja2
     markdownify
-    gradio
-    duckduckgo-search
+    pandas
+    pillow
     python-dotenv
-    e2b-code-interpreter
-
-    # Better to have
-    torchvision
-    torch
-    accelerate
-    openai
+    requests
+    rich
   ];
 
+  optional-dependencies = {
+    audio = [ soundfile ];
+    docker = [
+      docker
+      websocket-client
+    ];
+    # e2b = [
+    #   e2b-code-interpreter
+    #   python-dotenv
+    # ];
+    gradio = [ gradio ];
+    litellm = [ litellm ];
+    mcp = [
+      mcp
+      mcpadapt
+    ];
+    # mlx-lm = [ mlx-lm ];
+    openai = [ openai ];
+    # telemetry = [
+    #   arize-phoenix
+    #   openinference-instrumentation-smolagents
+    #   opentelemetry-exporter-otlp
+    #   opentelemetry-sdk
+    # ];
+    torch = [
+      torch
+      torchvision
+    ];
+    transformers = [
+      accelerate
+      transformers
+    ];
+    # vision = [
+    #   helium
+    #   selenium
+    # ];
+    # vllm = [
+    #   torch
+    #   vllm
+    # ];
+  };
+
+  nativeCheckInputs = [
+    ipython
+    pytest-datadir
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   pythonImportsCheck = [ "smolagents" ];
 
-  meta = with lib; {
-    homepage = "https://huggingface.co/docs/smolagents/index";
-    description= ''
-        a barebones library for agents. Agents write python code to
-        call tools and orchestrate other agents
-    '';
-    license = licenses.asl20;
-    maintainers = with maintainers; [ breakds ];
+  disabledTests =
+    [
+      # Missing dependencies
+      "test_ddgs_with_kwargs"
+      "test_e2b_executor_instantiation"
+      "test_flatten_messages_as_text_for_all_models"
+      "test_from_mcp"
+      "test_import_smolagents_without_extras"
+      "test_vision_web_browser_main"
+      # Tests require network access
+      "test_agent_type_output"
+      "test_can_import_sklearn_if_explicitly_authorized"
+      "test_transformers_message_no_tool"
+      "test_transformers_message_vl_no_tool"
+      "test_transformers_toolcalling_agent"
+      "test_visit_webpage"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # Missing dependencies
+      "test_get_mlx"
+    ];
+
+  meta = {
+    description = "Barebones library for agents";
+    homepage = "https://github.com/huggingface/smolagents";
+    changelog = "https://github.com/huggingface/smolagents/releases/tag/v${src.tag}";
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ fab ];
   };
 }
