@@ -33,12 +33,14 @@
         })
       ];
 
-      ollama = final.callPackage ./ollama { };
-      ollama-cuda = final.callPackage ./ollama { acceleration = "cuda"; };
-      ollama-rocm = final.callPackage ./ollama { acceleration = "rocm"; };
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (final) system config;
+      };
 
-      # TODO(breakds): Fix opensearch-py
-      # open-webui = final.callPackage ./open-webui {};
+      ollama = final.unstable.ollama;
+      ollama-cuda = final.unstable.ollama-cuda;
+      ollama-rocm = final.unstable.ollama-rocm;
+      open-webui = final.unstable.open-webui;
 
       goose-cli = final.callPackage ./goose-cli {};
     })
