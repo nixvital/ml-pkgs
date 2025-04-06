@@ -35,9 +35,9 @@
             litellm
             openai
             llguidance
+	    torch
           ]))
         ollama-cuda
-        open-webui
         goose-cli
       ];
     };
