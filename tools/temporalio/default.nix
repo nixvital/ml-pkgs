@@ -21,21 +21,21 @@
 let pname = "temporalio";
     version = "1.10.0";
 
-    src = fetchFromGitHub {
-      owner = "temporalio";
-      repo = "sdk-python";
-      tag = version;
-      hash = "sha256-0y89P3+6n1Bi70uGQPCazPMiCexzFSFNu/yzwxAXNkI=";
-      fetchSubmodules = true;
-    };
-
-    cargoRoot = "temporalio/bridge";
-
-in buildPythonPackage {
+in buildPythonPackage rec {
   inherit pname version;
   pyproject = true;
 
   disabled = pythonOlder "3.8";
+
+  src = fetchFromGitHub {
+    owner = "temporalio";
+    repo = "sdk-python";
+    tag = version;
+    hash = "sha256-0y89P3+6n1Bi70uGQPCazPMiCexzFSFNu/yzwxAXNkI=";
+    fetchSubmodules = true;
+  };
+
+  cargoRoot = "temporalio/bridge";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
