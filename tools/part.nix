@@ -13,11 +13,14 @@
         temporalio = py-final.callPackage ./temporalio {};
       })
     ];
+
+    temporal-ui = final.callPackage ./temporal-ui/ui.nix { };
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
+      inherit (pkgs) temporal-ui;
     };
 
     devShells.tools = pkgs.mkShell {
