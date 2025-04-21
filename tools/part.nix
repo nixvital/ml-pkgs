@@ -15,12 +15,13 @@
     ];
 
     temporal-ui = final.callPackage ./temporal-ui/ui.nix { };
+    temporal-ui-server = final.callPackage ./temporal-ui/ui-server.nix { };
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
-      inherit (pkgs) temporal-ui;
+      inherit (pkgs) temporal-ui-server;
     };
 
     devShells.tools = pkgs.mkShell {
