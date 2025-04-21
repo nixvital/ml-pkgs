@@ -5,6 +5,7 @@
 
     unstable-overlay = ufinal: uprev: {
       temporal-ui = ufinal.callPackage ./temporal-ui/ui.nix { };
+      temporal-ui-server = ufinal.callPackage ./temporal-ui/ui-server.nix { };      
     };
     
     unstable = import inputs.nixpkgs-unstable {
@@ -12,7 +13,7 @@
       overlays = [ unstable-overlay ];
     };
   in {
-    inherit (unstable) temporal temporal-cli temporal-ui;
+    inherit (unstable) temporal temporal-cli temporal-ui temporal-ui-server;
     
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (py-final: py-prev: {
@@ -30,7 +31,7 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
-      inherit (pkgs) temporal temporal-cli temporal-ui;
+      inherit (pkgs) temporal temporal-cli temporal-ui-server;
     };
 
     devShells.tools = pkgs.mkShell {
