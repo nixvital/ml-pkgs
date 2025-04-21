@@ -1,10 +1,18 @@
 { inputs, ... }:
 
 {
-  flake.overlays.tools = final: prev: let unstable = import inputs.nixpkgs-unstable {
-    inherit (final) system config;
-  }; in {
-    inherit (unstable) temporal temporal-cli;
+  flake.overlays.tools = final: prev: let
+
+    unstable-overlay = ufinal: uprev: {
+      temporal-ui = ufinal.callPackage ./temporal-ui/ui.nix { };
+    };
+    
+    unstable = import inputs.nixpkgs-unstable {
+      inherit (final) system config;
+      overlays = [ unstable-overlay ];
+    };
+  in {
+    inherit (unstable) temporal temporal-cli temporal-ui;
     
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (py-final: py-prev: {
@@ -22,7 +30,7 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
-      inherit (pkgs) temporal temporal-cli;
+      inherit (pkgs) temporal temporal-cli temporal-ui;
     };
 
     devShells.tools = pkgs.mkShell {
