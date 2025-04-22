@@ -4,7 +4,6 @@
   flake.overlays.tools = final: prev: let
 
     unstable-overlay = ufinal: uprev: {
-      temporal-ui = ufinal.callPackage ./temporal-ui/ui.nix { };
       temporal-ui-server = ufinal.callPackage ./temporal-ui/ui-server.nix { };      
     };
     
@@ -13,7 +12,7 @@
       overlays = [ unstable-overlay ];
     };
   in {
-    inherit (unstable) temporal temporal-cli temporal-ui temporal-ui-server;
+    inherit (unstable) temporal temporal-cli temporal-ui-server;
     
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (py-final: py-prev: {
