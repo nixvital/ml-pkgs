@@ -14,7 +14,7 @@
       })
     ];
 
-    temporal-ui-server = final.callPackage ./temporal-ui/ui-server.nix { };
+    temporal-ui-server = final.callPackage ./temporal-ui-server { };
   };
 
   perSystem = { pkgs, lib, ... }: {
