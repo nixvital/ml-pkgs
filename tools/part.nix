@@ -14,7 +14,6 @@
       })
     ];
 
-    temporal-ui = final.callPackage ./temporal-ui/ui.nix { };
     temporal-ui-server = final.callPackage ./temporal-ui/ui-server.nix { };
   };
 
