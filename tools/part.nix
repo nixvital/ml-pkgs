@@ -12,7 +12,7 @@
       overlays = [ unstable-overlay ];
     };
   in {
-    inherit (unstable) temporal temporal-cli temporal-ui-server;
+    inherit (unstable) temporal temporal-cli temporal-ui-server playwright-driver;
 
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (py-final: py-prev: {
