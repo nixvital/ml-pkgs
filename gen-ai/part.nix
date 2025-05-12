@@ -29,7 +29,7 @@
       packages = with pkgs; [
         (python3.withPackages
           (p: with p; [
-            dspy
+            # dspy
             ollama
             smolagents
             litellm
