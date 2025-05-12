@@ -13,13 +13,14 @@
     magnum = final.callPackage ./magnum { };
     magnum-plugins = final.callPackage ./magnum-plugins { };
     magnum-integration = final.callPackage ./magnum-integration { };
+    readerwriterqueue = final.callPackage ./readerwriterqueue { };
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs)
         aria-csv-parser cpp-sort scnlib unordered-dense vectorclass eve libcoro
-        corrade magnum magnum-plugins magnum-integration;
+        corrade magnum magnum-plugins magnum-integration readerwriterqueue;
     };
   };
 }
