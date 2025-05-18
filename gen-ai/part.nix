@@ -43,6 +43,12 @@
         ollama-cuda
         goose-cli
       ];
+
+      shellHook = let
+        inherit (pkgs.python3Packages.torch) cudaPackages;
+      in ''
+         export CUDA_HOME=${cudaPackages.cudatoolkit}
+      '';
     };
   };
 }
