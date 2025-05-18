@@ -20,13 +20,13 @@ let
 
   cudaMajorMinorVersionString = lib.replaceStrings [ "." ] [ "" ] cudaMajorMinorVersion;
 
-  # cuda-native-redist = symlinkJoin {
-  #   name = "cuda-native-redist-${cudaMajorMinorVersion}";
-  #   paths = with cudaPackages; [
-  #     cuda_nvcc
-  #     cudatoolkit
-  #   ];
-  # };
+  src_cutlass = fetchFromGitHub {
+    owner = "NVIDIA";
+    repo = "cutlass";
+    # Using the revision obtained in submodule inside flashinfer's `3rdparty`.
+    rev = "df8a550d3917b0e97f416b2ed8c2d786f7f686a3";
+    hash = "sha256-d4czDoEv0Focf1bJHOVGX4BDS/h5O7RPoM/RrujhgFQ=";
+  };
 
 in buildPythonPackage {
   inherit pname version;
@@ -44,18 +44,15 @@ in buildPythonPackage {
     cmake
     ninja
     cudaPackages.cudatoolkit
-    cudaPackages.cutlass
   ];
   dontUseCmakeConfigure = true;
 
-  src_cutlass = fetchFromGitHub {
-    owner = "NVIDIA";
-    repo = "cutlass";
-    rev = "afa1772203677c5118fcd82537a9c8fefbcc7008";
-    hash = "sha256-oIzlbKRdOh6gp6nRZ8udLSqleBFoFtgM7liCBlHZLOk=";
-  };  
+  postPatch = ''
+    rmdir 3rdparty/cutlass
+    ln -s ${src_cutlass} 3rdparty/cutlass
+  '';
 
-    # FlashInfer offers two installation modes:
+  # FlashInfer offers two installation modes:
   #
   # JIT mode: CUDA kernels are compiled at runtime using PyTorch’s JIT, with
   # compiled kernels cached for future use. JIT mode allows fast installation,
