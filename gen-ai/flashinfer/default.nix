@@ -44,8 +44,16 @@ in buildPythonPackage {
     cmake
     ninja
     cudaPackages.cudatoolkit
+    cudaPackages.cutlass
   ];
   dontUseCmakeConfigure = true;
+
+  src_cutlass = fetchFromGitHub {
+    owner = "NVIDIA";
+    repo = "cutlass";
+    rev = "afa1772203677c5118fcd82537a9c8fefbcc7008";
+    hash = "sha256-oIzlbKRdOh6gp6nRZ8udLSqleBFoFtgM7liCBlHZLOk=";
+  };  
 
     # FlashInfer offers two installation modes:
   #
