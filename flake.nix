@@ -28,6 +28,10 @@
             allowUnfree = true;
             cudaSupport = true;
             cudaForwardCompat = true;
+            # NOTE: This is mainly to rule out `sm_90a` from showing up in
+            # `torch.cuda.get_arch_list`, which will trigger
+            # https://github.com/pytorch/pytorch/issues/144037
+            cudaCapabilities = [ "7.5" "8.6" "8.9" ];
           };
           overlays = [
             self.overlays.cc-batteries
