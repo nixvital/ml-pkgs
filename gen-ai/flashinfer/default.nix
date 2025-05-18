@@ -1,3 +1,9 @@
+# NOTE: At runtime, FlashInfer will fall back to PyTorch’s JIT compilation if a
+# requested kernel wasn’t pre-compiled in AOT mode, and JIT compilation always
+# requires the CUDA toolkit (via nvcc) to be available.
+#
+# This means that if you plan to use flashinfer, you will need to set the
+# environment varaible `CUDA_HOME` to `cudatoolkit`.
 { lib,
   buildPythonPackage,
   symlinkJoin,
