@@ -1,5 +1,6 @@
 { lib,
   buildPythonPackage,
+  symlinkJoin,
   fetchFromGitHub,
   setuptools,
   cmake,
@@ -8,9 +9,24 @@
   torch
 }:
 
+assert torch.cudaSupport;
+
 let
   pname = "flashinfer";
   version = "0.2.5";
+
+  inherit (torch) cudaPackages;
+  inherit (cudaPackages) cudaMajorMinorVersion;
+
+  cudaMajorMinorVersionString = lib.replaceStrings [ "." ] [ "" ] cudaMajorMinorVersion;
+
+  # cuda-native-redist = symlinkJoin {
+  #   name = "cuda-native-redist-${cudaMajorMinorVersion}";
+  #   paths = with cudaPackages; [
+  #     cuda_nvcc
+  #     cudatoolkit
+  #   ];
+  # };
 
 in buildPythonPackage {
   inherit pname version;
@@ -27,10 +43,11 @@ in buildPythonPackage {
   nativeBuildInputs = [
     cmake
     ninja
+    cudaPackages.cudatoolkit
   ];
   dontUseCmakeConfigure = true;
 
-  # FlashInfer offers two installation modes:
+    # FlashInfer offers two installation modes:
   #
   # JIT mode: CUDA kernels are compiled at runtime using PyTorch’s JIT, with
   # compiled kernels cached for future use. JIT mode allows fast installation,
@@ -43,9 +60,13 @@ in buildPythonPackage {
   # recommended for production environments.
   #
   # Here we use opt for the AOT version.
-  # preConfigure = ''
-  #   export FLASHINFER_ENABLE_AOT=1
-  # '';
+  preConfigure = ''
+    export FLASHINFER_ENABLE_AOT=1
+    export TORCH_NVCC_FLAGS="--maxrregcount=64"
+  '';
+
+  CUDA_HOME = "${cuda-native-redist}";
+  TORCH_CUDA_ARCH_LIST = "${lib.concatStringsSep ";" torch.cudaCapabilities}";
 
   dependencies = [
     numpy

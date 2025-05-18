@@ -22,7 +22,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter flashinfer;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter flashinfer torch;
     };
 
     devShells.gen-ai = pkgs.mkShell {
