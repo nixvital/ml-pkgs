@@ -65,7 +65,7 @@ in buildPythonPackage {
     export TORCH_NVCC_FLAGS="--maxrregcount=64"
   '';
 
-  CUDA_HOME = "${cuda-native-redist}";
+  CUDA_HOME = "${cudaPackages.cudatoolkit}";
   TORCH_CUDA_ARCH_LIST = "${lib.concatStringsSep ";" torch.cudaCapabilities}";
 
   dependencies = [
