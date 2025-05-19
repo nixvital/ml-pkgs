@@ -134,7 +134,8 @@ def main(uri: str):
     build_backend = data.get("build-system").get("build-backend")
     build_system = {
         "setuptools.build_meta": ["setuptools"],
-        "pdm.backend": ["pdm-backend"]
+        "pdm.backend": ["pdm-backend"],
+        "scikit_build_core.build": ["scikit-build-core"],
     }[build_backend]
 
     for item in build_system:
