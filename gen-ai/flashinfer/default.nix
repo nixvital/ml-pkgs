@@ -4,27 +4,22 @@
 #
 # This means that if you plan to use flashinfer, you will need to set the
 # environment varaible `CUDA_HOME` to `cudatoolkit`.
-{ lib,
+{
+  lib,
+  config,
   buildPythonPackage,
-  symlinkJoin,
   fetchFromGitHub,
   setuptools,
+  cudaPackages,
   cmake,
   ninja,
   numpy,
-  torch
+  torch,
 }:
-
-assert torch.cudaSupport;
 
 let
   pname = "flashinfer";
   version = "0.2.5";
-
-  inherit (torch) cudaPackages;
-  inherit (cudaPackages) cudaMajorMinorVersion;
-
-  cudaMajorMinorVersionString = lib.replaceStrings [ "." ] [ "" ] cudaMajorMinorVersion;
 
   src_cutlass = fetchFromGitHub {
     owner = "NVIDIA";
@@ -34,13 +29,14 @@ let
     hash = "sha256-d4czDoEv0Focf1bJHOVGX4BDS/h5O7RPoM/RrujhgFQ=";
   };
 
-in buildPythonPackage {
+in
+buildPythonPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
     owner = "flashinfer-ai";
     repo = "flashinfer";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-YrYfatkI9DQkFEEGiF8CK/bTafaNga4Ufyt+882C0bQ=";
   };
 
@@ -49,9 +45,16 @@ in buildPythonPackage {
   nativeBuildInputs = [
     cmake
     ninja
-    cudaPackages.cudatoolkit
+    (lib.getBin cudaPackages.cuda_nvcc)
   ];
   dontUseCmakeConfigure = true;
+
+  buildInputs = [
+    cudaPackages.cuda_cudart
+    cudaPackages.libcublas
+    cudaPackages.cuda_cccl
+    cudaPackages.libcurand
+  ];
 
   postPatch = ''
     rmdir 3rdparty/cutlass
@@ -64,7 +67,7 @@ in buildPythonPackage {
   # compiled kernels cached for future use. JIT mode allows fast installation,
   # as no CUDA kernels are pre-compiled, making it ideal for development and
   # testing. JIT version is also available as a sdist in PyPI.
-  # 
+  #
   # AOT mode: Core CUDA kernels are pre-compiled and included in the library,
   # reducing runtime compilation overhead. If a required kernel is not
   # pre-compiled, it will be compiled at runtime using JIT. AOT mode is
@@ -76,8 +79,7 @@ in buildPythonPackage {
     export TORCH_NVCC_FLAGS="--maxrregcount=64"
   '';
 
-  CUDA_HOME = "${cudaPackages.cudatoolkit}";
-  TORCH_CUDA_ARCH_LIST = "${lib.concatStringsSep ";" torch.cudaCapabilities}";
+  TORCH_CUDA_ARCH_LIST = lib.concatStringsSep ";" torch.cudaCapabilities;
 
   dependencies = [
     numpy
@@ -85,8 +87,10 @@ in buildPythonPackage {
   ];
 
   meta = with lib; {
+    broken = !torch.cudaSupport || !config.cudaSupport;
     homepage = "https://flashinfer.ai/";
-    description = '';
+    description = "Library and kernel generator for Large Language Models";
+    longDescription = ''
       FlashInfer is a library and kernel generator for Large Language Models
       that provides high-performance implementation of LLM GPU kernels such as
       FlashAttention, PageAttention and LoRA. FlashInfer focus on LLM serving
