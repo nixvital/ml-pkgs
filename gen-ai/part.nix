@@ -8,9 +8,6 @@
         (py-final: py-prev: {
           textgrad = py-final.callPackage ./textgrad { };
 
-          magicattr = py-final.callPackage ./dspy/magicattr.nix { };          
-          dspy = py-final.callPackage ./dspy { };
-
           e2b = py-final.callPackage ./e2b {};
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
 
@@ -31,7 +28,6 @@
       packages = with pkgs; [
         (python3.withPackages
           (p: with p; [
-            # dspy
             ollama
             smolagents
             litellm
