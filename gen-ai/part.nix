@@ -13,8 +13,6 @@
 
           e2b = py-final.callPackage ./e2b {};
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
-
-          flashinfer = py-final.callPackage ./flashinfer {};
         })
       ];
     })
@@ -22,7 +20,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter flashinfer torch;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter torch;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -38,7 +36,6 @@
             openai
             llguidance
 	    torch
-            flashinfer
           ]))
         ollama-cuda
         goose-cli
