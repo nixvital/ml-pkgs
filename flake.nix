@@ -57,5 +57,10 @@
         ./robotics/part.nix
         ./gen-ai/part.nix
       ];
+
+      flake.hydraJobs = {
+        gen-ai = inputs.self.devShells."x86_64-linux".gen-ai;
+        tools = inputs.self.devShells."x86_64-linux".tools;
+      };
     };
 }
