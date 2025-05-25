@@ -17,8 +17,6 @@
     temporal-ui-server = final.callPackage ./temporal-ui-server { };
   };
 
-  flake.hydraJobs.tools = inputs.self.devShells."x86_64-linux".tools;
-
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
