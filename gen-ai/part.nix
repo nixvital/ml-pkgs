@@ -18,6 +18,8 @@
     })
   ];
 
+  flake.hydraJobs.gen-ai = inputs.self.devShells."x86_64-linux".gen-ai;
+
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter torch;
