@@ -13,6 +13,8 @@
 
           e2b = py-final.callPackage ./e2b {};
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
+
+          sgl-kernel = py-final.callPackage ./sglang/sgl-kernel.nix {};
         })
       ];
     })
@@ -20,7 +22,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter torch;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter;
     };
 
     devShells.gen-ai = pkgs.mkShell {
