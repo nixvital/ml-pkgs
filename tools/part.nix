@@ -10,7 +10,6 @@
         swanboard = py-final.callPackage ./swanlab/swanboard.nix { };
         swanlab = py-final.callPackage ./swanlab { };
         tyro = py-final.callPackage ./tyro { };
-        temporalio = py-final.callPackage ./temporalio {};
       })
     ];
 
@@ -19,7 +18,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
+      inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro;
       inherit (pkgs) temporal-ui-server;
     };
 
@@ -28,7 +27,7 @@
 
       packages = [
         (pkgs.python3.withPackages
-          (p: with p; [ ddddocr cos-python-sdk-v5 swanlab tyro temporalio ]))
+          (p: with p; [ ddddocr cos-python-sdk-v5 swanlab tyro ]))
       ];
     };
   };
