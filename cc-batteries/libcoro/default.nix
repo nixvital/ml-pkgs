@@ -2,7 +2,7 @@
 
 let
   pname = "libcoro";
-  version = "0.14.1";
+  version = "master-pr#327";
 
 in stdenv.mkDerivation {
   inherit pname version;
@@ -10,8 +10,8 @@ in stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "jbaldwin";
     repo = "libcoro";
-    rev = "v${version}";
-    hash = "sha256-Tlul/1B1uIHJtN4JxP2uLaRnb4O1eBQ4QkCVdaRC/oM=";
+    rev = "8648acfc6df1c2c93580aa720b523fad5df6a79f";
+    hash = "sha256-ThBZ0Zu3/0jYquvPm8EHtqelJk4ap1tjqJEJW0EtRak=";
   };
 
   nativeBuildInputs = [ cmake ];
