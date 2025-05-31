@@ -40,6 +40,10 @@ in buildPythonPackage {
   
   dontUseCmakeConfigure = true;
 
+  cmakeFlags = [
+    (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_REPO-CUTLASS" "${bundle.cutlass}")
+  ];
+
   pythonImportsCheck = [ "sgl_kernel" ];
 
   meta = with lib; {

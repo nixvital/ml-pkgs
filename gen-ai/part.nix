@@ -22,7 +22,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter sgl-kernel;
     };
 
     devShells.gen-ai = pkgs.mkShell {
