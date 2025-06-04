@@ -17,8 +17,11 @@ in buildPythonPackage {
   inherit pname version;
   pyproject = true;
 
-  src = bundle.sglang;
-  sourceRoot = "${bundle.sglang.name}/${pname}";
+  # src = bundle.sglang;
+  # sourceRoot = "${bundle.sglang.name}/${pname}";
+  src = /home/breakds/projects/other/sglang;
+  sourceRoot = "sglang/sgl-kernel";
+
 
   build-system = [
     scikit-build-core
@@ -32,16 +35,24 @@ in buildPythonPackage {
 
   buildInputs = [
     cudaPackages.cuda_cudart
+    cudaPackages.cudatoolkit
   ];
 
   dependencies = [
     torch
   ];
-  
+
   dontUseCmakeConfigure = true;
 
-  cmakeFlags = [
-    (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_REPO-CUTLASS" "${bundle.cutlass}")
+  # cmakeFlags = [
+  #   (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_REPO-CUTLASS" "${bundle.cutlass}")
+  # ];
+
+  pypaBuildFlags = [
+    "--config-setting=cmake.define.FETCHCONTENT_SOURCE_DIR_REPO-CUTLASS=${bundle.cutlass}"
+    "--config-setting=cmake.define.FETCHCONTENT_SOURCE_DIR_REPO-DEEPGEMM=${bundle.deepgemm}"
+    "--config-setting=cmake.define.FETCHCONTENT_SOURCE_DIR_REPO-FLASHINFER=${bundle.flashinfer}"
+    "--config-setting=cmake.define.FETCHCONTENT_SOURCE_DIR_REPO-FLASH-ATTENTION=${bundle.flash-attention}"
   ];
 
   pythonImportsCheck = [ "sgl_kernel" ];
@@ -53,4 +64,3 @@ in buildPythonPackage {
     maintainers = with maintainers; [ breakds ];
   };
 }
-
