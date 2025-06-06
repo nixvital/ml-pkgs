@@ -23,6 +23,7 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter;
+      inherit (pkgs) vllm;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -36,11 +37,11 @@
             smolagents
             litellm
             openai
-            llguidance
 	    torch
           ]))
         ollama-cuda
         goose-cli
+        vllm
       ];
 
       shellHook = let
