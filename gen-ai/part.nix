@@ -33,7 +33,6 @@
           (p: with p; [
             # dspy
             ollama
-            smolagents
             litellm
             openai
             llguidance
