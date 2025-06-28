@@ -23,13 +23,14 @@
         swanlab = py-final.callPackage ./swanlab { };
         tyro = py-final.callPackage ./tyro { };
         temporalio = py-final.callPackage ./temporalio {};
+        dowhen = py-final.callPackage ./dowhen { };
       })
     ];
   };
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio;
+      inherit (pkgs.python3Packages) ddddocr cos-python-sdk-v5 tyro temporalio dowhen;
       inherit (pkgs) temporal temporal-cli temporal-ui-server;
     };
 
