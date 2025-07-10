@@ -16,7 +16,19 @@
 
           sgl-kernel = py-final.callPackage ./sglang/sgl-kernel.nix {};
 
-          llama-index = py-final.callPackage ./llama-index {};
+          llama-cloud-services = py-prev.llama-cloud-services.overrideAttrs (oldAttrs: {
+            postPatch = ''
+              # Remove the entire [tool.poetry.scripts] section
+              sed -i '/^\[tool\.poetry\.scripts\]$/,/^\[.*\]$/{/^\[tool\.poetry\.scripts\]$/d; /^\[.*\]$/!d;}' pyproject.toml
+            '';
+          });
+          llama-index = py-prev.llama-index.overrideAttrs (oldAttrs: {
+            postPatch = ''
+              # Remove the entire [project.scripts] because it only contains
+              # `llama-index-cli`, which will cause conflict with the actual `llama-index-cli` package.
+              sed -i '/^\[project\.scripts\]$/,/^\[.*\]$/{/^\[project\.scripts\]$/d; /^\[.*\]$/!d;}' pyproject.toml
+            '';
+          });
         })
       ];
     })
