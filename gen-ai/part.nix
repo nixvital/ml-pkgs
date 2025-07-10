@@ -15,6 +15,8 @@
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
 
           sgl-kernel = py-final.callPackage ./sglang/sgl-kernel.nix {};
+
+          llama-index = py-final.callPackage ./llama-index {};
         })
       ];
     })
@@ -22,7 +24,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -31,12 +33,12 @@
       packages = with pkgs; [
         (python3.withPackages
           (p: with p; [
-            # dspy
             ollama
             litellm
             openai
             llguidance
 	    torch
+            llama-index
           ]))
         ollama-cuda
         goose-cli
