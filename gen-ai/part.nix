@@ -53,7 +53,6 @@
             llama-index
           ]))
         ollama-cuda
-        goose-cli
       ];
 
       shellHook = let
