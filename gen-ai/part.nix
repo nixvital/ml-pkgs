@@ -29,6 +29,8 @@
               sed -i '/^\[project\.scripts\]$/,/^\[.*\]$/{/^\[project\.scripts\]$/d; /^\[.*\]$/!d;}' pyproject.toml
             '';
           });
+
+          agno = py-final.callPackage ./agno {};
         })
       ];
     })
@@ -36,7 +38,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -51,6 +53,7 @@
             llguidance
 	    torch
             llama-index
+            agno
           ]))
         ollama-cuda
       ];
