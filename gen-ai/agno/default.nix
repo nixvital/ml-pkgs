@@ -15,6 +15,14 @@
   tomli,
   typer,
   typing-extensions,
+  # optional
+  tantivy,
+  pylance,
+  lancedb,
+  qdrant-client,
+  unstructured,
+  markdown,
+  aiofiles,
 }:
 
 buildPythonPackage rec {
@@ -47,6 +55,12 @@ buildPythonPackage rec {
     typer
     typing-extensions
   ];
+
+  optional-dependencies = {
+    lancedb = [ lancedb tantivy pylance ];
+    qdrant = [ qdrant-client ];
+    markdown = [ unstructured markdown aiofiles ];
+  };
 
   pythonImportsCheck = [ "agno" ];
 
