@@ -31,6 +31,7 @@
           });
 
           agno = py-final.callPackage ./agno {};
+          lancedb = py-final.callPackage ./lancedb {};
         })
       ];
     })
@@ -38,7 +39,8 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
+        lancedb;
     };
 
     devShells.gen-ai = pkgs.mkShell {
