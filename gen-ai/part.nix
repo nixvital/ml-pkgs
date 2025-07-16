@@ -8,7 +8,7 @@
         (py-final: py-prev: {
           textgrad = py-final.callPackage ./textgrad { };
 
-          magicattr = py-final.callPackage ./dspy/magicattr.nix { };          
+          magicattr = py-final.callPackage ./dspy/magicattr.nix { };
           dspy = py-final.callPackage ./dspy { };
 
           e2b = py-final.callPackage ./e2b {};
@@ -35,6 +35,7 @@
 
           livekit-rtc = py-final.callPackage ./livekit/rtc.nix {};
           livekit-agents = py-final.callPackage ./livekit/agents.nix {};
+          livekit-plugins-speechmatics = py-final.callPackage ./livekit/plugins/speechmatics.nix {};
         })
       ];
     })
@@ -43,7 +44,7 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
-          tantivy livekit-rtc livekit-agents;
+          tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -62,6 +63,7 @@
             tantivy
             livekit-rtc
             livekit-agents
+            livekit-plugins-speechmatics
           ]))
         ollama-cuda
       ];
