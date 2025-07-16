@@ -35,7 +35,7 @@ let
 
   livekit-ffi-hash = {
     "x86_64-linux" = "sha256-QrnIkKpiBnERnrXv7sKi/W9iW1Co7KRxwiJIctTRQKE=";
-    "aarch64-darwin" = "1nh1z7mcyajk87z3gmdbdgrp8d1skd4q16b9dkykha3b7m0vib5x";
+    "aarch64-darwin" = "sha256-vay4QT1rKDj9bGmZgEmbOjR082ur1Tf+QVMqz+r5Ado=";
   }."${system}";
   
   livekit-ffi = fetchurl {
