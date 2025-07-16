@@ -32,6 +32,8 @@
 
           agno = py-final.callPackage ./agno {};
           tantivy = py-final.callPackage ./tantivy {};
+
+          livekit-rtc = py-final.callPackage ./livekit/rtc.nix {};
         })
       ];
     })
@@ -40,7 +42,7 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
-          tantivy;
+          tantivy livekit-rtc;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -57,6 +59,7 @@
             llama-index
             agno
             tantivy
+            livekit-rtc
           ]))
         ollama-cuda
       ];
