@@ -57,7 +57,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    lancedb = [ lancedb tantivy pylance ];
+    lancedb = [ lancedb tantivy ];
+    pylance = [ pylance ];  # Useful for lancedb "hybrid" search
     qdrant = [ qdrant-client ];
     markdown = [ unstructured markdown aiofiles ];
   };
