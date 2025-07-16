@@ -3,11 +3,12 @@
 # packages will be the responsibility of this package (instead of
 # nix), which kind of undesirable.
 
-{ lib, buildPythonPackage, fetchFromGitHub, julia }:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, julia }:
 
 buildPythonPackage rec {
   pname = "julia";
   version = "0.6.2";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "JuliaPy";
@@ -21,6 +22,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   pythonImportsCheck = [ "julia" ];
+
+  build-system = [ setuptools ];
 
   meta = with lib; {
     homepage = "https://github.com/JuliaPy/pyjulia";

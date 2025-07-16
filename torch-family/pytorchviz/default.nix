@@ -1,8 +1,9 @@
-{ lib, fetchFromGitHub, buildPythonPackage, graphviz, distutils, torch }:
+{ lib, fetchFromGitHub, buildPythonPackage, setuptools, graphviz, distutils, torch }:
 
 buildPythonPackage rec {
   pname = "pytorchviz";
   version = "2021.06.15";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "szagoruyko";
@@ -13,7 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ graphviz distutils torch ];
 
-  checkInputs = [ ];
+  build-system = [ setuptools ];
 
   pythonImportsCheck = [ "torchviz" ];
 

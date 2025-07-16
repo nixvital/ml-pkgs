@@ -1,9 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, cffi, imageio, imageio-ffmpeg
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, numpy, cffi, imageio, imageio-ffmpeg
 , moderngl, glfw, glcontext }:
 
 buildPythonPackage rec {
   pname = "gym3";
   version = "0.3.3";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "openai";
@@ -13,6 +14,8 @@ buildPythonPackage rec {
   };
 
   patches = [ ./0001-Allow-newer-version-of-glfw-and-imageio-ffmpeg.patch ];
+
+  build-system = [ setuptools ];
 
   propagatedBuildInputs =
     [ numpy cffi imageio imageio-ffmpeg moderngl glfw glcontext ];
