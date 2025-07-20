@@ -38,6 +38,7 @@
           livekit-plugins-speechmatics = py-final.callPackage ./livekit/plugins/speechmatics.nix {};
           livekit-plugins-openai = py-final.callPackage ./livekit/plugins/openai.nix {};
           livekit-plugins-deepgram = py-final.callPackage ./livekit/plugins/deepgram.nix {};
+          livekit-plugins-elevenlabs = py-final.callPackage ./livekit/plugins/elevenlabs.nix {};
         })
       ];
     })
@@ -46,7 +47,8 @@
   perSystem = { pkgs, lib, ... }: {
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
-          tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram;
+          tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
+          livekit-plugins-elevenlabs;
     };
 
     devShells.gen-ai = pkgs.mkShell {
@@ -68,6 +70,7 @@
             livekit-plugins-speechmatics
             livekit-plugins-openai
             livekit-plugins-deepgram
+            livekit-plugins-elevenlabs
           ]))
         ollama-cuda
       ];
