@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-6FtpUxzRwnaseQfsQcLKowm7McF8NGntwf12+qT6yko=";
   };
 
-  pypaBuildFlags = [ "livekit-plugins/livekit-plugins-silero" ];
+  pypaBuildFlags = [ "livekit-plugins/livekit-plugins-turn-detector" ];
 
   build-system = [ hatchling ];
 
