@@ -7,7 +7,7 @@
 }:
 
 buildPythonPackage rec {
-  pname = "livekit-agents";
+  pname = "livekit-agents-plugins-elevenlabs";
   version = "1.1.7";
   pyproject = true;
 

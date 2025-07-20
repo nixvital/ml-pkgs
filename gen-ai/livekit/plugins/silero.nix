@@ -4,11 +4,12 @@
   buildPythonPackage,
   hatchling,
   livekit-agents,
-  openai
+  onnxruntime,
+  numpy,
 }:
 
 buildPythonPackage rec {
-  pname = "livekit-agents-plugins-openai";
+  pname = "livekit-agents-plugins-silero";
   version = "1.1.7";
   pyproject = true;
 
@@ -19,18 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-6FtpUxzRwnaseQfsQcLKowm7McF8NGntwf12+qT6yko=";
   };
 
-  pypaBuildFlags = [ "livekit-plugins/livekit-plugins-openai" ];
+  pypaBuildFlags = [ "livekit-plugins/livekit-plugins-silero" ];
 
   build-system = [ hatchling ];
 
   dependencies = [
     livekit-agents
-    openai
+    onnxruntime
+    numpy
   ];
 
   meta = {
     description = ''
-        LiveKit Agent Framework plugin for OpenAI
+        LiveKit Agent Framework plugin for Silero (VAD)
     '';
     homepage = "https://github.com/livekit/python-sdks/";
     license = lib.licenses.asl20;
