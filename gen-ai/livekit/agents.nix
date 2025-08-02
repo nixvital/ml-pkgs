@@ -20,19 +20,21 @@
   types-protobuf,
   typing-extensions,
   watchfiles,
+  opentelemetry-api,
+  opentelemetry-exporter-otlp,
+  opentelemetry-sdk,
+  prometheus-client,
 }:
 
-buildPythonPackage rec {
+let
+  source = import ./agents-source.nix;
+
+in buildPythonPackage rec {
   pname = "livekit-agents";
-  version = "1.1.7";
+  inherit (source) version;
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "livekit";
-    repo = "agents";
-    tag = "livekit-agents@${version}";
-    hash = "sha256-6FtpUxzRwnaseQfsQcLKowm7McF8NGntwf12+qT6yko=";
-  };
+  src = fetchFromGitHub source.src;
 
   pypaBuildFlags = [ "livekit-agents" ];
 
@@ -56,9 +58,18 @@ buildPythonPackage rec {
     types-protobuf
     typing-extensions
     watchfiles
+    opentelemetry-api
+    opentelemetry-exporter-otlp
+    opentelemetry-sdk
+    prometheus-client
   ];
 
-  pythonRelaxDeps = [ "types-protobuf" ];
+  pythonRelaxDeps = [
+    "types-protobuf"
+    "opentelemetry-api"
+    "opentelemetry-sdk"
+    "opentelemetry-exporter-otlp"
+  ];
   pythonRemoveDeps = [ "livekit" ];
 
   meta = {
@@ -66,7 +77,7 @@ buildPythonPackage rec {
         Full-stack framework for building Multi-Agent Systems with memory,
         knowledge and reasoning.
     '';
-    homepage = "https://github.com/livekit/python-sdks/";
+    homepage = "https://github.com/livekit/agents";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ breakds ];
     platforms = lib.platforms.all;
