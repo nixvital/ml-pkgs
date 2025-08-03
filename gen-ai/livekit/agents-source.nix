@@ -16,9 +16,10 @@ rec {
     livekit-agents,
     name,
     extraDeps ? [],
+    patches ? [],
   }: buildPythonPackage {
     pname = "livekit-agents-plugins-${name}";
-    inherit version;
+    inherit version patches;
     src = fetchFromGitHub src;
     pyproject = true;
 
