@@ -1,11 +1,11 @@
 rec {
-  version = "1.2.2";
+  version = "1.1.7";
 
   src = {
     owner = "livekit";
     repo = "agents";
     tag = "livekit-agents@${version}";
-    hash = "sha256-9rw3554YBQiBjIIja0yN8iwlbtn3M2nj5de+xhnisR8=";
+    hash = "sha256-6FtpUxzRwnaseQfsQcLKowm7McF8NGntwf12+qT6yko=";
   };
 
   livekitPlugin = {
