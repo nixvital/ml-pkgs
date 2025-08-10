@@ -37,7 +37,7 @@
 
 let
   pname = "serena-agent";
-  version = "0.1.3";
+  version = "2025.08.09";
 
 in buildPythonPackage {
   inherit pname version;
@@ -46,8 +46,8 @@ in buildPythonPackage {
   src = fetchFromGitHub {
     owner = "oraios";
     repo = "serena";
-    tag = "v${version}";
-    hash = "sha256-GWINEos+gCTRMx8k0tn9QMm8277ZuDJAQ+Mn+TkahDs=";
+    rev = "0f467a64da30990b4a66b7f9327511cc2b6deed1";
+    hash = "sha256-UP1ykzCVwAL8Nvn+mlKxLYoxNz+3UKXDVGAn/1U3Vpo=";
   };
 
   build-system = [
@@ -100,6 +100,8 @@ in buildPythonPackage {
 
   pythonRelaxDeps = [
     "joblib"
+    "mcp"
+    "sensai-utils"
   ];
 
   pythonRemoveDeps = [
@@ -109,7 +111,8 @@ in buildPythonPackage {
 
   postFixup = ''
     wrapProgram $out/bin/serena \
-        --prefix PATH : "${lib.makeBinPath [ pkgs.pyright ]}"
+        --prefix PATH : "${lib.makeBinPath [ pkgs.pyright ]}" \
+        --set SOLIDLSP_DIR "$HOME/.local/share/solidlsp"
   '';
 
   meta = with lib; {
