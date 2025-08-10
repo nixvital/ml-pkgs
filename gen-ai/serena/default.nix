@@ -1,0 +1,121 @@
+{ lib
+, buildPythonPackage
+, fetchFromGitHub
+, joblib
+, pyright
+, toml-sort
+, ruff
+, pytest-xdist
+, pyyaml
+, overrides
+, docstring-parser
+, black
+, pytest
+, types-pyyaml
+, tiktoken
+, pathspec
+, tqdm
+, poethepoet
+, flask
+, google-genai
+, python-dotenv
+, pydantic
+, sensai-utils
+, jinja2
+, anthropic
+, sqlalchemy
+, ruamel-yaml
+, syrupy
+, requests
+, mcp
+, psutil
+, hatchling
+, mypy
+, pkgs
+}:
+
+let
+  pname = "serena-agent";
+  version = "0.1.3";
+
+in buildPythonPackage {
+  inherit pname version;
+  pyproject = true;
+
+  src = fetchFromGitHub {
+    owner = "oraios";
+    repo = "serena";
+    tag = "v${version}";
+    hash = "sha256-GWINEos+gCTRMx8k0tn9QMm8277ZuDJAQ+Mn+TkahDs=";
+  };
+
+  build-system = [
+    hatchling
+  ];
+
+  dependencies = [
+    requests
+    pyright
+    overrides
+    python-dotenv
+    mcp
+    flask
+    sensai-utils
+    pydantic
+    types-pyyaml
+    pyyaml
+    ruamel-yaml
+    jinja2
+    pathspec
+    psutil
+    docstring-parser
+    joblib
+    tqdm
+    tiktoken
+    anthropic
+  ];
+
+  optional-dependencies = {
+    dev = [
+      black
+      poethepoet
+      toml-sort
+      syrupy
+      pytest
+      ruff
+      jinja2
+      pytest-xdist
+      mypy
+      types-pyyaml
+    ];
+    google = [
+      google-genai
+    ];
+  };
+
+  pythonRelaxDeps = [
+    "joblib"
+    "anthropic"
+  ];
+
+  pythonRemoveDeps = [
+    "dotenv"
+    "pyright"
+  ];
+
+  postFixup = ''
+    wrapProgram $out/bin/serena \
+        --prefix PATH : "${lib.makeBinPath [ pkgs.pyright ]}"
+  '';
+
+  meta = with lib; {
+    mainProgram = "serena";
+    homepage = "https://github.com/oraios/serena";
+    description = ''
+      A powerful coding agent toolkit providing semantic retrieval and editing
+        capabilities (MCP server & Agno integration)
+    '';
+    license = licenses.mit;
+    maintainers = with maintainers; [ breakds ];
+  };
+}

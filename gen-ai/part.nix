@@ -11,15 +11,18 @@
           e2b = py-final.callPackage ./e2b {};
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
 
-          flashinfer = py-final.callPackage ./flashinfer {};
+          serena = py-final.callPackage ./serena {};
         })
       ];
+
+      serena = with final.python3Packages; toPythonApplication serena;
     })
   ];
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter flashinfer torch;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter;
+      inherit (pkgs) serena;
     };
 
     devShells.gen-ai = pkgs.mkShell {
