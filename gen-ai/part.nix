@@ -41,8 +41,12 @@
           livekit-plugins-elevenlabs = py-final.callPackage ./livekit/plugins/elevenlabs.nix {};
           livekit-plugins-silero = py-final.callPackage ./livekit/plugins/silero.nix {};
           livekit-plugins-turn-detector = py-final.callPackage ./livekit/plugins/turn-detector.nix {};
+
+          serena = py-final.callPackage ./serena {};
         })
       ];
+
+      serena = with final.python3Packages; toPythonApplication serena;
     })
   ];
 
@@ -51,6 +55,7 @@
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
           livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector;
+      inherit (pkgs) serena;
     };
 
     devShells.gen-ai = pkgs.mkShell {
