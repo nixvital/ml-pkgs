@@ -107,8 +107,7 @@ in buildPythonPackage {
 
   postFixup = ''
     wrapProgram $out/bin/serena \
-        --prefix PATH : "${lib.makeBinPath [ pkgs.pyright ]}" \
-        --set SOLIDLSP_DIR "$HOME/.local/share/solidlsp"
+        --set PATH "${lib.makeBinPath [ pkgs.pyright ]}"
   '';
 
   meta = with lib; {
