@@ -136,6 +136,7 @@ def main(uri: str):
         "setuptools.build_meta": ["setuptools"],
         "pdm.backend": ["pdm-backend"],
         "scikit_build_core.build": ["scikit-build-core"],
+        "hatchling.build": ["hatchling"],
     }[build_backend]
 
     for item in build_system:
