@@ -106,6 +106,11 @@ in buildPythonPackage {
     "dotenv"
   ];
 
+  postFixup = ''
+    wrapProgram $out/bin/serena \
+        --set PATH "${lib.makeBinPath [ pkgs.pyright ]}"
+  '';
+
   meta = with lib; {
     mainProgram = "serena";
     homepage = "https://github.com/oraios/serena";
