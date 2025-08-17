@@ -81,8 +81,10 @@
             livekit-plugins-elevenlabs
             livekit-plugins-silero
             livekit-plugins-turn-detector
+            python-pyright
           ]))
         ollama-cuda
+        pyright
       ];
 
       shellHook = let

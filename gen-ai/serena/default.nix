@@ -29,7 +29,6 @@
 , mcp
 , psutil
 , agno
-, python-pyright
 , hatchling
 , mypy
 , pkgs
@@ -49,6 +48,10 @@ in buildPythonPackage {
     tag = "v${version}";
     hash = "sha256-oj5iaQZa9gKjjaqq/DDT0j5UqVbPjWEztSuaOH24chI=";
   };
+
+  patches = [
+    ./use-basedpyright-langserver.patch
+  ];
 
   build-system = [
     hatchling
@@ -73,7 +76,6 @@ in buildPythonPackage {
     tqdm
     tiktoken
     anthropic
-    python-pyright
   ];
 
   optional-dependencies = {
@@ -106,11 +108,12 @@ in buildPythonPackage {
 
   pythonRemoveDeps = [
     "dotenv"
+    "pyright"  # patched to use the basedpyright binary directly
   ];
 
   postFixup = ''
     wrapProgram $out/bin/serena \
-        --set PATH "${lib.makeBinPath [ pkgs.pyright ]}"
+        --set PATH "${lib.makeBinPath [ pkgs.basedpyright ]}"
   '';
 
   meta = with lib; {
