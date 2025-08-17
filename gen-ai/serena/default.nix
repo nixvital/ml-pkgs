@@ -2,7 +2,6 @@
 , buildPythonPackage
 , fetchFromGitHub
 , joblib
-, pyright
 , toml-sort
 , ruff
 , pytest-xdist
@@ -55,7 +54,6 @@ in buildPythonPackage {
 
   dependencies = [
     requests
-    pyright
     overrides
     python-dotenv
     mcp

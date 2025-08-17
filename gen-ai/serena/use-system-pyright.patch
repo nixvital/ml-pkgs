@@ -1,0 +1,58 @@
+--- a/src/pyright/cli.py
++++ b/src/pyright/cli.py
+@@ -1,5 +1,6 @@
+ import sys
+ import logging
++import shutil
+ import subprocess
+ from typing import Any, List, Union, NoReturn
+ 
+@@ -19,6 +20,13 @@ def main(args: List[str], **kwargs: Any) -> int:
+ 
+ 
+ def run(*args: str, **kwargs: Any) -> Union['subprocess.CompletedProcess[bytes]', 'subprocess.CompletedProcess[str]']:
++    # Check if pyright is available in PATH first
++    system_pyright = shutil.which('pyright')
++    if system_pyright:
++        log.debug(f'Using system pyright from PATH: {system_pyright}')
++        return subprocess.run([system_pyright, *args], **kwargs)
++    
++    # Fall back to the original behavior of downloading/installing pyright
+     pkg_dir = install_pyright(args, quiet=None)
+     script = pkg_dir / 'index.js'
+     if not script.exists():
+--- a/src/pyright/langserver.py
++++ b/src/pyright/langserver.py
+@@ -1,6 +1,8 @@
+ from __future__ import annotations
+ 
+ import sys
++import shutil
++import logging
+ import subprocess
+ from typing import Any, NoReturn
+ 
+@@ -8,6 +10,8 @@ from . import node
+ from ._utils import install_pyright
+ 
+ 
++log = logging.getLogger(__name__)
++
+ def main(*args: str, **kwargs: Any) -> int:
+     return run(*args, **kwargs).returncode
+ 
+@@ -15,6 +19,13 @@ def main(*args: str, **kwargs: Any) -> int:
+ def run(
+     *args: str,
+     **kwargs: Any,
+ ) -> subprocess.CompletedProcess[bytes] | subprocess.CompletedProcess[str]:
++    # Check if pyright-langserver is available in PATH first
++    system_langserver = shutil.which('pyright-langserver')
++    if system_langserver:
++        log.debug(f'Using system pyright-langserver from PATH: {system_langserver}')
++        return subprocess.run([system_langserver, '--', *args], **kwargs)
++    
++    # Fall back to the original behavior
+     pkg_dir = install_pyright(args, quiet=True)
+     binary = pkg_dir / 'langserver.index.js'
+     if not binary.exists():

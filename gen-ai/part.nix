@@ -12,6 +12,7 @@
           e2b-code-interpreter = py-final.callPackage ./e2b/code-interpreter.nix {};
 
           serena = py-final.callPackage ./serena {};
+          python-pyright = py-final.callPackage ./serena/python-pyright.nix {};
         })
       ];
 
@@ -21,7 +22,7 @@
 
   perSystem = { pkgs, lib, ... }: {
     packages = {
-      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter;
+      inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter python-pyright;
       inherit (pkgs) serena;
     };
 
