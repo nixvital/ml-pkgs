@@ -43,7 +43,6 @@
           livekit-plugins-turn-detector = py-final.callPackage ./livekit/plugins/turn-detector.nix {};
 
           serena = py-final.callPackage ./serena {};
-          python-pyright = py-final.callPackage ./serena/python-pyright.nix {};
         })
       ];
 
@@ -55,7 +54,7 @@
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
-          livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector python-pyright;
+          livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector;
       inherit (pkgs) serena;
     };
 
@@ -81,7 +80,6 @@
             livekit-plugins-elevenlabs
             livekit-plugins-silero
             livekit-plugins-turn-detector
-            python-pyright
           ]))
         ollama-cuda
         pyright
