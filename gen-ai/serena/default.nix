@@ -37,7 +37,7 @@
 
 let
   pname = "serena-agent";
-  version = "2025.08.09";
+  version = "0.1.4";
 
 in buildPythonPackage {
   inherit pname version;
@@ -46,8 +46,8 @@ in buildPythonPackage {
   src = fetchFromGitHub {
     owner = "oraios";
     repo = "serena";
-    rev = "0f467a64da30990b4a66b7f9327511cc2b6deed1";
-    hash = "sha256-UP1ykzCVwAL8Nvn+mlKxLYoxNz+3UKXDVGAn/1U3Vpo=";
+    tag = "v${version}";
+    hash = "sha256-oj5iaQZa9gKjjaqq/DDT0j5UqVbPjWEztSuaOH24chI=";
   };
 
   build-system = [
