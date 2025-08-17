@@ -28,6 +28,8 @@
 , requests
 , mcp
 , psutil
+, agno
+, python-pyright
 , hatchling
 , mypy
 , pkgs
@@ -70,7 +72,9 @@ in buildPythonPackage {
     joblib
     tqdm
     tiktoken
+    agno
     anthropic
+    python-pyright
   ];
 
   optional-dependencies = {
@@ -100,13 +104,7 @@ in buildPythonPackage {
 
   pythonRemoveDeps = [
     "dotenv"
-    "pyright"
   ];
-
-  postFixup = ''
-    wrapProgram $out/bin/serena \
-        --set PATH "${lib.makeBinPath [ pkgs.pyright pkgs.nodejs ]}"
-  '';
 
   meta = with lib; {
     mainProgram = "serena";
