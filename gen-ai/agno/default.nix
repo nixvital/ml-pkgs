@@ -27,14 +27,14 @@
 
 buildPythonPackage rec {
   pname = "agno";
-  version = "1.7.2";
+  version = "1.7.11";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "agno-agi";
     repo = "agno";
     rev = "v${version}";
-    hash = "sha256-EU80+vKzX0AyPN7WBjElAqia1zeXSzVKEjmBlbSaSS0=";
+    hash = "sha256-9oO4qyYCgMnC1jtFr39Y76t/5/ybUGIhECP+PLhm92s=";
   };
 
   sourceRoot = "${src.name}/libs/agno";
