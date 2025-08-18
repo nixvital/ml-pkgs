@@ -131,3 +131,6 @@ dmypy.json
 # Nix
 result
 .aider*
+
+# CLAUDE
+.claude
