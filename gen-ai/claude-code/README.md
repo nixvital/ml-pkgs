@@ -1,0 +1,1 @@
+Plesae note that this is just a clone of [The official packaging on nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/cl/claude-code/package.nix); put it here so that we can get to the latest version faster.
