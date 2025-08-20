@@ -113,7 +113,7 @@ in buildPythonPackage {
 
   postFixup = ''
     wrapProgram $out/bin/serena \
-        --set PATH "${lib.makeBinPath [ pkgs.basedpyright ]}"
+        --set PATH "${lib.makeBinPath [ pkgs.basedpyright pkgs.nodejs ]}"
   '';
 
   meta = with lib; {
