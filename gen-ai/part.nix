@@ -48,6 +48,7 @@
 
       serena = with final.python3Packages; toPythonApplication serena;
       claude-code = final.callPackage ./claude-code/package.nix {};
+      codex = final.callPackage ./codex/package.nix {};
     })
   ];
 
@@ -56,7 +57,7 @@
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
           livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector;
-      inherit (pkgs) serena claude-code;
+      inherit (pkgs) serena claude-code codex;
     };
 
     devShells.gen-ai = pkgs.mkShell {
