@@ -43,6 +43,8 @@
           livekit-plugins-turn-detector = py-final.callPackage ./livekit/plugins/turn-detector.nix {};
 
           serena = py-final.callPackage ./serena {};
+
+          pysilero-vad = py-final.callPackage ./pysilero-vad {};
         })
       ];
 
@@ -56,7 +58,8 @@
     packages = {
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
-          livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector;
+          livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector
+          pysilero-vad;
       inherit (pkgs) serena claude-code codex;
     };
 
