@@ -24,8 +24,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "breakds";
     repo = "Qwen3-TTS";
-    rev = "e86eca5d62740a964eef05d29316f1f173c75590";
-    hash = "sha256-fH4LLEXkajFFARSuFIk3KtPe8CLdztSydgLG6Craltk=";
+    rev = "b258bec5e0b47bf25790fe32c1ad07a8a2efbefa";
+    hash = "sha256-tKxf/OWDrTCJwcVxA5CN5pAiWAAcw63a53RSuVXA9dc=";
   };
 
   build-system = [
