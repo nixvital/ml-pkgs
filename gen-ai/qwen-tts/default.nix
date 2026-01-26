@@ -10,7 +10,6 @@
   librosa,
   torchaudio,
   soundfile,
-  onnxruntime,
   einops,
   # optional
   gradio,
@@ -22,10 +21,10 @@ buildPythonPackage rec {
   pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "QwenLM";
+    owner = "breakds";
     repo = "Qwen3-TTS";
-    rev = "1ab0dd75353392f28a0d05d9ca960c9954b13c83";
-    hash = "sha256-7I75us9OdIsqgH2Nj3v1M/e7autR2OStjTb+xx4+/Pw=";
+    rev = "e86eca5d62740a964eef05d29316f1f173c75590";
+    hash = "sha256-fH4LLEXkajFFARSuFIk3KtPe8CLdztSydgLG6Craltk=";
   };
 
   build-system = [
@@ -39,7 +38,6 @@ buildPythonPackage rec {
     librosa
     torchaudio
     soundfile
-    onnxruntime
     einops
   ];
 
@@ -58,6 +56,7 @@ buildPythonPackage rec {
   pythonRemoveDeps = [
     "gradio"
     "sox"
+    "onnxruntime"
   ];
 
   pythonImportsCheck = [ "qwen_tts" ];
