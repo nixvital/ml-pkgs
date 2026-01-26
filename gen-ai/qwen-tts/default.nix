@@ -11,6 +11,7 @@
   torchaudio,
   soundfile,
   einops,
+  flash-attn,
   # optional
   gradio,
 }:
@@ -39,6 +40,7 @@ buildPythonPackage rec {
     torchaudio
     soundfile
     einops
+    flash-attn
   ];
 
   optional-dependencies = {
