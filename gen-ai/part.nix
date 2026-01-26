@@ -45,6 +45,8 @@
           serena = py-final.callPackage ./serena {};
 
           pysilero-vad = py-final.callPackage ./pysilero-vad {};
+
+          qwen-tts = py-final.callPackage ./qwen-tts {};
         })
       ];
 
@@ -59,7 +61,7 @@
       inherit (pkgs.python3Packages) textgrad e2b e2b-code-interpreter llama-index agno
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
           livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector
-          pysilero-vad;
+          pysilero-vad qwen-tts;
       inherit (pkgs) serena claude-code-bin codex;
     };
 
