@@ -4,9 +4,11 @@
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
+  makeBinaryWrapper,
   nix-update-script,
   pkg-config,
   openssl,
+  ripgrep,
   versionCheckHook,
   installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
@@ -23,10 +25,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-FIjNADpaJdhr56mBa5sBac6uHnIsoJv8wQu3FdkP7yo=";
+  cargoHash = "sha256-eLao+Jaq7+Bu9QNHDJYD3zX2BQvlX/BSTYr4gpCD++Q=";
 
   nativeBuildInputs = [
     installShellFiles
+    makeBinaryWrapper
     pkg-config
   ];
 
@@ -45,6 +48,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --bash <($out/bin/codex completion bash) \
       --fish <($out/bin/codex completion fish) \
       --zsh <($out/bin/codex completion zsh)
+  '';
+
+  postFixup = ''
+    wrapProgram $out/bin/codex --prefix PATH : ${lib.makeBinPath [ ripgrep ]}
   '';
 
   doInstallCheck = true;
