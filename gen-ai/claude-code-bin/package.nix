@@ -3,12 +3,11 @@
   stdenvNoCC,
   fetchurl,
   installShellFiles,
-  makeWrapper,
-  patchelf,
-  glibc,
-  darwin,
-  bubblewrap,
+  makeBinaryWrapper,
+  autoPatchelfHook,
   procps,
+  ripgrep,
+  bubblewrap,
   socat,
   versionCheckHook,
   writableTmpDirAsHomeHook,
@@ -22,21 +21,24 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "claude-code-bin";
-  version = manifest.version;
+  inherit (manifest) version;
 
   src = fetchurl {
     url = "${baseUrl}/${finalAttrs.version}/${platformKey}/claude";
     sha256 = platformManifestEntry.checksum;
   };
 
-  dontUnpack = true;  # The downloaded $src is already the self-contained binary itself.
+  dontUnpack = true;
+  dontBuild = true;
+  __noChroot = stdenv.hostPlatform.isDarwin;
+  # otherwise the bun runtime is executed instead of the binary
+  dontStrip = true;
 
   nativeBuildInputs = [
     installShellFiles
-    makeWrapper
+    makeBinaryWrapper
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ patchelf ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.autoSignDarwinBinariesHook ];
+  ++ lib.optionals stdenv.hostPlatform.isElf [ autoPatchelfHook ];
 
   strictDeps = true;
 
@@ -45,26 +47,16 @@ stdenv.mkDerivation (finalAttrs: {
 
     installBin $src
 
-    ${lib.optionalString stdenv.hostPlatform.isLinux ''
-      # Patch the ELF interpreter to use Nix's glibc.
-      # Only patch interpreter (not RPATH) to avoid corrupting Bun's embedded bytecode.
-      patchelf --set-interpreter ${glibc}/lib/ld-linux-${
-        if stdenv.hostPlatform.isx86_64 then "x86-64.so.2" else "aarch64.so.1"
-      } $out/bin/claude
-    ''}
-
-    runHook postInstall
-  '';
-
-  postInstall = ''
     wrapProgram $out/bin/claude \
       --set DISABLE_AUTOUPDATER 1 \
-      --unset DEV \
+      --set USE_BUILTIN_RIPGREP 0 \
       --prefix PATH : ${
         lib.makeBinPath (
           [
             # claude-code uses [node-tree-kill](https://github.com/pkrumins/node-tree-kill) which requires procps's pgrep(darwin) or ps(linux)
             procps
+            # https://code.claude.com/docs/en/troubleshooting#search-and-discovery-issues
+            ripgrep
           ]
           # the following packages are required for the sandbox to work (Linux only)
           ++ lib.optionals stdenv.hostPlatform.isLinux [
@@ -73,6 +65,8 @@ stdenv.mkDerivation (finalAttrs: {
           ]
         )
       }
+
+    runHook postInstall
   '';
 
   doInstallCheck = true;
@@ -83,10 +77,13 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckKeepEnvironment = [ "HOME" ];
   versionCheckProgramArg = "--version";
 
+  passthru.updateScript = ./update.sh;
+
   meta = {
     description = "Agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster";
     homepage = "https://github.com/anthropics/claude-code";
     downloadPage = "https://claude.com/product/claude-code";
+    changelog = "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md";
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [
@@ -97,6 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     maintainers = with lib.maintainers; [
       xiaoxiangmoe
+      mirkolenz
     ];
     mainProgram = "claude";
   };
