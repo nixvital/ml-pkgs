@@ -7,6 +7,7 @@
   clang,
   cmake,
   gitMinimal,
+  libcap,
   libclang,
   makeBinaryWrapper,
   nix-update-script,
@@ -18,18 +19,32 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.101.0";
+  version = "0.105.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     tag = "rust-v${finalAttrs.version}";
-    hash = "sha256-m2Jq7fbSXQ/O3bNBr6zbnQERhk2FZXb+AlGZsHn8GuQ=";
+    hash = "sha256-xVWGvcM2lyJdaZKzAKHn/+1A/o4ec9RtfmxW7GyEijE=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-oOcQv3NFd45WRdn2QtDMxVZwf3KjGWaSDBCjCk0ik/U=";
+  # Use cargoLock with a vendored Cargo.lock and explicit outputHashes
+  # for git dependencies to avoid fetch-cargo-vendor-util issues with
+  # problematic Cargo.toml files in the rules_rust git dep.
+  # See https://github.com/NixOS/nixpkgs/issues/488218
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "crossterm-0.28.1" = "sha256-6qCtfSMuXACKFb9ATID39XyFDIEMFDmbx6SSmNe+728=";
+      "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
+      "ratatui-0.29.0" = "sha256-HBvT5c8GsiCxMffNjJGLmHnvG77A6cqEL+1ARurBXho=";
+      "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
+      "tokio-tungstenite-0.28.0" = "sha256-hJAkvWxDjB9A9GqansahWhTmj/ekcelslLUTtwqI7lw=";
+      "tungstenite-0.27.0" = "sha256-AN5wql2X2yJnQ7lnDxpljNw0Jua40GtmT+w3wjER010=";
+    };
+  };
 
   nativeBuildInputs = [
     clang
@@ -43,6 +58,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   buildInputs = [
     libclang
     openssl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    libcap
   ];
 
   # NOTE: set LIBCLANG_PATH so bindgen can locate libclang, and adjust
