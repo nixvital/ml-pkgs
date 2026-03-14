@@ -47,14 +47,12 @@
           pysilero-vad = py-final.callPackage ./pysilero-vad {};
 
           qwen-tts = py-final.callPackage ./qwen-tts {};
-
-          ollama = py-final.callPackage ./ollama/package.nix {};
         })
       ];
 
-      serena = with final.python3Packages; toPythonApplication serena;
       claude-code-bin = final.callPackage ./claude-code-bin/package.nix {};
       codex = final.callPackage ./codex/package.nix {};
+      ollama = final.callPackage ./ollama/package.nix {};
     })
   ];
 
@@ -64,7 +62,7 @@
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
           livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector
           pysilero-vad qwen-tts;
-      inherit (pkgs) serena claude-code-bin codex;
+      inherit (pkgs) claude-code-bin codex ollama;
     };
 
     devShells.gen-ai = pkgs.mkShell {
