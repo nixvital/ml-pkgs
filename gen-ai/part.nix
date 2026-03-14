@@ -47,6 +47,8 @@
           pysilero-vad = py-final.callPackage ./pysilero-vad {};
 
           qwen-tts = py-final.callPackage ./qwen-tts {};
+
+          ollama = py-final.callPackage ./ollama/package.nix {};
         })
       ];
 
