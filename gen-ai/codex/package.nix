@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  callPackage,
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
@@ -16,18 +15,17 @@
   openssl,
   ripgrep,
   versionCheckHook,
-  librusty_v8 ? callPackage ./librusty_v8.nix { },
   installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.120.0";
+  version = "0.116.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     tag = "rust-v${finalAttrs.version}";
-    hash = "sha256-kj8WWFNk0/ZIefA7xgDox8zvW3y4tyLT2lyi1SyeHz8=";
+    hash = "sha256-PTsKphg3gPlBUs5oMM34RhJJ4jxvD6hand5aVjXcuZ4=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
@@ -45,7 +43,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
       "tokio-tungstenite-0.28.0" = "sha256-hJAkvWxDjB9A9GqansahWhTmj/ekcelslLUTtwqI7lw=";
       "tungstenite-0.27.0" = "sha256-AN5wql2X2yJnQ7lnDxpljNw0Jua40GtmT+w3wjER010=";
-      "libwebrtc-0.3.26" = "sha256-0HPuwaGcqpuG+Pp6z79bCuDu/DyE858VZSYr3DKZD9o=";
     };
   };
 
@@ -72,7 +69,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # character-conversion warning-as-error disabled.
   env = {
     LIBCLANG_PATH = "${lib.getLib libclang}/lib";
-    RUSTY_V8_ARCHIVE = librusty_v8;
     NIX_CFLAGS_COMPILE = toString (
       lib.optionals stdenv.cc.isGNU [
         "-Wno-error=stringop-overflow"
