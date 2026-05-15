@@ -53,6 +53,7 @@
       claude-code-bin = final.callPackage ./claude-code-bin/package.nix {};
       codex = final.callPackage ./codex/package.nix {};
       ollama = final.callPackage ./ollama/package.nix {};
+      pi-coding-agent = final.callPackage ./pi-coding-agent {};
     })
   ];
 
@@ -62,7 +63,7 @@
           tantivy livekit-rtc livekit-agents livekit-plugins-speechmatics livekit-plugins-openai livekit-plugins-deepgram
           livekit-plugins-elevenlabs livekit-plugins-silero livekit-plugins-turn-detector
           pysilero-vad qwen-tts;
-      inherit (pkgs) claude-code-bin codex ollama;
+      inherit (pkgs) claude-code-bin codex ollama pi-coding-agent;
     };
 
     devShells.gen-ai = pkgs.mkShell {
