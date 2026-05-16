@@ -14,6 +14,7 @@ in buildPythonPackage {
     hash = "sha256-FJtWU5AuunZbdlndGdfD1c9/0s7oRdoTi202pWjuAd8=";
   };
 
+  pyproject = true;
   build-system = [ setuptools ];
 
   meta = with lib; {
