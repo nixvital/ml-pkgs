@@ -36,22 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  # Use cargoLock with a vendored Cargo.lock and explicit outputHashes
-  # for git dependencies to avoid fetch-cargo-vendor-util issues with
-  # problematic Cargo.toml files in the rules_rust git dep.
-  # See https://github.com/NixOS/nixpkgs/issues/488218
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "crossterm-0.28.1" = "sha256-6qCtfSMuXACKFb9ATID39XyFDIEMFDmbx6SSmNe+728=";
-      "libwebrtc-0.3.26" = "sha256-0HPuwaGcqpuG+Pp6z79bCuDu/DyE858VZSYr3DKZD9o=";
-      "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
-      "ratatui-0.29.0" = "sha256-HBvT5c8GsiCxMffNjJGLmHnvG77A6cqEL+1ARurBXho=";
-      "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
-      "tokio-tungstenite-0.28.0" = "sha256-hJAkvWxDjB9A9GqansahWhTmj/ekcelslLUTtwqI7lw=";
-      "tungstenite-0.27.0" = "sha256-AN5wql2X2yJnQ7lnDxpljNw0Jua40GtmT+w3wjER010=";
-    };
-  };
+  cargoHash = "sha256-SX5LMO+IWismbH61Jd0g1mgykfav8DrqG+wjyNCWyCo=";
 
   # Match upstream's release build (codex only) and drop the expensive
   # release profile tweaks that dominate cold build time in nixpkgs.
@@ -69,10 +54,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # but nixpkgs provides libwebrtc as a shared library.
     # use LK_CUSTOM_WEBRTC to point to the packaged library and adjust linking
     # to use the shared library instead.
-    # NOTE: upstream nixpkgs uses `$cargoDepsCopy/*/webrtc-sys-*/build.rs`
-    # because fetchCargoVendor stores git deps under a subdir. We use
-    # cargoLock (importCargoLock), which flattens them, so drop the extra /*/.
-    substituteInPlace $cargoDepsCopy/webrtc-sys-*/build.rs \
+    substituteInPlace $cargoDepsCopy/*/webrtc-sys-*/build.rs \
       --replace-fail "cargo:rustc-link-lib=static=webrtc" "cargo:rustc-link-lib=dylib=webrtc"
 
     substituteInPlace Cargo.toml \
