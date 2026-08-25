@@ -40,6 +40,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-K58PL588Hhk75FyXgU6b8IEAco8FIz8oGd1S0WgOjyQ=";
 
+  patches = [ ./continue-after-trust-write-failure.patch ];
+
   # Match upstream's release build for the codex binary, plus the
   # codex-code-mode-host binary required by models with a `tool_mode` of
   # `code_mode_only`. Drop the expensive release profile tweaks that dominate
