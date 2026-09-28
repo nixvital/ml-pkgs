@@ -40,7 +40,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-Mp4chq9QuQB19FrOZBhmUtPrDoEpZZna79+MZs9rGUo=";
 
-  patches = [ ./continue-after-trust-write-failure.patch ];
+  patches = [
+    ./continue-after-trust-write-failure.patch
+    # https://github.com/openai/codex/issues/48195
+    ./no-daemon_auto_start.patch
+  ];
 
   # Match upstream's release build for the codex binary, plus the
   # codex-code-mode-host binary required by models with a `tool_mode` of
