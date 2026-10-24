@@ -133,4 +133,5 @@ result
 .aider*
 
 # CLAUDE
-.claude
+.claude/*
+!.claude/skills/
