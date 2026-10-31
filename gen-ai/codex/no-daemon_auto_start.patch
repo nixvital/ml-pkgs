@@ -1,6 +1,8 @@
+diff --git a/features/src/lib.rs b/features/src/lib.rs
+index 129b096..046b7e5 100644
 --- a/features/src/lib.rs
 +++ b/features/src/lib.rs
-@@ -941,7 +941,7 @@
+@@ -1086,7 +1086,7 @@ pub const FEATURES: &[FeatureSpec] = &[
          id: Feature::DaemonAutoStart,
          key: "daemon_auto_start",
          stage: Stage::Stable,
@@ -8,4 +10,4 @@
 +        default_enabled: false,
      },
      FeatureSpec {
-         id: Feature::TranscriptV2,
+         id: Feature::TuiMultiBackend,
