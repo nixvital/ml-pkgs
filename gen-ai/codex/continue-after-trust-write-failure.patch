@@ -1,8 +1,8 @@
 diff --git a/tui/src/onboarding/onboarding_screen.rs b/tui/src/onboarding/onboarding_screen.rs
-index 626e545..e23e4f1 100644
+index 4499567..7d01512 100644
 --- a/tui/src/onboarding/onboarding_screen.rs
 +++ b/tui/src/onboarding/onboarding_screen.rs
-@@ -286,12 +286,15 @@ impl OnboardingScreen {
+@@ -299,12 +299,18 @@ impl OnboardingScreen {
          self.should_exit
      }
  
@@ -16,12 +16,15 @@ index 626e545..e23e4f1 100644
 -            .is_some_and(|step| matches!(step, Step::TrustDirectory(_)))
 +            .and_then(|step| match step {
 +                Step::TrustDirectory(widget) => Some(widget),
-+                Step::Welcome(_) | Step::Auth(_) | Step::GovCloudGuidance { .. } => None,
++                Step::Welcome(_)
++                | Step::Auth(_)
++                | Step::GovCloudGuidance { .. }
++                | Step::GatewayDevice(_) => None,
 +            })
      }
  
      fn cancel_auth_if_active(&self) {
-@@ -362,7 +365,9 @@ impl KeyboardHandler for OnboardingScreen {
+@@ -388,7 +394,9 @@ impl KeyboardHandler for OnboardingScreen {
                  // If the user cancels the auth menu, exit the app rather than
                  // leave the user at a prompt in an unauthed state.
                  self.should_exit = true;
@@ -32,7 +35,7 @@ index 626e545..e23e4f1 100644
                  || self
                      .steps
                      .iter()
-@@ -635,7 +640,7 @@ async fn run_onboarding_screen_inner(
+@@ -716,7 +724,7 @@ async fn run_onboarding_screen_inner(
      tui.discard_pending_input_before_interactive_screen()?;
      let tui_events = tui.event_stream();
      tokio::pin!(tui_events);
@@ -41,7 +44,7 @@ index 626e545..e23e4f1 100644
  
      while !onboarding_screen.is_done() {
          tokio::select! {
-@@ -804,7 +809,7 @@ fn discard_pending_input_on_trust_step_transition(
+@@ -911,7 +919,7 @@ fn discard_pending_input_on_trust_step_transition(
      trust_step_was_active: &mut bool,
      render_and_discard: impl FnOnce(&OnboardingScreen) -> Result<()>,
  ) -> Result<()> {
@@ -50,7 +53,7 @@ index 626e545..e23e4f1 100644
      if trust_step_is_active && !*trust_step_was_active {
          render_and_discard(onboarding_screen)?;
      }
-@@ -990,7 +995,7 @@ mod tests {
+@@ -1097,7 +1105,7 @@ mod tests {
              onboarding_screen.handle_key_event(key);
          }
  
@@ -59,7 +62,7 @@ index 626e545..e23e4f1 100644
          let Step::TrustDirectory(widget) = &onboarding_screen.steps[0] else {
              panic!("trust step should remain present");
          };
-@@ -1086,5 +1091,10 @@ mod tests {
+@@ -1193,5 +1201,10 @@ mod tests {
                  .as_deref()
                  .is_some_and(|error| error.contains("app server unavailable"))
          );
